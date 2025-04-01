@@ -1,30 +1,59 @@
-# React + TypeScript + Vite
+# 🚗 ParkiFy – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web para encontrar y reservar plazas de estacionamiento en tiempo real.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Cómo empezar a trabajar
 
-## Expanding the ESLint configuration
+### 1. Crear tu rama desde una issue
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Ve a la pestaña **Projects** en GitHub.
+2. Busca tu **issue asignada**.
+3. Crea tu rama a partir del nombre de la issue:
+   ```bash
+   git checkout -b feature/nombre-de-la-tarea
+   ```
 
-- Configure the top-level `parserOptions` property like this:
+### 2. Instalar dependencias
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### 3. Ejecutar el proyecto
+
+```bash
+npm run dev
+```
+
+Abre `http://localhost:5173` en el navegador para ver la app en desarrollo.
+
+---
+
+## 📁 Estructura del proyecto
+
+```bash
+src/
+├── app/              # Configuración de rutas y estado global (router.tsx, store.ts)
+├── features/         # Módulos principales (auth, parkings, bookings, map)
+│   └── [modulo]/     
+│       ├── pages/        # Vistas completas que se mapean con rutas
+│       ├── components/   # Componentes reutilizables solo dentro del módulo
+│       └── services/     # Llamadas a API, React Query hooks
+├── layouts/          # Layouts generales como PublicLayout (Header/Footer persistentes)
+├── shared/           
+│   ├── ui/           # Componentes reutilizables globales (Botón, Input, Header, Footer)
+│   ├── hooks/        # Custom hooks genéricos (useToggle, useDebounce...)
+│   ├── types/        # Tipos TypeScript globales (User, Parking, etc.)
+│   └── utils/        # Funciones auxiliares (validaciones, formateo de fechas...)
+```
+
+---
+
+## ✅ Recuerda
+
+- Cada funcionalidad va dentro de su carpeta en `features/`
+- Usa los archivos de ejemplo ya creados para `HomePage`
+- Los componentes comunes van en `shared/ui/`
+- Si creas lógica compartida, usa `shared/hooks` o `shared/utils`
