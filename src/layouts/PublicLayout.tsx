@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 
-import { Container } from '@mui/material';
+import { Container } from "@mui/material";
 
 const PublicLayout = () => (
   <>
