@@ -9,6 +9,7 @@ import {
   SocialButton,
   LinkGroup,
   FooterLink,
+  LegalText,
 } from "./Footer.styles";
 
 const Footer: React.FC = () => {
@@ -18,6 +19,9 @@ const Footer: React.FC = () => {
         <LogoImage src={logoParkify} alt="Logo de Parkify" />
 
         <SocialIcons>
+          <SocialButton href="#" aria-label="X">
+          <img src={twitterLogo} alt="X" width={24} height={24} />
+          </SocialButton>
           <SocialButton href="#" aria-label="Instagram">
             <Instagram />
           </SocialButton>
@@ -27,9 +31,6 @@ const Footer: React.FC = () => {
           <SocialButton href="#" aria-label="LinkedIn">
             <LinkedIn />
           </SocialButton>
-          <SocialButton href="#" aria-label="X">
-          <img src={twitterLogo} alt="X" width={24} height={24} />
-</SocialButton>
         </SocialIcons>
 
         <FooterLink href="mailto:consultas@parkify.com">
@@ -37,9 +38,14 @@ const Footer: React.FC = () => {
         </FooterLink>
 
         <LinkGroup>
-          <FooterLink href="#quienes-somos">¿Quiénes somos?</FooterLink>
-          <FooterLink href="#contacto">Contacto</FooterLink>
+          <FooterLink href="#sobre-nosotros">Sobre nosotros</FooterLink>
+          <FooterLink href="#terminos-y-condiciones">Términos y condiciones</FooterLink>
         </LinkGroup>
+
+        <LegalText>
+          © Parkify {new Date().getFullYear()} 
+        </LegalText>
+
       </Container>
     </FooterWrapper>
   );

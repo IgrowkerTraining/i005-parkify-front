@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { Box, IconButton, Link } from "@mui/material";
+import { Box, IconButton, Link, Typography } from "@mui/material";
 
 export const FooterWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: "#3445C5",
@@ -35,4 +35,11 @@ export const LinkGroup = styled(Box)({
 export const FooterLink = styled(Link)({
   textDecoration: "none",
   color: "inherit",
+});
+
+export const LegalText = styled(Typography)({
+  marginTop: 32,
+  fontSize: 12,
+  textAlign: "left",
+  color: "#FFFFFF",
 });
