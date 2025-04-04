@@ -1,5 +1,22 @@
 import { createTheme } from '@mui/material/styles';
+import "@fontsource/lato";
 import { red } from "@mui/material/colors";
+
+//extender del Tipo Theme para evitar erroresde TypeScript
+declare module "@mui/material/styles" {
+  interface Palette {
+    terciary?: Palette["primary"];
+    neutral?: Palette["primary"];
+    black?: Palette["primary"];
+
+  }
+  interface PaletteOptions {
+    terciary?: PaletteOptions["primary"];
+    neutral?: PaletteOptions["primary"];
+    black?: PaletteOptions["primary"];
+
+  }
+}
 
 export const theme = createTheme({
     palette: {
@@ -9,18 +26,67 @@ export const theme = createTheme({
       secondary: {
         main: '#FFDE59', // yellow
       },
-      info: {
-        main: '#A1ABFF', // light blue
+      terciary: {
+        100: '#EBEDFF',
+        500: '#A1ABFF', // light blue
+        600: '#4D5EFF',
+        800: '#0011AB'
+      },
+      black:{
+        100: '#00120D'
       },
       background: {
-        default: '#F6FFFC', //bg-color: white
+        default: '#FFF', //bg-color: white
       },
       error: {
-        main: red.A400, //error
-    }
+        main: '#CB1A14', //error
+      },
+      grey: {
+        100: '#DFE2EF',
+        200: '#BFC5CE',
+        300: '#A3AAB8',
+        400: '#838DA0',
+        500: '#667185',
+        600: '#525B6B',
+      },
+      neutral:{
+        100: '#F6FFFC'
+      }
     },
     typography: {
-      fontFamily: 'Roboto, Arial, sans-serif',
+      fontFamily: 'Lato, sans-serif',
+      h1: {
+        fontSize: "24px", // Mobile
+        "@media (min-width:768px)": { fontSize: "32px" }, // Tablet
+        "@media (min-width:1440px)": { fontSize: "36px" }, // Desktop
+      },
+      h2: {
+        fontSize: "20px", 
+        "@media (min-width:768px)": { fontSize: "24px" }, 
+        "@media (min-width:1440px)": { fontSize: "32px" }, 
+      },
+      h3: {
+        fontSize: "18px", 
+        "@media (min-width:768px)": { fontSize: "20px" }, 
+        "@media (min-width:1440px)": { fontSize: "24px" }, 
+      },
+      body1: {
+        fontSize: "16px", 
+        "@media (min-width:768px)": { fontSize: "18px" }, 
+      },
+      body2: {
+        fontSize: "12px", 
+        "@media (min-width:768px)": { fontSize: "14px" }, 
+      },
+    },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: "none", 
+          },
+        },
+      },
     },
   });
 

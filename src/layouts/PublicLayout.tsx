@@ -6,7 +6,7 @@ const PublicLayout: React.FC = () => {
   return (
     <>
       {/* <Header /> */}
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Container disableGutters maxWidth={false} sx={{ p:0, mb:4}}>
         <Outlet />
       </Container>
       {/* <Footer /> */}
