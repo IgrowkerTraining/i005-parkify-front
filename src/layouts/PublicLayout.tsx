@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
+import { Container } from "@mui/material";
 
-import { Container } from '@mui/material';
 
 import Footer from '../shared/ui/Footer/Footer';
 
@@ -10,7 +10,7 @@ const PublicLayout = () => (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Outlet />
     </Container>
-     <Footer /> 
+    <Footer /> 
   </>
 );
 
