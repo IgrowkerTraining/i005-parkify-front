@@ -57,3 +57,28 @@ src/
 - Usa los archivos de ejemplo ya creados para `HomePage`
 - Los componentes comunes van en `shared/ui/`
 - Si creas lógica compartida, usa `shared/hooks` o `shared/utils`
+
+🚀 Notificaciones con Toast
+El proyecto utiliza react-toastify para mostrar notificaciones visuales al usuario. Ya está configurado globalmente y listo para usarse desde cualquier parte de la aplicación.
+
+✅ Cómo usar los toast
+Importa los helpers desde shared/ui/toast.ts:
+
+```bash
+ts
+Copiar
+Editar
+import { showSuccess, showError, showInfo, showWarning } from '@/shared/ui/toast';
+```
+```bash
+import { showSuccess, showError } from '@/shared/ui/toast';
+
+const handleSubmit = async () => {
+  try {
+    await registerUser();
+    showSuccess('Registro completado');
+  } catch (err) {
+    showError('Hubo un error al registrar el usuario');
+  }
+};
+```
