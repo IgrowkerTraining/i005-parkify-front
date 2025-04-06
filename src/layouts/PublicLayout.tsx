@@ -3,10 +3,11 @@ import { Container } from "@mui/material";
 
 
 import Footer from '../shared/ui/Footer/Footer';
+import Header from "../shared/ui/Header";
 
 const PublicLayout = () => (
   <>
-    {/* <Header /> */}
+    <Header />
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Outlet />
     </Container>

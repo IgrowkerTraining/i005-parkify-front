@@ -1,11 +1,11 @@
 import styles from "../Auth.module.css";
 import { Box, Button, Link, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import AuthLayout from "../components/AuthLayout";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../schemas/loginSchema";
 import InputForm from "../components/InputForm";
+import AuthFormContainer from "../components/AuthFormContainer";
 
 
 interface LoginFormValues {
@@ -34,7 +34,7 @@ const LoginPage = () => {
         link: "Regístrate aquí"
       }
   return (
-    <AuthLayout title="Iniciar Sesión" login={log} google="Iniciar sesión">
+    <AuthFormContainer title="Iniciar Sesión" login={log} google="Iniciar sesión">
       <Box
         component="form"
         noValidate
@@ -77,7 +77,7 @@ const LoginPage = () => {
           Continuar
         </Button>
       </Box>
-    </AuthLayout>
+    </AuthFormContainer>
   );
 };
 

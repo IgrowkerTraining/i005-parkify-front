@@ -1,12 +1,11 @@
 import styles from "../Auth.module.css";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import { Box, Button, Link, Typography } from "@mui/material";
 import InputForm from "../components/InputForm";
 import { useForm } from "react-hook-form";
 import { parkingSchema } from "../schemas/parckingSchema";
-import AuthLayout from "../components/AuthLayout";
 import { grey } from "@mui/material/colors";
+import AuthFormContainer from "../components/AuthFormContainer";
 
 type ParkingFormValues = {
   parckingName: string;
@@ -33,7 +32,7 @@ const RegisterPage: React.FC = () => {
     console.log(data)
   };
   return (
-    <AuthLayout 
+    <AuthFormContainer 
       title="Regístrate" 
       register="Crea tu cuenta para que tu estacionamemiento sea visible."
       google="Registrate"
@@ -97,7 +96,7 @@ const RegisterPage: React.FC = () => {
           Continuar
         </Button>
       </Box>
-    </AuthLayout>
+    </AuthFormContainer>
   );
 };
 

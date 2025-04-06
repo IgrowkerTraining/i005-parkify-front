@@ -3,7 +3,7 @@ import { Box, Button, Divider, Link, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { GoogleIcon } from "./GoogleIcon";
 import { grey } from "@mui/material/colors";
-
+import logo from "../../../assets/logo/logo-imagotipo-azul.svg"
 import { ReactNode } from "react";
 import HeaderForm from "./HeaderForm";
 
@@ -27,7 +27,7 @@ const AuthLayout = ({ children, title, register, login, google }: AuthLayoutProp
         <Box className={styles.registerForm}>
           <Box
             component="img"
-            src="/logoParkifyRegisterForm.svg"
+            src={logo}
             alt="Logo"
             sx={{ width: 100, height: "auto", mb: 3 }}
           />
