@@ -65,9 +65,6 @@ El proyecto utiliza react-toastify para mostrar notificaciones visuales al usuar
 Importa los helpers desde shared/ui/toast.ts:
 
 ```bash
-ts
-Copiar
-Editar
 import { showSuccess, showError, showInfo, showWarning } from '@/shared/ui/toast';
 ```
 ```bash
