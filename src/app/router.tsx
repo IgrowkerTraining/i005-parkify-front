@@ -4,13 +4,14 @@ import HomePage from '../features/parkings/pages/HomePage';
 import RegisterPage from '../features/auth/pages/RegisterPage';
 import LoginPage from '../features/auth/pages/LoginPage'
 import LayoutAuth from '../layouts/LayoutAuth';
+import RegisterPageWrapper from '../features/auth/pages/RegisterPageWrapper';
 
 export const router = createBrowserRouter([
   {
     element: <LayoutAuth />,
     children: [
       { path: "login", element: <LoginPage /> },
-      { path: "register", element: <RegisterPage /> },
+      { path: "register", element: <RegisterPageWrapper /> },
     ],
   },
 
