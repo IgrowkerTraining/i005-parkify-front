@@ -5,13 +5,13 @@ import { red } from "@mui/material/colors";
 //extender del Tipo Theme para evitar erroresde TypeScript
 declare module "@mui/material/styles" {
   interface Palette {
-    terciary?: Palette["primary"];
+    tertiary?: Palette["primary"];
     neutral?: Palette["primary"];
     black?: Palette["primary"];
 
   }
   interface PaletteOptions {
-    terciary?: PaletteOptions["primary"];
+    tertiary?: PaletteOptions["primary"];
     neutral?: PaletteOptions["primary"];
     black?: PaletteOptions["primary"];
 
@@ -26,7 +26,7 @@ export const theme = createTheme({
       secondary: {
         main: '#FFDE59', // yellow
       },
-      terciary: {
+      tertiary: {
         100: '#EBEDFF',
         500: '#A1ABFF', // light blue
         600: '#4D5EFF',

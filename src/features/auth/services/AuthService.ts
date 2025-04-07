@@ -13,7 +13,13 @@ const authService = {
         // }
     },
     async login(email: string, password: string) {
-        return "token"
+        return {
+            token: "token",
+            user: {
+                email: "Armenia Parking",
+                password: "password"
+            }
+        }
     },
   
   

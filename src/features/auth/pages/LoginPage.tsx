@@ -10,7 +10,7 @@ import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
 import { FormValues } from "../types";
 import HeaderForm from "../components/HeaderForm";
 import authService from "../services/AuthService";
-import { useAuthStore } from "../../../store/auth.store";
+import { useAuthStore, User } from "../../../store/auth.store";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -24,9 +24,9 @@ const LoginPage = () => {
     resolver: yupResolver(loginSchema),
   });
   const onSubmit = async (data: FormValues) => {
-    const token = await authService.login(data.email, data.password)
-    if (token) {
-      login(token)
+    const response = await authService.login(data.email, data.password)
+    if (response.token) {
+      login(response.token, response.user )
       reset();
       alert("Estacionamiento registrado");
       navigate("/");

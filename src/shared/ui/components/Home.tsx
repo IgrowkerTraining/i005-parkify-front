@@ -3,8 +3,13 @@ import { Box, Button, Card, CardContent, Container, Grid,Typography } from '@mui
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import TimeToLeaveIcon from '@mui/icons-material/TimeToLeave';
 import TestimonialCard from "./TestimonialCard";
+import HomeCard from './HomeCard';
+import AccountCard from './AccountCard';
+import { useAuthStore } from '../../../store/auth.store';
 
 const Home : React.FC = () => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  const user = useAuthStore((state) =>  state.user)
   return (
     <Container  sx={{ mt: 4 }}
     
@@ -18,7 +23,17 @@ const Home : React.FC = () => {
         </Typography>
         <Button variant="contained" color="primary" sx={{ mt: 3 }}>¿Eres dueño de estacionamiento?</Button>
       </Box>
-
+      {
+        isAuthenticated ? (
+          <AccountCard
+            user={user}
+          />
+        ): (
+          <HomeCard/>
+        )
+      }
+      
+     
       {/* Sección Nosotros */}
       <Grid container 
       spacing={4} 

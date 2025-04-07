@@ -43,7 +43,7 @@ const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
     userForm.reset();
     parkingForm.reset();
     alert("Estacionamiento registrado");
-    navigate("/");
+    navigate("/login");
   };
   const checkEmail = async (data: FormUserValues) => {
     console.log("hola");
