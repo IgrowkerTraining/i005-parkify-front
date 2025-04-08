@@ -10,7 +10,7 @@ import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
 import { FormValues } from "../types";
 import HeaderForm from "../components/HeaderForm";
 import authService from "../services/AuthService";
-import { useAuthStore, User } from "../../../store/auth.store";
+import { useAuthStore} from "../../../store/auth.store";
 import { showError, showSuccess } from "../../../shared/ui/toast";
 
 const LoginPage = () => {
@@ -36,10 +36,6 @@ const LoginPage = () => {
     } catch (err) {
       showError('Hubo un error al registrar el usuario');
     }
-    const response = await authService.login(data.email, data.password)
-   
-    
-    
   };
   const log = {
     show: true,

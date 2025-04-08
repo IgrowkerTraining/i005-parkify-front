@@ -1,4 +1,3 @@
-import styles from "../../../shared/styles/ParkingForm.module.css";
 import { useForm } from "react-hook-form";
 import { fields } from "../../../shared/constants/ParkingFields";
 import ParkingDataFields from "../../../shared/ui/components/ParkingDataFields";
@@ -22,13 +21,13 @@ const PerfilOwnerPage = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<FormParkingValues>({
     resolver: yupResolver(registerParkingSchema),
   });
   const onSubmit = (data: FormParkingValues) => {
     showSuccess("Los cambios se han guardado");
+    console.log(data)
   };
   return (
     <div>

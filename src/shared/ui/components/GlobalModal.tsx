@@ -1,5 +1,4 @@
-import { Dialog, DialogContent, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Dialog, DialogContent } from '@mui/material';
 import { useModalStore } from '../../../store/modal.store';
 
 
