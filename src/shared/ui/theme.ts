@@ -40,6 +40,7 @@ export const theme = createTheme({
       },
       error: {
         main: '#CB1A14', //error
+        light: 'rgba(203, 26, 20, 0.4)',
       },
       grey: {
         100: '#DFE2EF',

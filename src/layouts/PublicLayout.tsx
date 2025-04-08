@@ -8,7 +8,7 @@ import Header from "../shared/ui/Header";
 const PublicLayout = () => (
   <>
     <Header />
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Container disableGutters maxWidth={false} sx={{ p:0, mb:4}}>
       <Outlet />
     </Container>
     <Footer /> 

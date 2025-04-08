@@ -20,7 +20,7 @@ const AccountCard = ({user}: AccountCardProps) => {
       </Box>
       {/* <Typography variant='body1' >¡Hola!</Typography>
         <Typography variant='h1' sx={{fontWeight: 800}}>Armenia Parking</Typography> */}
-      <ButtonHomeAction text="Mi cuenta" />
+      <ButtonHomeAction text="Mi cuenta" path="perfil" />
     </CardContainer>
   );
 };

@@ -34,14 +34,6 @@ export const registerUserSchema  = yup.object().shape({
     .required("La cantidad de plazas es obligatoria")
     .integer("Debe ser un número entero")
     .positive("Debe ser un número positivo"),
-
-  availableSpots: yup
-    .number()
-    .typeError("Debe ser un número")
-    .required("Las plazas disponibles son obligatorias")
-    .integer("Debe ser un número entero")
-    .positive("Debe ser un número positivo"),
-
   hourlyRate: yup
     .number()
     .typeError("Debe ser un número")

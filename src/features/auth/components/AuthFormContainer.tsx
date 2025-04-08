@@ -1,4 +1,4 @@
-import styles from "../Auth.module.css";
+import styles from "../../../shared/styles/ParkingForm.module.css";
 import { Box, Button, Divider, Link, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { GoogleIcon } from "./GoogleIcon";

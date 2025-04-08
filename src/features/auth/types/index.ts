@@ -21,12 +21,12 @@ export type FormRegisterValues = FormUserValues & FormParkingValues;
 //   hourlyRate: number | undefined;
 // };
 
-export interface FieldsType {
-    name: keyof FormRegisterValues;
-    placeholder?: string;
-    label?: string;
-    type: string;
-}
+// export interface FieldsType {
+//     name: keyof FormRegisterValues;
+//     placeholder?: string;
+//     label?: string;
+//     type: string;
+// }
 export interface AuthFormContainerProps {
     children: ReactNode;
     title: string;
@@ -52,7 +52,7 @@ export type RegisterPageProps = {
 export interface ParkingFormProps  {
   register: ReturnType<typeof useForm<FormParkingValues>>["register"];
   errors: FieldErrors<FormParkingValues>;
-    onBack: () => void;
+  onBack: () => void;
   };
   
 export interface HeaderFormProps {

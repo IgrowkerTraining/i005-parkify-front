@@ -19,7 +19,10 @@ const ParkingBannerForm: React.FC = () => {
       sx={{
         position: "relative",
         width: "100%",
-        height: 200,
+        height: {
+          xs: 140,  
+          sm: 200, 
+        },
         borderRadius: "inherit",
         overflow: "hidden",
       }}

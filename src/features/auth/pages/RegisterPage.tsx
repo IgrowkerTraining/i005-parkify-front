@@ -1,4 +1,4 @@
-import styles from "../Auth.module.css";
+import styles from "../../../shared/styles/ParkingForm.module.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,7 @@ import {
 } from "../schemas/registerSchema";
 import HeaderForm from "../components/HeaderForm";
 import { useNavigate } from "react-router-dom";
+import { showSuccess } from "../../../shared/ui/toast";
 
 const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
     console.log("Datos combinados:", clonedData);
     userForm.reset();
     parkingForm.reset();
-    alert("Estacionamiento registrado");
+    showSuccess("Estacionamiento Registrado")
     navigate("/login");
   };
   const checkEmail = async (data: FormUserValues) => {
