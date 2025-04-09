@@ -22,8 +22,18 @@ const parkingService = {
         //     },
         // });
 
-        //simulo return
-        return "Cambios guardados éxitosamente"
+        //simulo respuesta api, objeto actualizado
+        return {
+            email: data.email,
+            totalSpots: data.totalSpots,
+            hourlyRate: data.hourlyRate,
+            openTime: data.openTime,
+            closeTime: data.closeTime,
+            parkingName: data.parkingName,
+            parkingAddress: data.parkingAddress,
+            parkingPhone: data.parkingPhone,
+            imageParking: data.imageParking || null, 
+          }
         //throw new Error("Error simulado")
     },
   

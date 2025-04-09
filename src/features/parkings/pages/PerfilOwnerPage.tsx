@@ -15,6 +15,7 @@ import { useModalStore } from "../../../store/modal.store";
 import HeaderForm from "../../../shared/ui/components/HeaderForm";
 import ParkingModal from "../components/ParkingModal";
 import parkingService from "../services/ParkingService";
+import { useParkingStore } from "../../../store/parking.store";
 
 type FormValues = {
   imageParking?: File | null;
@@ -30,6 +31,8 @@ type FormValues = {
 
 const PerfilOwnerPage = () => {
   const openModal = useModalStore((state) => state.openModal);
+  const setParkingData  = useParkingStore((state) => state.setParkingData);
+  const getParkingData  = useParkingStore((state) => state.getParkingData);
 
   const {
     register,
@@ -45,11 +48,24 @@ const PerfilOwnerPage = () => {
     //console.log(data);
 
     try {
-      const response = await parkingService.updateParkingProfile({
+      const updatedProfile = await parkingService.updateParkingProfile({
         ...data,
         imageParking: data.imageParking ?? null, // ya es tipo File | null
       });
-      showSuccess(response);
+      setParkingData({
+        email: updatedProfile.email,
+        totalSpots: updatedProfile.totalSpots,
+        hourlyRate: updatedProfile.hourlyRate,
+        openTime: updatedProfile.openTime,
+        closeTime: updatedProfile.closeTime,
+        parkingName: updatedProfile.parkingName,
+        parkingAddress: updatedProfile.parkingAddress,
+        parkingPhone: updatedProfile.parkingPhone,
+        imageParking: updatedProfile.imageParking,
+      })
+      showSuccess("Cambios guardados éxitosamente");
+      console.log('Datos actualizados en el store:', getParkingData());
+      
       //redirijo alguna ruta?
     } catch (err) {
       console.error(err);
