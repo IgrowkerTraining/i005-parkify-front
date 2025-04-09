@@ -13,7 +13,7 @@ import {
 
 const Footer: React.FC = () => {
   return (
-    <FooterWrapper component="footer">
+    <FooterWrapper component="footer" id="siguenos">
       <Container maxWidth="sm">
         <FooterContent>
           <LogoImage src={logoParkify} alt="Logo de Parkify" />

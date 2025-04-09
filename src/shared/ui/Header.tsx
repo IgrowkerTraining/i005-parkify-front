@@ -1,143 +1,157 @@
 import React, { useState } from "react";
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import IconButton from "@mui/material/IconButton";
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import NoCrashOutlinedIcon from '@mui/icons-material/NoCrashOutlined';
-import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
-import ThreePOutlinedIcon from '@mui/icons-material/ThreePOutlined';
+import MenuIcon from "@mui/icons-material/Menu";
+import Diversity3OutlinedIcon from "@mui/icons-material/Diversity3Outlined";
+import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import QuestionMarkOutlinedIcon from "@mui/icons-material/QuestionMarkOutlined";
+import ThreePOutlinedIcon from "@mui/icons-material/ThreePOutlined";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-
-import Logo from "../../assets/react.svg"; // Change to new Logo path
+import logoHeader from "../../assets/logo/logo-blanco.svg"
+import { useAuthStore } from "../../store/auth.store";
 
 const Header: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [currentUserType, setCurrentUserType] = useState<'landing' | 'OwnerNotLogged' | 'OwnerLogged'>('landing');
+  const isLoggedIn = useAuthStore((state) => state.isAuthenticated);
+  const logout = useAuthStore((state) => state.logout); // Solo si ya tienes una función logout
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  // Define the buttons for different user states
-  const authenticatedButton = [
-    {
-      user: "landing",
-      buttons: [
-        { label: "Inicio", icon: <HomeOutlinedIcon /> },
-        { label: "Panel de control", icon: <ManageAccountsOutlinedIcon /> },
-        { label: "Mis estacionamientos", icon: <NoCrashOutlinedIcon /> },
-        { label: "Salir", icon: <LogoutOutlinedIcon />, variant: "outlined" },
-      ],
-      menuIcon: <MenuIcon />,
-    },
-    {
-      user: "OwnerNotLogged",
-      buttons: [
-        { label: "Cómo funciona", icon: <QuestionMarkOutlinedIcon /> },
-        { label: "Reseña", icon: <ThreePOutlinedIcon /> },
-        { label: "Seguinos", icon: <LanguageOutlinedIcon /> }
-      ],
-      menuIcon: <MenuIcon />,
-    },
-    {
-      user: "OwnerLogged",
-      buttons: [
-        { label: "Mi cuenta", icon: <ManageAccountsOutlinedIcon /> },
-        { label: "Cerrar Sesión", icon: <LogoutOutlinedIcon />, color: "error.main" },
-      ],
-      menuIcon: <AccountCircleOutlinedIcon />,
-    },
-  ]
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // Get the current user configuration
-  const currentUserConfig = authenticatedButton.find(user => user.user === currentUserType) || authenticatedButton[0];
+  // Botones cuando no estás logueado
+  const guestButtons = [
+    { label: "Sobre nosotros", icon: <Diversity3OutlinedIcon/>, sectionId: "sobre-nosotros" },
+    { label: "Cómo funciona", icon: <QuestionMarkOutlinedIcon />, sectionId: "como-funciona" },
+    { label: "Reseñas", icon: <ThreePOutlinedIcon />, sectionId: "reseñas" },
+    { label: "Síguenos", icon: <LanguageOutlinedIcon />, sectionId: "siguenos" },
+  ];
 
-  // Handle menu open
+  // Botones cuando estás logueado
+  const loggedInButtons = [
+    { label: "Mi cuenta", icon: <ManageAccountsOutlinedIcon />, path: "/perfil" },
+    { label: "Cerrar sesión", icon: <LogoutOutlinedIcon />, action: "logout", color: "error.main" },
+  ];
+
+  const buttonsToShow = isLoggedIn ? loggedInButtons : guestButtons;
+
   const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  // Handle menu close
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
+  const handleButtonClick = (button: any) => {
+    if (button.action === "logout") {
+      logout();           
+      navigate("/");      
+    } else if (button.path) {
+      navigate(button.path); 
+    } else if (button.sectionId) {
+      if (location.pathname === "/") {
+        const el = document.getElementById(button.sectionId);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        navigate("/", { state: { scrollTo: button.sectionId } });
+      }
+    }
+    if (isMobile) handleMenuClose();
+  };
+
   return (
     <AppBar position="static">
-    <Toolbar >
-      {/* Logo */}
-      <Box sx={{ flexGrow: 1 }}>
-        <img src={Logo} alt="Parkify logo"/>
-      </Box>
+      <Toolbar>
+        <Box
+          sx={{
+            flexGrow: 1,
+            maxWidth: 1152,
+            width: "100%",
+            mx: "auto",
+            px: 2,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* Logo */}
+          <Box component={Link} to="/" sx={{ flexGrow: 1 }}>
+            <Box
+              component="img"
+              src={logoHeader}
+              alt="Logo"
+              sx={{ width: 140, height: "auto", pt: 2 }}
+            />
+          </Box>
 
-      {/* Buttons */}
-      { isMobile ? (
-        <>
-        {/* Mobile version */}
-          <IconButton color="inherit" onClick={handleMenuOpen}>
-            {currentUserConfig.menuIcon}
-          </IconButton>
-
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            sx={{
-              '& .MuiPaper-root': { 
-                  backgroundColor: 'white',
-                  color: 'black'
-                }
-            }}
-          >
-            { currentUserConfig.buttons.map((button) => (
-              <MenuItem 
-                key={button.label} 
-                onClick={handleMenuClose}
+          {/* Botones */}
+          {isMobile ? (
+            <>
+              <IconButton color="inherit" onClick={handleMenuOpen}>
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
                 sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "100%",
+                  "& .MuiPaper-root": {
+                    backgroundColor: "white",
+                    color: "black",
+                  },
                 }}
               >
-                <Box sx={{ display:"flex", alignItems: "center", justifyContent: "center", color: button.color || "inherit" }}>
-                <IconButton color="inherit" sx={{ marginRight: 1}}>
-                  {button.icon}
-                </IconButton>
-                {button.label}
-                </Box>
-              </MenuItem>
-            ))}
-          </Menu>
-        </>
-
-      ) : (
-
-      ( 
-        <Box>
-          {/* Desktop version */}
-          { currentUserConfig.buttons.map((button) => (
-            <Button 
-              key={button.label}
-              variant={button.variant || "text"}
-            >
-              {button.label}
-            </Button>
-          ))}
+                {buttonsToShow.map((button) => (
+                  <MenuItem
+                    key={button.label}
+                    onClick={() => handleButtonClick(button)}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        color: button.color || "inherit",
+                      }}
+                    >
+                      <IconButton color="inherit" sx={{ mr: 1 }}>
+                        {button.icon}
+                      </IconButton>
+                      {button.label}
+                    </Box>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </>
+          ) : (
+            <Box>
+              {buttonsToShow.map((button) => (
+                <Button
+                  key={button.label}
+                  onClick={() => handleButtonClick(button)}
+                  sx={{
+                    color: button.color || "inherit",
+                  }}
+                >
+                  {button.label}
+                </Button>
+              ))}
+            </Box>
+          )}
         </Box>
-      )
-
-      )}
-    </Toolbar>
-  </AppBar>
+      </Toolbar>
+    </AppBar>
   );
-}
+};
 
 export default Header;
