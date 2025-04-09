@@ -3,7 +3,7 @@ import { ParkingFormProps } from "../types";
 import styles from "../../../shared/styles/ParkingForm.module.css";
 import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
 import ButtonSecondary from "../../../shared/ui/components/ButtonSecondary";
-import ParkingBannerForm from "./ParkingBannerForm";
+import ParkingBannerForm from "../../../shared/ui/components/ParkingBannerForm";
 import ParkingDataFields from "../../../shared/ui/components/ParkingDataFields";
 import { fields } from "../../../shared/constants/ParkingFields";
 

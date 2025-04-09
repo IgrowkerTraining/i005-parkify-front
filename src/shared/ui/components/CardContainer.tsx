@@ -1,6 +1,4 @@
 import { Box } from "@mui/material";
-import theme from "../theme";
-import ButtonHomeAction from "./ButtonHomeAction";
 
 interface CardContainerProps {
   children: React.ReactNode;

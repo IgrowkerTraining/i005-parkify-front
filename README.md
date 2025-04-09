@@ -79,3 +79,28 @@ const handleSubmit = async () => {
   }
 };
 ```
+
+📦 Modal Global con Zustand + MUI
+Este proyecto incluye un modal global reutilizable utilizando Zustand para manejar el estado y Material UI (@mui/material) para el diseño.
+✅ ¿Cómo funciona?
+El componente GlobalModal se monta una sola vez en el App.tsx.
+
+Desde cualquier parte de la app se puede abrir el modal usando el hook useModalStore.
+
+El modal se cierra al hacer clic fuera del contenido o al presionar Escape.
+💡 Ejemplo de uso
+```
+import { useModalStore } from '../../store/modal.store';
+
+const { openModal } = useModalStore();
+
+<Button onClick={() => openModal(<div>¿Estás segura de eliminar?</div>)}>
+  Eliminar
+</Button>
+```
+✨ Comportamiento
+✅ Se cierra tocando fuera o presionando Esc.
+
+❌ No tiene botón "X" para cerrar.
+
+🔄 El contenido del modal es dinámico: podés pasarle cualquier JSX.

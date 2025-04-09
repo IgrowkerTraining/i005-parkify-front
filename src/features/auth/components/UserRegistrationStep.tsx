@@ -2,10 +2,11 @@ import styles from "../../../shared/styles/ParkingForm.module.css";
 import { Box, Link, Typography } from "@mui/material"
 import AuthFormContainer from "./AuthFormContainer"
 import { FormUserValues, UserRegistrationStepProps } from "../types";
-import InputForm from "./InputForm";
+
 import { grey } from "@mui/material/colors";
 import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
 import { FieldsType } from "../../../shared/types";
+import InputForm from "../../../shared/ui/components/InputForm";
 
 
 const fields: FieldsType[] = [

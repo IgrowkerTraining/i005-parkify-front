@@ -1,4 +1,5 @@
-import HeaderForm from "../../auth/components/HeaderForm"
+import HeaderForm from "../../../shared/ui/components/HeaderForm"
+
 
 
 const DeleteAccountPage = () => {

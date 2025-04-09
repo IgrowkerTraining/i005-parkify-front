@@ -15,9 +15,10 @@ import {
   registerParkingSchema,
   registerUserSchema,
 } from "../schemas/registerSchema";
-import HeaderForm from "../components/HeaderForm";
+
 import { useNavigate } from "react-router-dom";
 import { showSuccess } from "../../../shared/ui/toast";
+import HeaderForm from "../../../shared/ui/components/HeaderForm";
 
 const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
     navigate("/login");
   };
   const checkEmail = async (data: FormUserValues) => {
-    console.log("hola");
+    console.log(data);
     try {
       setIsCheckingEmail(true);
       //chequear q el email no existe antes de pasar al 2do paso

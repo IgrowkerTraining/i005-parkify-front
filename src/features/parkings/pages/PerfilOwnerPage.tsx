@@ -1,12 +1,11 @@
-import styles from "../../../shared/styles/ParkingForm.module.css";
 import { useForm } from "react-hook-form";
 import { fields } from "../../../shared/constants/ParkingFields";
 import ParkingDataFields from "../../../shared/ui/components/ParkingDataFields";
 import { FormParkingValues } from "../../auth/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerParkingSchema } from "../../auth/schemas/registerSchema";
-import HeaderForm from "../../auth/components/HeaderForm";
-import ParkingBannerForm from "../../auth/components/ParkingBannerForm";
+
+import ParkingBannerForm from "../../../shared/ui/components/ParkingBannerForm";
 import { Box } from "@mui/material";
 import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
 import ButtonSecondary from "../../../shared/ui/components/ButtonSecondary";
@@ -14,21 +13,25 @@ import ButtonDangerPrimary from "../../../shared/ui/components/ButtonDangerPrima
 import ButtonDangerSecondary from "../../../shared/ui/components/ButtonDangerSecondary";
 import { showSuccess } from "../../../shared/ui/toast";
 import { useModalStore } from "../../../store/modal.store";
+import HeaderForm from "../../../shared/ui/components/HeaderForm";
+import ParkingModal from "../components/ParkingModal";
+import { useParkingStore } from "../../../store/parking.store";
 
 
 const PerfilOwnerPage = () => {
-
+  const  bannerImage= useParkingStore((state) => state.bannerImage);
   const openModal  = useModalStore((state) => state.openModal);
+  console.log(bannerImage)
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<FormParkingValues>({
     resolver: yupResolver(registerParkingSchema),
   });
   const onSubmit = (data: FormParkingValues) => {
     showSuccess("Los cambios se han guardado");
+    console.log(data)
   };
   return (
     <div>
@@ -58,7 +61,13 @@ const PerfilOwnerPage = () => {
             text="Eliminar estacionamiento"
             onClick={() =>
               openModal(
-                <div>Estás apunto de eliminar este estacionamiento</div>
+                <ParkingModal
+                text="Estás a punto de eliminar este estacionamiento"
+                buttons={[
+                  { label: "Continuar", onClick: ()=>{} },
+                  { label: "Cancelar", color: "error", onClick: ()=>{} },
+                ]}
+                />
               )
             }
           />
