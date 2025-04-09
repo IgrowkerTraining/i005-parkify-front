@@ -48,7 +48,7 @@ const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
     navigate("/login");
   };
   const checkEmail = async (data: FormUserValues) => {
-    console.log("hola");
+    console.log(data);
     try {
       setIsCheckingEmail(true);
       //chequear q el email no existe antes de pasar al 2do paso

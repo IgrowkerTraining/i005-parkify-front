@@ -14,11 +14,14 @@ import ButtonDangerSecondary from "../../../shared/ui/components/ButtonDangerSec
 import { showSuccess } from "../../../shared/ui/toast";
 import { useModalStore } from "../../../store/modal.store";
 import HeaderForm from "../../../shared/ui/components/HeaderForm";
+import ParkingModal from "../components/ParkingModal";
+import { useParkingStore } from "../../../store/parking.store";
 
 
 const PerfilOwnerPage = () => {
-
+  const  bannerImage= useParkingStore((state) => state.bannerImage);
   const openModal  = useModalStore((state) => state.openModal);
+  console.log(bannerImage)
   const {
     register,
     handleSubmit,
@@ -58,7 +61,13 @@ const PerfilOwnerPage = () => {
             text="Eliminar estacionamiento"
             onClick={() =>
               openModal(
-                <div>Estás apunto de eliminar este estacionamiento</div>
+                <ParkingModal
+                text="Estás a punto de eliminar este estacionamiento"
+                buttons={[
+                  { label: "Continuar", onClick: ()=>{} },
+                  { label: "Cancelar", color: "error", onClick: ()=>{} },
+                ]}
+                />
               )
             }
           />
