@@ -37,7 +37,44 @@ const parkingService = {
         //throw new Error("Error simulado")
     },
   
-  
+    async registerParking (parkingData: FormParkingValues) {
+        const formData = new FormData();
+        
+        // Agregar los datos del estacionamiento
+        formData.append("parkingName", parkingData.parkingName);
+        formData.append("parkingAddress", parkingData.parkingAddress);
+        formData.append("totalSpots", parkingData.totalSpots.toString());
+        formData.append("hourlyRate", parkingData.hourlyRate.toString());
+        formData.append("openTime", parkingData.openTime);
+        formData.append("closeTime", parkingData.closeTime);
+        formData.append("parkingPhone", parkingData.parkingPhone);
+      
+        if (parkingData.imageParking) {
+          formData.append("imageParking", parkingData.imageParking);
+        }
+      
+        try {
+        //   const response = await axios.post("/api/register-parking", formData, {
+        //     headers: {
+        //       "Content-Type": "multipart/form-data",
+        //     },
+        //   });
+        return {
+            email: parkingData.email,
+            totalSpots: parkingData.totalSpots,
+            hourlyRate: parkingData.hourlyRate,
+            openTime: parkingData.openTime,
+            closeTime: parkingData.closeTime,
+            parkingName: parkingData.parkingName,
+            parkingAddress: parkingData.parkingAddress,
+            parkingPhone: parkingData.parkingPhone,
+            imageParking: parkingData.imageParking || null, 
+          }
+        } catch (error) {
+          console.error("Error al registrar el estacionamiento:", error);
+          throw error;
+        }
+      }
   };
   
   export default parkingService;

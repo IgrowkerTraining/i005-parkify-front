@@ -1,7 +1,7 @@
 import styles from "../../../shared/styles/ParkingForm.module.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Resolver, useForm } from "react-hook-form";
 import {
   FormParkingValues,
   FormRegisterValues,
@@ -17,10 +17,17 @@ import {
 } from "../schemas/registerSchema";
 
 import { useNavigate } from "react-router-dom";
-import { showSuccess } from "../../../shared/ui/toast";
+import { showError, showSuccess } from "../../../shared/ui/toast";
 import HeaderForm from "../../../shared/ui/components/HeaderForm";
+import { useParkingStore } from "../../../store/parking.store";
+import authService from "../services/AuthService";
+import parkingService from "../../parkings/services/ParkingService";
+
 
 const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
+  const setParkingData  = useParkingStore((state) => state.setParkingData);
+  const getParkingData  = useParkingStore((state) => state.getParkingData);
+  
   const navigate = useNavigate();
   const [isCheckingEmail, setIsCheckingEmail] = useState(false);
   // const [step, setStep] = useState(0);
@@ -30,22 +37,46 @@ const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
   });
 
   const parkingForm = useForm<FormParkingValues>({
-    resolver: yupResolver(registerParkingSchema),
-  });
+      resolver: yupResolver(registerParkingSchema) as Resolver<FormParkingValues>,
+    });
 
-  const onSubmitParking = (data: FormParkingValues) => {
+  const onSubmitParking = async (data: FormParkingValues) => {
     const combinedData: FormRegisterValues = {
       ...userForm.getValues(),
       ...data,
     };
-
     const clonedData = JSON.parse(JSON.stringify(combinedData));
 
     console.log("Datos combinados:", clonedData);
-    userForm.reset();
-    parkingForm.reset();
-    showSuccess("Estacionamiento Registrado")
-    navigate("/login");
+
+    try {
+      //registro user
+      const userResponse = await authService.registerUser(userForm.getValues());
+      console.log("resp user", userResponse)
+      const parkingResponse = await parkingService.registerParking(data)
+
+      setParkingData({
+        email: parkingResponse.email,
+        totalSpots: parkingResponse.totalSpots,
+        hourlyRate: parkingResponse.hourlyRate,
+        openTime: parkingResponse.openTime,
+        closeTime: parkingResponse.closeTime,
+        parkingAddress: parkingResponse.parkingAddress,
+        parkingPhone: parkingResponse.parkingPhone,
+        imageParking: parkingResponse.imageParking,
+      })
+    
+      console.log('Datos actualizados en el store:', getParkingData());
+      userForm.reset();
+      parkingForm.reset();
+      showSuccess("Estacionamiento Registrado")
+      navigate("/login");
+      //redirijo alguna ruta?
+    } catch (err) {
+      console.error(err);
+      showError("Hubo un error");
+    }
+   
   };
   const checkEmail = async (data: FormUserValues) => {
     console.log(data);
@@ -104,6 +135,8 @@ const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
             register={parkingForm.register}
             errors={parkingForm.formState.errors}
             onBack={() => setStep(0)}
+            setValue = {parkingForm.setValue}
+            trigger= {parkingForm.trigger}
           />
         )}
       </Box>

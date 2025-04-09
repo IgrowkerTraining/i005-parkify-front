@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { FieldError, FieldErrors, useForm, UseFormRegister } from "react-hook-form";
+import { FieldError, FieldErrors, useForm, UseFormRegister, UseFormSetValue, UseFormTrigger } from "react-hook-form";
 import { registerParkingSchema, registerUserSchema } from "../schemas/registerSchema";
 import * as yup from "yup";
 export type FormValues = {
@@ -8,7 +8,18 @@ export type FormValues = {
 }
 
 export type FormUserValues = yup.InferType<typeof registerUserSchema>;
-export type FormParkingValues = yup.InferType<typeof registerParkingSchema>;
+export type FormParkingValues = {
+  imageParking?: File | null;
+  email: string;
+  totalSpots: number;
+  hourlyRate: number;
+  openTime: string;
+  closeTime: string;
+  parkingName: string;
+  parkingAddress: string;
+  parkingPhone: string;
+};
+// export type FormParkingValues = yup.InferType<typeof registerParkingSchema>;
 
 export type FormRegisterValues = FormUserValues & FormParkingValues;
 // export type FormRegisterValues = yup.InferType<typeof registerUserSchema> | yup.InferType<typeof registerParkingSchema>;
@@ -53,6 +64,8 @@ export interface ParkingFormProps  {
   register: ReturnType<typeof useForm<FormParkingValues>>["register"];
   errors: FieldErrors<FormParkingValues>;
   onBack: () => void;
+  setValue: UseFormSetValue<FormParkingValues>;
+  trigger: UseFormTrigger<FormParkingValues>
   };
   
 export interface HeaderFormProps {

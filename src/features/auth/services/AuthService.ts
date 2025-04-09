@@ -1,3 +1,4 @@
+import { FormUserValues } from "../types";
 
 const authService = {
     // async login2(email: string, password: string) {
@@ -21,6 +22,16 @@ const authService = {
             }
         }
     },
+    async registerUser  (userData: FormUserValues) {
+        try {
+          //const response = await axios.post("/api/register-user", userData);
+          //return response.data;
+          return true
+        } catch (error) {
+          console.error("Error al registrar el usuario:", error);
+          throw error; 
+        }
+    }
   
   
   };
