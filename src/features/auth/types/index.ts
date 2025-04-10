@@ -1,32 +1,17 @@
 import { ReactNode } from "react";
-import { FieldError, FieldErrors, useForm, UseFormRegister } from "react-hook-form";
-import { registerParkingSchema, registerUserSchema } from "../schemas/registerSchema";
+import { FieldError, FieldErrors, useForm, UseFormRegister, UseFormSetValue, UseFormTrigger } from "react-hook-form";
+import { registerUserSchema } from "../schemas/registerSchema";
 import * as yup from "yup";
+import { FormParkingValues } from "../../../shared/types";
 export type FormValues = {
     email: string
     password: string
 }
 
 export type FormUserValues = yup.InferType<typeof registerUserSchema>;
-export type FormParkingValues = yup.InferType<typeof registerParkingSchema>;
 
 export type FormRegisterValues = FormUserValues & FormParkingValues;
-// export type FormRegisterValues = yup.InferType<typeof registerUserSchema> | yup.InferType<typeof registerParkingSchema>;
-// export type FormRegisterValues = {
-//   email: string | undefined;
-//   password: string | undefined;
-//   confirmPassword: string | undefined;
-//   totalSpots: number | undefined;
-//   availableSpots: number | undefined;
-//   hourlyRate: number | undefined;
-// };
 
-// export interface FieldsType {
-//     name: keyof FormRegisterValues;
-//     placeholder?: string;
-//     label?: string;
-//     type: string;
-// }
 export interface AuthFormContainerProps {
     children: ReactNode;
     title: string;
@@ -53,6 +38,8 @@ export interface ParkingFormProps  {
   register: ReturnType<typeof useForm<FormParkingValues>>["register"];
   errors: FieldErrors<FormParkingValues>;
   onBack: () => void;
+  setValue: UseFormSetValue<FormParkingValues>;
+  trigger: UseFormTrigger<FormParkingValues>
   };
   
 export interface HeaderFormProps {

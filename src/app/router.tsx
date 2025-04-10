@@ -4,7 +4,7 @@ import HomePage from '../features/parkings/pages/HomePage';
 import LoginPage from '../features/auth/pages/LoginPage';
 import LayoutAuth from '../layouts/LayoutAuth';
 import RegisterPageWrapper from '../features/auth/pages/RegisterPageWrapper';
-import PerfilOwnerPage from '../features/parkings/pages/PerfilOwnerPage';
+import ProfileOwnerPage from '../features/parkings/pages/ProfileOwnerPage';
 import ChangePasswordPage from '../features/parkings/pages/ChangePasswordPage';
 import DeleteAccountPage from '../features/parkings/pages/DeleteAccountPage';
 import PrivateRoute from '../features/auth/components/PrivateRoute';
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
       {
         element: <PrivateRoute />,
         children: [
-          { path: "perfil", element: <PerfilOwnerPage /> },
+          { path: "profile", element: <ProfileOwnerPage /> },
           { path: "cambiar-password", element: <ChangePasswordPage /> },
           { path: "eliminar-cuenta", element: <DeleteAccountPage /> },
         ],

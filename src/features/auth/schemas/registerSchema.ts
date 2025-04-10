@@ -71,7 +71,16 @@ export const registerUserSchema  = yup.object().shape({
     .matches(
       /^[\d\s()+-]{6,20}$/,
       "El número de teléfono no es válido"
-    )
+    ),
+  imageParking: yup
+  .mixed<File>()
+  .nullable()
+  .test("fileType", "Debe cargar una imagen válida", (value) => {
+    return (
+      value === null ||
+      (value instanceof File && value.type.startsWith("image/"))
+    );
+  }),
   }
 
   )

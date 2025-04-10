@@ -8,10 +8,10 @@ import ParkingDataFields from "../../../shared/ui/components/ParkingDataFields";
 import { fields } from "../../../shared/constants/ParkingFields";
 
 
-const ParkingRegistrationStep = ({ register, errors }: ParkingFormProps) => {
+const ParkingRegistrationStep = ({ register, errors, setValue, trigger }: ParkingFormProps) => {
   return (
     <>
-      <ParkingBannerForm />
+      <ParkingBannerForm setValue={setValue} errors={errors} trigger={trigger} />
       <ParkingDataFields
         fields={fields}
         register={register}
