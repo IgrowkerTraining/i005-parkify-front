@@ -1,6 +1,18 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { FormParkingValues, FormRegisterValues } from "../../features/auth/types";
+import { FormRegisterValues } from "../../features/auth/types";
 
+
+export type FormParkingValues = {
+  imageParking?: File | null;
+  email: string;
+  totalSpots: number;
+  hourlyRate: number;
+  openTime: string;
+  closeTime: string;
+  parkingName: string;
+  parkingAddress: string;
+  parkingPhone: string;
+};
 export interface FieldsType {
     name: keyof FormRegisterValues;
     placeholder?: string;

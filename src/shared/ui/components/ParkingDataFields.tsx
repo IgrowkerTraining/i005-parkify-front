@@ -1,7 +1,7 @@
 import styles from "../../styles/ParkingForm.module.css";
 import { Box, TextField } from "@mui/material";
-import { FormParkingValues } from "../../../features/auth/types";
-import { ParkingDataFieldsProps } from "../../types";
+
+import { FormParkingValues, ParkingDataFieldsProps } from "../../types";
 
 const ParkingDataFields = ({fields, register, errors}:ParkingDataFieldsProps) => {
   return (

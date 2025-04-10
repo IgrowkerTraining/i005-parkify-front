@@ -9,10 +9,10 @@ import { fields } from "../../../shared/constants/ParkingFields";
 import { AddressAutocomplete } from "../../parkings/components/AddressAutocomplete";
 
 
-const ParkingRegistrationStep = ({ register, errors,setValue }: ParkingFormProps) => {
+const ParkingRegistrationStep = ({ register, errors, setValue, trigger }: ParkingFormProps) => {
   return (
     <>
-      <ParkingBannerForm />
+      <ParkingBannerForm setValue={setValue} errors={errors} trigger={trigger} />
       <ParkingDataFields
         fields={fields}
         register={register}
