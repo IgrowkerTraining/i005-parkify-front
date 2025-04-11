@@ -1,6 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 import "@fontsource/lato";
-import { red } from "@mui/material/colors";
 
 //extender del Tipo Theme para evitar erroresde TypeScript
 declare module "@mui/material/styles" {
