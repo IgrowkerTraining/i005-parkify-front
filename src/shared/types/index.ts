@@ -1,4 +1,4 @@
-import { FieldErrors, UseFormRegister, UseFormSetValue, UseFormTrigger } from "react-hook-form";
+import { FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { FormRegisterValues } from "../../features/auth/types";
 
 
