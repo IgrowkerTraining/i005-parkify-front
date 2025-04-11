@@ -35,6 +35,7 @@ const ProfileOwnerPage = () => {
     resolver: yupResolver(registerParkingSchema) as Resolver<FormParkingValues>,
   });
 
+  console.log(parkingData)
   const onSubmit = async (data: FormParkingValues) => {
     //console.log(data);
 
@@ -74,6 +75,7 @@ const ProfileOwnerPage = () => {
           fields={fields}
           register={register}
           errors={errors}
+          setValue={setValue}
         />
         <Box
           sx={{

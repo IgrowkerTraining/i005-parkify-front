@@ -9,6 +9,5 @@ export const fields: RequiredLabelField[] = [
   { name: "openTime", label: "Horario apertura", type: "time" },
   { name: "closeTime", label: "Horario cierre", type: "time" },
   { name: "parkingName", label: "Nombre del estacionamiento", type: "text" },
-  { name: "parkingAddress", label: "Dirección del estacionamiento", type: "text",},
   { name: "parkingPhone", label: "Número de contacto", type: "text" },
 ];

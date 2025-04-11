@@ -12,6 +12,8 @@ interface ParkingState {
       parkingAddress: string;
       parkingPhone: string;
       isParkingLoaded: boolean;
+      lat: number;
+      lng: number;
      // availableSpots: number;
       //action
     //permite la actualizacion de los campos que se desean modificar podiendo dejar  otros campos vacios
@@ -33,6 +35,8 @@ interface ParkingState {
         parkingAddress: '',
         parkingPhone: '',
         isParkingLoaded: false,
+        lat:0,
+        lng:0,
         setParkingData: (data) => set((state) => ({ ...state, ...data })),
         getParkingData: () => get(),
         clearParkingData: () => set({ id: '', isParkingLoaded: false }),
