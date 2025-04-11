@@ -1,9 +1,12 @@
 import { Box, Button } from "@mui/material"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Link as RouterLink } from "react-router-dom";
-import { HeaderFormProps } from "../types";
+//import { HeaderFormProps } from "../../types";
 
-
+type HeaderFormProps = {
+  path?: string;
+  onBack?: () => void;
+};
 const HeaderForm  = ({path, onBack}: HeaderFormProps) => {
   return (
     <Box

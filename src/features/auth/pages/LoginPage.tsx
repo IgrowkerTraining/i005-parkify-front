@@ -26,9 +26,11 @@ const LoginPage = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(loginSchema),
   });
-  const onSubmit = async (data: FormValues) => {
+  //const onSubmit = async (data: FormValues) => {
+  const onSubmit = async () => {
     try {
-      const response = await authService.login(data.email, data.password)
+      //const response = await authService.login(data.email, data.password)
+      const response = await authService.login()
       if (response.token) {
         login(response.token, response.user )
         reset();

@@ -52,7 +52,8 @@ const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
 
     try {
       //registro user
-      const userResponse = await authService.registerUser(userForm.getValues());
+      //const userResponse = await authService.registerUser(userForm.getValues());
+      const userResponse = await authService.registerUser();
       console.log("resp user", userResponse)
       const parkingResponse = await parkingService.registerParking(data)
 

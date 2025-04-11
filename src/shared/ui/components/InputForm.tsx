@@ -2,8 +2,15 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import { IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { InputFormProps } from "../types";
-
+import { FieldError, UseFormRegister } from "react-hook-form";
+//import { InputFormProps } from "../../types";
+type InputFormProps = {
+    placeholder: string
+    name: string
+    type: string
+    register: UseFormRegister<any>; 
+    error?: FieldError;
+}
 
 const InputForm = ({placeholder, name, type, register, error}: InputFormProps) => {
   const [showPassword, setShowPassword] = useState(false);

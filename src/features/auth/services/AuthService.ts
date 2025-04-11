@@ -1,4 +1,4 @@
-import { FormUserValues } from "../types";
+//import { FormUserValues } from "../types";
 
 const authService = {
     // async login2(email: string, password: string) {
@@ -13,7 +13,8 @@ const authService = {
     //     //   console.error(error);
     //     // }
     // },
-    async login(email: string, password: string) {
+    //async login(email: string, password: string) {
+    async login() {
         return {
             token: "token",
             user: {
@@ -22,7 +23,8 @@ const authService = {
             }
         }
     },
-    async registerUser  (userData: FormUserValues) {
+    //async registerUser  (userData: FormUserValues) {
+      async registerUser() {
         try {
           //const response = await axios.post("/api/register-user", userData);
           //return response.data;

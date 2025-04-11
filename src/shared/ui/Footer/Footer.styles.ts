@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { Box, IconButton, Link, Typography } from "@mui/material";
+import { Box, IconButton, Link } from "@mui/material";
 
 export const FooterWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,

@@ -8,7 +8,7 @@ import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import { useEffect, useRef, useState } from "react";
 import { showSuccess } from "../toast";
 import { FieldErrors, UseFormSetValue, UseFormTrigger } from "react-hook-form";
-import { FormParkingValues } from "../../../features/auth/types";
+import { FormParkingValues } from "../../../shared/types";
 interface Props {
   setValue: UseFormSetValue<FormParkingValues>;
   errors: FieldErrors<FormParkingValues>;

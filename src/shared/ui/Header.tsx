@@ -19,6 +19,15 @@ import { useTheme } from "@mui/material/styles";
 import logoHeader from "../../assets/logo/logo-blanco.svg"
 import { useAuthStore } from "../../store/auth.store";
 
+type HeaderButton = {
+  label: string;
+  icon: React.ReactNode;
+  path?: string;
+  sectionId?: string;
+  action?: string;
+  color?: string;
+};
+
 const Header: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated);
@@ -30,7 +39,7 @@ const Header: React.FC = () => {
   const location = useLocation();
 
   // Botones cuando no estás logueado
-  const guestButtons = [
+  const guestButtons: HeaderButton[] = [
     { label: "Sobre nosotros", icon: <Diversity3OutlinedIcon/>, sectionId: "sobre-nosotros" },
     { label: "Cómo funciona", icon: <QuestionMarkOutlinedIcon />, sectionId: "como-funciona" },
     { label: "Reseñas", icon: <ThreePOutlinedIcon />, sectionId: "reseñas" },
@@ -38,7 +47,7 @@ const Header: React.FC = () => {
   ];
 
   // Botones cuando estás logueado
-  const loggedInButtons = [
+  const loggedInButtons: HeaderButton[] = [
     { label: "Mi cuenta", icon: <ManageAccountsOutlinedIcon />, path: "/perfil" },
     { label: "Cerrar sesión", icon: <LogoutOutlinedIcon />, action: "logout", color: "error.main" },
   ];

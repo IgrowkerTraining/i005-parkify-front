@@ -13,22 +13,25 @@ import {
 
 const Footer: React.FC = () => {
   return (
-    <FooterWrapper component="footer" id="siguenos">
+    //<FooterWrapper component="footer" id="siguenos">
+    <FooterWrapper id="siguenos">
       <Container maxWidth="sm">
         <FooterContent>
           <LogoImage src={logoParkify} alt="Logo de Parkify" />
 
           <SocialIcons>
-            <SocialButton href="#" aria-label="X">
+            {/* <SocialButton href="#" aria-label="X"> 
+            Aquí borre el href porque daba error*/}
+            <SocialButton aria-label="X">
               <img src={twitterLogo} alt="X" width={24} height={24} />
             </SocialButton>
-            <SocialButton href="#" aria-label="Instagram">
+            <SocialButton aria-label="Instagram">
               <Instagram />
             </SocialButton>
-            <SocialButton href="#" aria-label="YouTube">
+            <SocialButton  aria-label="YouTube">
               <YouTube />
             </SocialButton>
-            <SocialButton href="#" aria-label="LinkedIn">
+            <SocialButton aria-label="LinkedIn">
               <LinkedIn />
             </SocialButton>
           </SocialIcons>
