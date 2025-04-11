@@ -1,4 +1,4 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister, UseFormSetValue, UseFormTrigger } from "react-hook-form";
 import { FormRegisterValues } from "../../features/auth/types";
 
 
@@ -28,4 +28,5 @@ export interface RequiredLabelField {
       fields: RequiredLabelField[];
       register: UseFormRegister<FormParkingValues>;
       errors: FieldErrors<FormParkingValues>;
+      setValue: UseFormSetValue<FormParkingValues>;
   }
