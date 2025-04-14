@@ -6,8 +6,10 @@ import { useParkingStore } from "../../../store/parking.store";
 import parkingService from "../../parkings/services/ParkingService";
 import { FormParkingValues } from "../../../shared/types";
 import ParkingFormContainer from "../components/ParkingFormContainer";
+import { useScrollToHeader } from "../../../shared/hooks/useScrollToHeader";
 
 const RegisterParkingPage = () => {
+  const scrollToHeader = useScrollToHeader();
   const setParkingData = useParkingStore((state) => state.setParkingData);
   const getParkingData = useParkingStore((state) => state.getParkingData);
   const navigate = useNavigate();
@@ -22,6 +24,7 @@ const RegisterParkingPage = () => {
 
       console.log("Datos actualizados en el store:", getParkingData);
       showSuccess("Estacionamiento Registrado");
+      scrollToHeader();
       navigate("/profile");
     } catch (err) {
       console.error(err);

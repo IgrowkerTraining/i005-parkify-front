@@ -6,8 +6,10 @@ import { useParkingStore } from "../../../store/parking.store";
 import { FormParkingValues } from "../../../shared/types";
 import ParkingEmptyState from "../components/ParkingEmptyState";
 import ParkingFormContainer from "../components/ParkingFormContainer";
+import { useScrollToHeader } from "../../../shared/hooks/useScrollToHeader";
 
 const ProfileOwnerPage = () => {
+  const scrollToHeader = useScrollToHeader();
   const setParkingData = useParkingStore((state) => state.setParkingData);
   const parkingData = useParkingStore((state) => state.parking);
 
@@ -21,7 +23,7 @@ const ProfileOwnerPage = () => {
       setParkingData(updatedProfile)
       showSuccess("Los cambios se han guardado");
       console.log("Datos actualizados en el store:", parkingData);
-
+      scrollToHeader(); //scroll hasta el header
       //redirijo alguna ruta? al home?
     } catch (err) {
       console.error(err);
