@@ -6,8 +6,9 @@ interface ButtonSecondaryProps {
     to?: string
     onClick?: () => void;
     disabled?: boolean
+    type?: "button" | "submit" | "reset";
 }
-const ButtonSecondary = ({text, onClick, disabled, to} : ButtonSecondaryProps) => {
+const ButtonSecondary = ({text, onClick, disabled, to, type} : ButtonSecondaryProps) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -16,9 +17,9 @@ const ButtonSecondary = ({text, onClick, disabled, to} : ButtonSecondaryProps) =
   }
   return (
     <Button
-        type="submit"
         fullWidth
         variant="outlined"
+        type={type}
         color="primary"
         sx={{
             fontSize: 14,
