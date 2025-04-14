@@ -28,4 +28,18 @@ const ButtonPrimary = ({text, onClick, type, disabled, to} : ButtonPrimaryProps)
   )
 }
 
-export default ButtonPrimary
+// const ButtonPrimary = ({ children, onClick, type, disabled, }: ButtonPrimaryProps) => {
+//   return (
+//     <Button
+//       variant="contained"
+//       type={type}
+//       fullWidth
+//       onClick={onClick}
+//       disabled={disabled}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
+
+export default ButtonPrimary;

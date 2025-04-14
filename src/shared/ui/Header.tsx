@@ -48,7 +48,7 @@ const Header: React.FC = () => {
 
   // Botones cuando estás logueado
   const loggedInButtons: HeaderButton[] = [
-    { label: "Mi cuenta", icon: <ManageAccountsOutlinedIcon />, path: "/perfil" },
+    { label: "Mi cuenta", icon: <ManageAccountsOutlinedIcon />, path: "/profile" },
     { label: "Cerrar sesión", icon: <LogoutOutlinedIcon />, action: "logout", color: "error.main" },
   ];
 
