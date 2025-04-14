@@ -3,7 +3,6 @@ import { persist } from 'zustand/middleware';
 
 export interface User {
   email: string,
-  password: string
 }
 interface AuthState {
   token: string | null;
@@ -20,7 +19,6 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       user: {
         email: "",
-        password: ""
       },
       login: (token, user) => {
         set({ 
