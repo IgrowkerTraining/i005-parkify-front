@@ -16,28 +16,25 @@ import ParkingModal from "../components/ParkingModal";
 import parkingService from "../services/ParkingService";
 import { useParkingStore } from "../../../store/parking.store";
 import { FormParkingValues } from "../../../shared/types";
-
+//import ParkingEmptyState from "../components/ParkingEmptyState";
 
 const ProfileOwnerPage = () => {
   const openModal = useModalStore((state) => state.openModal);
-  const setParkingData  = useParkingStore((state) => state.setParkingData);
-  const getParkingData  = useParkingStore((state) => state.getParkingData);
-  const parkingData = useParkingStore(state => state.getParkingData());
+  const setParkingData = useParkingStore((state) => state.setParkingData);
+  const parkingData = useParkingStore((state) => state.getParkingData());
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    trigger
+    trigger,
   } = useForm<FormParkingValues>({
-    defaultValues:parkingData,
+    defaultValues: parkingData,
     resolver: yupResolver(registerParkingSchema) as Resolver<FormParkingValues>,
   });
 
-  console.log(parkingData)
   const onSubmit = async (data: FormParkingValues) => {
-    //console.log(data);
 
     try {
       const updatedProfile = await parkingService.updateParkingProfile({
@@ -45,6 +42,7 @@ const ProfileOwnerPage = () => {
         imageParking: data.imageParking ?? null,
       });
       setParkingData({
+        id: "1",
         email: updatedProfile.email,
         totalSpots: updatedProfile.totalSpots,
         hourlyRate: updatedProfile.hourlyRate,
@@ -54,10 +52,11 @@ const ProfileOwnerPage = () => {
         parkingAddress: updatedProfile.parkingAddress,
         parkingPhone: updatedProfile.parkingPhone,
         imageParking: updatedProfile.imageParking,
-      })
-      showSuccess("Cambios guardados éxitosamente");
-      console.log('Datos actualizados en el store:', getParkingData());
-      
+        isParkingLoaded: true,
+      });
+      showSuccess("Los cambios se han guardado");
+      console.log("Datos actualizados en el store:", parkingData);
+
       //redirijo alguna ruta?
     } catch (err) {
       console.error(err);
@@ -66,50 +65,68 @@ const ProfileOwnerPage = () => {
   };
   
   return (
-    <div>
+    <Box>
       <HeaderForm path="/" />
-      <ParkingBannerForm setValue={setValue} errors={errors} trigger={trigger}/>
-      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-        
-        <ParkingDataFields
-          fields={fields}
-          register={register}
-          errors={errors}
-          setValue={setValue}
-        />
-        <Box
-          sx={{
-            px: 2,
-            mt: 4,
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            maxWidth: "500px",
-            alignItems: "center",
-            mx: "auto",
-          }}
-        >
-          <ButtonPrimary text="Guardar cambios" type="submit" />
-          <ButtonSecondary text="Cambiar contraseña" to="/cambiar-password" />
-          <ButtonDangerPrimary
-            text="Eliminar estacionamiento"
-            onClick={() =>
-              openModal(
-                <ParkingModal
-                  text="Estás a punto de eliminar este estacionamiento"
-                  buttons={[
-                    { label: "Continuar", onClick: () => {} },
-                    { label: "Cancelar", color: "error", onClick: () => {} },
-                  ]}
-                />
-              )
-            }
+      {/* {parkingData.id === '' && !parkingData.isParkingLoaded ? (
+        <ParkingEmptyState />
+      ) : ( */}
+        <>
+          <ParkingBannerForm
+            setValue={setValue}
+            errors={errors}
+            trigger={trigger}
           />
-          <ButtonDangerSecondary text="Eliminar cuenta" to="/eliminar-cuenta" />
-        </Box>
-      </Box>
-
-    </div>
+          <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+            <ParkingDataFields
+              fields={fields}
+              register={register}
+              errors={errors}
+              setValue={setValue}
+            />
+            <Box
+              sx={{
+                px: 2,
+                mt: 4,
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+                maxWidth: "500px",
+                alignItems: "center",
+                mx: "auto",
+              }}
+            >
+              <ButtonPrimary text="Guardar cambios" type="submit" />
+              <ButtonSecondary
+                text="Cambiar contraseña"
+                to="/cambiar-password"
+              />
+              <ButtonDangerPrimary
+                text="Eliminar estacionamiento"
+                onClick={() =>
+                  openModal(
+                    <ParkingModal
+                      text="Estás a punto de eliminar este estacionamiento"
+                      buttons={[
+                        { label: "Continuar", onClick: () => {} },
+                        {
+                          label: "Cancelar",
+                          color: "error",
+                          onClick: () => {},
+                        },
+                      ]}
+                    />
+                  )
+                }
+              />
+              <ButtonDangerSecondary
+                text="Eliminar cuenta"
+                to="/eliminar-cuenta"
+              />
+            </Box>
+          </Box>
+        </>
+      {/* )} */}
+    </Box>
   );
 };
 

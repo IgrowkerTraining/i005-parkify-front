@@ -19,7 +19,6 @@ const authService = {
             token: "token",
             user: {
                 email: "Armenia Parking",
-                password: "password"
             }
         }
     },
