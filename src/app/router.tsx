@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import PublicLayout from '../layouts/PublicLayout';
-import HomePage from '../features/parkings/pages/HomePage';
+import { Home } from '../shared/ui/components';
 import LoginPage from '../features/auth/pages/LoginPage';
 import LayoutAuth from '../layouts/LayoutAuth';
 import RegisterPageWrapper from '../features/auth/pages/RegisterPageWrapper';
@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
     path: "/",
     element: <PublicLayout />,
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <Home /> },
       {
         element: <PrivateRoute />,
         children: [

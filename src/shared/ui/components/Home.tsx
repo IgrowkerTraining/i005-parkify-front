@@ -1,147 +1,200 @@
-import React from "react";
 import {
   Box,
   Button,
-  Card,
-  CardContent,
   Container,
-  Grid,
   Typography,
+  Grid,
 } from "@mui/material";
-import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
-import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import TestimonialCard from "./TestimonialCard";
-import HomeCard from './HomeCard';
-import AccountCard from './AccountCard';
-import { useAuthStore } from '../../../store/auth.store';
-import ButtonHomeAction from "./ButtonHomeAction";
+import { useAuthStore } from "../../../store/auth.store";
+import { useNavigate } from "react-router-dom";
+import logoBlue from "../../../assets/logo/logo-azul.svg"
+import handMapsImg from "../../../assets/logo/mano-sosteniendo-telefono-maps_8073.jpg"
 
-const Home : React.FC = () => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
-  const user = useAuthStore((state) =>  state.user)
+
+const Home = () => {
+  const navigate = useNavigate();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   return (
-    <Container sx={{ mt: 4 }}>
-      {/* Sección Header */}
+    <Box>
+      {/* Imagen banner debajo del header */}
+      <Box
+        component="img"
+        src={handMapsImg}
+        alt="Persona usando Google Maps"
+        sx={{
+          width: "100%",
+          height: "auto",
+          maxHeight: 220,
+          objectFit: "cover",
+        }}
+      />
+
+      {/* Hero: Logo + Título + Botón */}
       <Box
         sx={{
-          border: "2px dashed #3445c5",
-          p: 4,
-          borderRadius: 2,
+          backgroundColor: "white",
+          py: 4,
+          px: 2,
           textAlign: "center",
         }}
       >
-        <Typography variant="h1" color="primary">
-          Parkify
+        <Box display="flex" justifyContent="center" alignItems="center" gap={1}>
+          <img
+            src={logoBlue}
+            alt="Parkify logo"
+            style={{ height: 50 }}
+          />
+          
+        </Box>
+
+        <Typography variant="body1" fontWeight="bold" mt={2}>
+          Encuentra tu estacionamiento sin demoras.
         </Typography>
-        <Typography variant="h5">Encuentra tu parking más cercano</Typography>
-        <ButtonHomeAction text="Buscar estacionamiento" path="/mapa" />
-        <Typography sx={{ mt: 2, maxWidth: "600px", margin: "auto" }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </Typography>
-        <Button variant="contained" color="primary" sx={{ mt: 3 }}>
-          ¿Eres dueño de estacionamiento?
+
+        <Button
+          variant="contained"
+          sx={{
+            mt: 2,
+            backgroundColor: "tertiary.500",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "tertiary.600",
+            },
+          }}
+          onClick={() => navigate("/map")}
+        >
+          Buscar estacionamiento
         </Button>
       </Box>
-      {
-        isAuthenticated ? (
-          <AccountCard
-            user={user}
-          />
-        ): (
-          <HomeCard/>
-        )
-      }
-      
-     
-      {/* Sección Nosotros */}
-      <Grid container spacing={4} alignItems="center" mt={4} columns={{ xs: 12, md: 12 }}>
-        <Grid gridColumn={{ xs: "span 12", md: "span 6" }} id="sobre-nosotros">
-          <Typography variant="h4" color="primary" fontWeight="bold">
-            Nosotros
-          </Typography>
-          <Typography sx={{ mt: 2 }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta,
-            nobis? Odit eos a necessitatibus illum adipisci commodi placeat
-            consequuntur sit reprehenderit. Sequi optio delectus, et
-            consequuntur placeat commodi natus illum?
-          </Typography>
-          <Typography sx={{ mt: 2 }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-            fugit eligendi officiis ea quidem distinctio, aspernatur dolor!
-            Similique iusto doloremque, numquam unde animi eveniet quis quos
-            nemo magnam, porro recusandae.
-          </Typography>
-        </Grid>
 
-        <Grid gridColumn={{ xs: "span 12", md: "span 6" }}>
-          <Grid container spacing={2} columns={{ xs: 12 }}>
-            {["Reservar plaza de estacionamiento", "Ver zonas con mayor disponibilidad", "Quiero registrar mi estacionamiento"].map((title, index) => (
-              <Grid key={index} gridColumn={{ xs: "span 12" }}>
-                <Card
-                  sx={{
-                    backgroundColor: "#A1ABFF",
-                    color: "white",
-                    boxShadow: 3,
-                    display: "flex",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      mx: "auto",
-                      padding: 1,
-                    }}
-                  >
-                    <TimeToLeaveIcon />
-                  </Box>
+      {/* Acceso rápido (solo si no está autenticado) */}
+      {!isAuthenticated && (
+        <Box
+          sx={{
+            backgroundColor: "tertiary.100",
+            p: 2,
+            textAlign: "center",
+            mt: 3,
+            borderRadius: 2,
+            mx: 2,
+          }}
+        >
+          <Typography variant="h6" fontWeight="bold" mb={2}>
+            ¿Tienes un estacionamiento?
+          </Typography>
+          <Button
+            variant="contained"
+            fullWidth
+            sx={{
+              mb: 1,
+              backgroundColor: "tertiary.500",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "tertiary.600",
+              },
+            }}
+            onClick={() => navigate("/register")}
+          >
+            Regístrate
+          </Button>
+          <Button
+            variant="contained"
+            fullWidth
+            sx={{
+              backgroundColor: "tertiary.500",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "tertiary.600",
+              },
+            }}
+            onClick={() => navigate("/login")}
+          >
+            Ingresa a tu cuenta
+          </Button>
+        </Box>
+      )}
 
-                  <CardContent>
-                    <Typography variant="h6">{title}</Typography>
-                    <Typography>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-      </Grid>
+      {/* Sobre nosotros */}
+      <Container sx={{ mt: 5 }} id="sobre-nosotros">
+        <Typography variant="h2" textAlign="center" fontWeight="bold" mb={2}>
+          Sobre nosotros
+        </Typography>
+        <Typography variant="body2" textAlign="center">
+          En Parkify, sabemos lo frustrante que es buscar estacionamiento. Por eso, hemos creado una solución innovadora que te permite encontrar y reservar plazas de forma rápida y sencilla.
+        </Typography>
+      </Container>
 
       {/* Cómo funciona */}
-      <Box sx={{ mt: 8, textAlign: "center" }} id="como-funciona">
-        <Typography variant="h4" color="primary" fontWeight="bold">
+      <Container id="como-funciona" sx={{ mt: 6 }}>
+        <Typography variant="h2" textAlign="center" fontWeight="bold" mb={4}>
           Cómo funciona
         </Typography>
-        <Grid container spacing={3} justifyContent="center" columns={{ xs: 12, md: 12 }} sx={{ mt: 3 }}>
-          {["Paso 1", "Paso 2", "Paso 3"].map((step, index) => (
-            <Grid key={index} gridColumn={{ xs: "span 12", md: "span 4" }} sx={{ textAlign: "center" }}>
-              <AccessTimeFilledIcon sx={{ fontSize: 50, color: "primary.main" }} />
+        <Grid container spacing={4}>
+          {[
+            {
+              title: "Encuentra tu plaza",
+              description:
+                "Ingresa tu destino y descubre los estacionamientos disponibles cerca de ti. Filtra por ubicación, disponibilidad y precios.",
+              step: 1,
+            },
+            {
+              title: "Reserva fácilmente",
+              description:
+                "Selecciona el estacionamiento que prefieras y reserva tu plaza de forma rápida y sencilla a través de WhatsApp.",
+              step: 2,
+            },
+            {
+              title: "Navega y estaciona",
+              description:
+                "Navega hasta el estacionamiento reservado y disfruta de tu destino sin preocupaciones.",
+              step: 3,
+            },
+          ].map((item, index) => (
+            <Grid item xs={12} md={4} key={index} textAlign="center">
+              <Box
+                sx={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: "50%",
+                  backgroundColor: "secondary.main",
+                  color: "black",
+                  mx: "auto",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                  mb: 2,
+                }}
+              >
+                {item.step}
+              </Box>
               <Typography variant="h6" fontWeight="bold">
-                {step}
+                {item.title}
               </Typography>
-              <Typography>Lorem ipsum dolor sit amet...</Typography>
+              <Typography variant="body2" mt={1}>
+                {item.description}
+              </Typography>
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Container>
 
       {/* Reseñas */}
-      <Box sx={{ mt: 8, textAlign: "center" }} id="reseñas">
-        <Typography variant="h4" color="primary" fontWeight="bold">
-          Reseñas
-        </Typography>
-        <Grid container spacing={3} justifyContent="center" columns={{ xs: 12, md: 12 }} sx={{ mt: 3 }}>
-          {[1, 2, 3].map((_, index) => (
-            <Grid key={index} gridColumn={{ xs: "span 12", md: "span 4" }}>
-              <TestimonialCard />
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </Container>
+      {/* Reseñas */}
+<Container id="reseñas" sx={{ mt: 6 }}>
+  <Typography variant="h2" textAlign="center" fontWeight="bold" mb={4}>
+    Quienes ya confían dicen:
+  </Typography>
+  <Grid container spacing={3} justifyContent="center">
+    <Grid item xs={12} md={6}>
+      <TestimonialCard />
+    </Grid>
+  </Grid>
+</Container>
+
+    </Box>
   );
 };
 
