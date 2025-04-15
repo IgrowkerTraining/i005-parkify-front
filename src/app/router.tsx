@@ -11,6 +11,7 @@ import PrivateRoute from '../features/auth/components/PrivateRoute';
 import PublicOnlyRoute from '../features/auth/components/PublicOnlyRoute';
 import MapLayout from '../layouts/MapLayout';
 import MapPage from '../features/maps/pages/MapPage';
+import ParkingProfilePage from '../features/parkings/pages/ParkingProfilePage';
 
 export const router = createHashRouter([
   {
@@ -30,6 +31,10 @@ export const router = createHashRouter([
     element: <PublicLayout />,
     children: [
       { index: true, element: <HomePage /> },
+      {
+        path: "parkings/:id",
+        element: <ParkingProfilePage />,
+      },
       {
         element: <PrivateRoute />,
         children: [

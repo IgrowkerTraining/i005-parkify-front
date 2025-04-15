@@ -1,4 +1,5 @@
 import { FormParkingValues } from "../../../shared/types";
+import { ChangePasswordFormData } from "../types";
 
 
 const parkingService = {
@@ -25,6 +26,7 @@ const parkingService = {
 
         //simulo respuesta api, objeto actualizado
         return {
+            id:'1',
             email: data.email,
             totalSpots: data.totalSpots,
             hourlyRate: data.hourlyRate,
@@ -61,6 +63,7 @@ const parkingService = {
         //     },
         //   });
         return {
+            id: '1',
             email: parkingData.email,
             totalSpots: parkingData.totalSpots,
             hourlyRate: parkingData.hourlyRate,
@@ -75,7 +78,18 @@ const parkingService = {
           console.error("Error al registrar el estacionamiento:", error);
           throw error;
         }
-      }
+    },
+
+    async changePassword(data: ChangePasswordFormData){
+      //llamada api - endpoint cambiar contraseña
+      console.log(data)
+      return 'Contraseña modificada con éxito'
+    },
+    async recoveryPassword(email: string){
+      //llamada api - endpoint recuperar contraseña
+      console.log(email)
+      return 'Enviamos un enlace de recuperación a tu correo.'
+    }
   };
   
   export default parkingService;

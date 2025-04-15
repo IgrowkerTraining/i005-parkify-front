@@ -8,4 +8,10 @@ export interface Parking {
   availableSpots: number;
   lat: number;
   lng: number;
+  imageParking?: string;
+  openTime?: string;
+  closeTime?: string;
+  rating?: number;
+  estimatedTime?: string;
+  distance?: string;
 }

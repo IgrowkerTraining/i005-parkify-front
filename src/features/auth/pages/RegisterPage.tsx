@@ -58,6 +58,7 @@ const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
       const parkingResponse = await parkingService.registerParking(data)
 
       setParkingData({
+        id: parkingResponse.parkingAddress,
         email: parkingResponse.email,
         totalSpots: parkingResponse.totalSpots,
         hourlyRate: parkingResponse.hourlyRate,
@@ -67,6 +68,7 @@ const RegisterPage = ({ step, setStep, context }: RegisterPageProps) => {
         parkingAddress: parkingResponse.parkingAddress,
         parkingPhone: parkingResponse.parkingPhone,
         imageParking: parkingResponse.imageParking,
+        isParkingLoaded: true
       })
     
       console.log('Datos actualizados en el store:', getParkingData());
