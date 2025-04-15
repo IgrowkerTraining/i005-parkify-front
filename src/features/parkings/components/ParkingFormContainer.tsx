@@ -1,0 +1,137 @@
+import styles from "../../../shared/styles/ParkingForm.module.css";
+import { Box } from "@mui/material";
+import ButtonDangerSecondary from "../../../shared/ui/components/ButtonDangerSecondary";
+import ButtonDangerPrimary from "../../../shared/ui/components/ButtonDangerPrimary";
+import ButtonSecondary from "../../../shared/ui/components/ButtonSecondary";
+import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
+import ParkingDataFields from "../../../shared/ui/components/ParkingDataFields";
+import ParkingBannerForm from "../../../shared/ui/components/ParkingBannerForm";
+import { FormParkingValues } from "../../../shared/types";
+import { fields } from "../../../shared/constants/ParkingFields";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Resolver, useForm } from "react-hook-form";
+import { useModalStore } from "../../../store/modal.store";
+import ParkingModal from "./ParkingModal";
+import { registerParkingSchema } from "../schemas/parkingSchemas";
+import { useParkingStore } from "../../../store/parking.store";
+import parkingService from "../services/ParkingService";
+import { showSuccess } from "../../../shared/ui/toast";
+import { useNavigate } from "react-router-dom";
+
+interface ParkingFormContainerProps {
+  mode: "register" | "edit";
+  defaultValues?: FormParkingValues;
+  onSubmit: (data: FormParkingValues) => void;
+  showExtraButtons?: boolean;
+}
+
+const ParkingFormContainer = ({
+  mode,
+  defaultValues,
+  onSubmit,
+  showExtraButtons = false,
+}: ParkingFormContainerProps) => {
+
+  const clearParkingData = useParkingStore((state) => state.clearParkingData);
+  const openModal = useModalStore((state) => state.openModal);
+  const closeModal = useModalStore((state) => state.closeModal);
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    trigger,
+  } = useForm<FormParkingValues>({
+    defaultValues,
+    resolver: yupResolver(registerParkingSchema) as Resolver<FormParkingValues>,
+  });
+
+  //eliminar parking
+  const handleDeleteParking = async () => {
+    try {
+      console.log("borrar estacionamiento");
+      //llama al service para hacer el delete del Parking
+      const result = await parkingService.deleteParking("1");
+
+      //actualizo la store
+      clearParkingData()
+      if (result) {
+        closeModal();
+        showSuccess(result);
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+      <ParkingBannerForm
+        setValue={setValue}
+        errors={errors}
+        trigger={trigger}
+      />
+      <ParkingDataFields
+        fields={fields}
+        register={register}
+        errors={errors}
+        setValue={setValue}
+      />
+
+      <Box className={styles.registerForm}>
+        <ButtonPrimary
+          text={
+            mode === "register"
+              ? "Registrar estacionamiento"
+              : "Guardar cambios"
+          }
+          type="submit"
+        />
+        {mode === "register" && <ButtonSecondary text="Cancelar" to="/" />}
+
+        {showExtraButtons && (
+          <>
+            <ButtonSecondary
+              type="button"
+              text="Cambiar contraseña"
+              to="/change-password"
+            />
+            <ButtonDangerPrimary
+              text="Eliminar estacionamiento"
+              onClick={() =>
+                openModal(
+                  <ParkingModal
+                    text="Estás a punto de eliminar este estacionamiento"
+                    buttons={[
+                      {
+                        label: "Continuar",
+                        onClick: () => {
+                          handleDeleteParking();
+                        },
+                      },
+                      {
+                        label: "Cancelar",
+                        color: "error",
+                        onClick: () => {
+                          closeModal();
+                        },
+                      },
+                    ]}
+                  />
+                )
+              }
+            />
+            <ButtonDangerSecondary
+              text="Eliminar cuenta"
+              to="/delete-account"
+            />
+          </>
+        )}
+      </Box>
+    </Box>
+  );
+};
+export default ParkingFormContainer;

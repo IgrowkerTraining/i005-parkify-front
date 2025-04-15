@@ -34,7 +34,7 @@ const LoginPage = () => {
       if (response.token) {
         login(response.token, response.user )
         reset();
-        navigate("/");
+        navigate("/"); //redirijo a home pero me muestra perfil ver router
         showSuccess(`Bienvenido ${response.user.email}`);
       } 
     } catch (err) {
