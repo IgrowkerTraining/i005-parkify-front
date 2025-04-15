@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './', // Cambiamos rutas absolutas por relativas (para que funcione en el bucket)
+  base: process.env.VITE_BASE_PATH || '/', // Usa variable de entorno
   build: {
     rollupOptions: {
       output: {

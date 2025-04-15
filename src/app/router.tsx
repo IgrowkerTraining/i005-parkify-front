@@ -1,4 +1,4 @@
-import { createHashRouter } from 'react-router-dom';
+import { createBrowserRouter, createHashRouter } from 'react-router-dom';
 import PublicLayout from '../layouts/PublicLayout';
 import HomePage from '../features/parkings/pages/HomePage';
 import LoginPage from '../features/auth/pages/LoginPage';
@@ -13,7 +13,7 @@ import MapLayout from '../layouts/MapLayout';
 import MapPage from '../features/maps/pages/MapPage';
 import ParkingProfilePage from '../features/parkings/pages/ParkingProfilePage';
 
-export const router = createHashRouter([
+const routes = [
   {
     element: <LayoutAuth />,
     children: [
@@ -46,10 +46,14 @@ export const router = createHashRouter([
     ],
   },
   {
-    // 👉 Aquí se incluye la ruta con MapLayout
     element: <MapLayout />,
     children: [
       { path: "mapa", element: <MapPage /> },
     ],
   },
-]);
+];
+
+const useHashRouter = import.meta.env.VITE_ROUTER_MODE === 'hash';
+
+export const router = useHashRouter ? createHashRouter(routes) : createBrowserRouter(routes);
+

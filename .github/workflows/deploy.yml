@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - devops
-  workflow_dispatch:  # Permite la ejecución manual desde la interfaz de github
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -22,8 +22,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
+      - name: Build project with production env
         run: npm run build
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_USE_HASH_ROUTER: 'true'
 
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
