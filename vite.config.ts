@@ -4,7 +4,8 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-   build: {
+  base: process.env.VITE_BASE_PATH || '/', // Usa variable de entorno
+  build: {
     rollupOptions: {
       output: {
         manualChunks: {
@@ -17,3 +18,4 @@ export default defineConfig({
     },
   },
 })
+
