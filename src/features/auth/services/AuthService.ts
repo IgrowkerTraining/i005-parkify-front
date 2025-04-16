@@ -19,8 +19,12 @@ const authService = {
         console.error("Error al registrar el usuario:", error);
         throw error; 
       }
+    },
+    async deleteAccount(id:string){
+      //llamada a la api eliminarcuenta/idUsuario
+      console.log(id)
+      return 'Cuenta cerrada con éxito'
     }
-  
   
   };
   
