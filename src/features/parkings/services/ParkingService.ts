@@ -94,7 +94,8 @@ const parkingService = {
       //llamada api - endpoint recuperar contraseña
       console.log(email)
       return 'Enviamos un enlace de recuperación a tu correo.'
-    }
+    },
+   
   };
   
   export default parkingService;

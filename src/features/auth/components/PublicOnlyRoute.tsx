@@ -4,7 +4,7 @@ import { useAuthStore } from "../../../store/auth.store";
 const PublicOnlyRoute = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-  return !isAuthenticated ? <Outlet /> : <Navigate to="/profile" replace />;
+  return !isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 export default PublicOnlyRoute;
