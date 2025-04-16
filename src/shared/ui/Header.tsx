@@ -18,6 +18,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import logoHeader from "../../assets/logo/logo-blanco.svg"
 import { useAuthStore } from "../../store/auth.store";
+import { useParkingStore } from "../../store/parking.store";
+import { getHeaderRef } from "../hooks/useScrollToHeader";
 
 type HeaderButton = {
   label: string;
@@ -29,9 +31,11 @@ type HeaderButton = {
 };
 
 const Header: React.FC = () => {
+  const ref = getHeaderRef(); //referencio header para luego hacer scroll en registro y update
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated);
   const logout = useAuthStore((state) => state.logout); // Solo si ya tienes una función logout
+  const clearParkingData = useParkingStore((state) => state.clearParkingData); 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -64,7 +68,8 @@ const Header: React.FC = () => {
 
   const handleButtonClick = (button: any) => {
     if (button.action === "logout") {
-      logout();           
+      logout();   
+      clearParkingData();        
       navigate("/");      
     } else if (button.path) {
       navigate(button.path); 
@@ -83,6 +88,7 @@ const Header: React.FC = () => {
     <AppBar position="static">
       <Toolbar>
         <Box
+          ref={ref}
           sx={{
             flexGrow: 1,
             maxWidth: 1152,

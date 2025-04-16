@@ -3,7 +3,6 @@ import PublicLayout from '../layouts/PublicLayout';
 import HomePage from '../features/parkings/pages/HomePage';
 import LoginPage from '../features/auth/pages/LoginPage';
 import LayoutAuth from '../layouts/LayoutAuth';
-import RegisterPageWrapper from '../features/auth/pages/RegisterPageWrapper';
 import ProfileOwnerPage from '../features/parkings/pages/ProfileOwnerPage';
 import ChangePasswordPage from '../features/parkings/pages/ChangePasswordPage';
 import DeleteAccountPage from '../features/parkings/pages/DeleteAccountPage';
@@ -12,6 +11,8 @@ import PublicOnlyRoute from '../features/auth/components/PublicOnlyRoute';
 import MapLayout from '../layouts/MapLayout';
 import MapPage from '../features/maps/pages/MapPage';
 import ParkingProfilePage from '../features/parkings/pages/ParkingProfilePage';
+import RegisterParkingPage from '../features/parkings/pages/RegisterParkingPage';
+import RegisterPage from '../features/auth/pages/RegisterPage';
 
 const routes = [
   {
@@ -21,7 +22,7 @@ const routes = [
         element: <PublicOnlyRoute />,
         children: [
           { path: "login", element: <LoginPage /> },
-          { path: "register", element: <RegisterPageWrapper /> },
+          { path: "register", element: <RegisterPage /> },
         ],
       },
     ],
@@ -39,8 +40,9 @@ const routes = [
         element: <PrivateRoute />,
         children: [
           { path: "profile", element: <ProfileOwnerPage /> },
-          { path: "cambiar-password", element: <ChangePasswordPage /> },
-          { path: "eliminar-cuenta", element: <DeleteAccountPage /> },
+          { path: "change-password", element: <ChangePasswordPage /> },
+          { path: "delete-account", element: <DeleteAccountPage /> },
+          { path: "register-parking", element: <RegisterParkingPage/>}
         ],
       },
     ],

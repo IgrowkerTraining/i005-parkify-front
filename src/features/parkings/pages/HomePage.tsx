@@ -1,17 +1,8 @@
 import React from "react";
-import { Home, FAQAccordion } from "../../../shared/ui/components";
+import { Home } from "../../../shared/ui/components";
 
 const HomePage: React.FC = () => {
-  return (
-    <>
-        <Home />
-        <FAQAccordion />
-    </>
-   
-  )
-}
+  return <Home />;
+};
 
 export default HomePage;
-
-
-

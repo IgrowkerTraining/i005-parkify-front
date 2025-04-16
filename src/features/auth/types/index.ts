@@ -23,21 +23,15 @@ export interface AuthFormContainerProps {
     };
     google: string
 };
-export type UserRegistrationStepProps = {
+export type UserRegistrationFormProps = {
   register: ReturnType<typeof useForm<FormUserValues>>["register"];
   errors: FieldErrors<FormUserValues>;
-    isCheckingEmail: boolean
-    handleNext:  (e?: React.BaseSyntheticEvent) => Promise<void>
+  isLoading: boolean
 }
-export type RegisterPageProps = {
-  step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-  context: { onBack?: () => void };
-};
+
 export interface ParkingFormProps  {
   register: ReturnType<typeof useForm<FormParkingValues>>["register"];
   errors: FieldErrors<FormParkingValues>;
-  onBack: () => void;
   setValue: UseFormSetValue<FormParkingValues>;
   trigger: UseFormTrigger<FormParkingValues>
   };

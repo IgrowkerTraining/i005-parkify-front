@@ -80,6 +80,11 @@ const parkingService = {
         }
     },
 
+    async deleteParking (id: string) {
+      console.log(id)
+      //llamada a la api delete-parking/id
+      return "Parking eliminado"
+    },
     async changePassword(data: ChangePasswordFormData){
       //llamada api - endpoint cambiar contraseña
       console.log(data)
@@ -89,7 +94,8 @@ const parkingService = {
       //llamada api - endpoint recuperar contraseña
       console.log(email)
       return 'Enviamos un enlace de recuperación a tu correo.'
-    }
+    },
+   
   };
   
   export default parkingService;

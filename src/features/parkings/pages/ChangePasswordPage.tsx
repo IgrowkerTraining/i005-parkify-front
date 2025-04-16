@@ -31,6 +31,7 @@ const ChangePasswordPage = () => {
       //si hay resultado mostrar toast
       result && showSuccess(result);
       reset();
+      //va alguna ruta?
     } catch (error) {
       showError("Hubo un error al cambiar la contraseña");
     }
@@ -68,7 +69,7 @@ const ChangePasswordPage = () => {
 
   return (
     <>
-      <HeaderForm />
+      <HeaderForm path="/profile" />
       <Box
         sx={{ mx: "auto" }}
         display="flex"
@@ -107,6 +108,7 @@ const ChangePasswordPage = () => {
       </Box>
       <Box className={styles.registerForm}>
         <ButtonDangerSecondary
+          type="submit"
           text="Recuperar contraseña"
           onClick={recoveryPassword}
         />
