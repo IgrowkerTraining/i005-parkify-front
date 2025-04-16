@@ -15,7 +15,7 @@
     "@fontsource/lato": "^5.2.5",
     "@hookform/resolvers": "^5.0.1",
     "@mui/icons-material": "^7.0.1",
-    "@mui/material": "^7.0.1",
+    "@mui/material": "^7.0.2",
     "@react-google-maps/api": "^2.20.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
