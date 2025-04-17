@@ -26,7 +26,7 @@ jobs:
         run: npm run build
         env:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
-          VITE_USE_HASH_ROUTER: 'true'
+          VITE_ROUTER_MODE: ${{ vars.VITE_ROUTER_MODE }}
 
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
