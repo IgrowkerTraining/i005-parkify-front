@@ -16,6 +16,7 @@ export const useParkingEditorStore = create<ParkingEditorStore>((set) => ({
   availableSpots: 0,
   lat: 0,
   lng: 0,
+  distance: 0,
 
   setParkingData: (data) => set((state) => ({ ...state, ...data })),
   reset: () =>

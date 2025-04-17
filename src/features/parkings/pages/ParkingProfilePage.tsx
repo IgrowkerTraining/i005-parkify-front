@@ -28,7 +28,7 @@ const ParkingProfilePage = () => {
           closeTime: "20:00",
           rating: 4.5,
           estimatedTime: "11 min",
-          distance: "3.7",
+          distance: 3.7,
         },
         "2": {
           id: "2",
@@ -45,7 +45,7 @@ const ParkingProfilePage = () => {
           closeTime: "23:00",
           rating: 4.5,
           estimatedTime: "11 min",
-          distance: "3.7",
+          distance: 3.7,
         },
         "3": {
           id: "3",
@@ -62,7 +62,7 @@ const ParkingProfilePage = () => {
           closeTime: "22:00",
           rating: 4.5,
           estimatedTime: "11 min",
-          distance: "3.7",
+          distance: 3.7,
         },
       };
       
