@@ -44,9 +44,12 @@ const useMapStore = create<MapStore>((set, get) => ({
   applyFilters: () => {
     const { parkings, filters } = get();
     const filtered = parkings.filter((p) => {
+      //si es null no se aplica filtro || mira q precio/dist sea mejor a la elegida en el filtro
       const matchPrice = filters.price === null || p.hourlyRate <= filters.price;
       const matchDistance = filters.distance === null || p.distance <= filters.distance;
+      //si es null no aplica el filtro || pasan los parking q tengan true en isOpen
       const matchOpen = filters.isOpen === null || p.isOpen === filters.isOpen;
+      //q se cumplan los 3 filtros
       return matchPrice && matchDistance && matchOpen;
     });
 
