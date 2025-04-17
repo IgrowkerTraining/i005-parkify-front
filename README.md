@@ -104,3 +104,86 @@ const { openModal } = useModalStore();
 ❌ No tiene botón "X" para cerrar.
 
 🔄 El contenido del modal es dinámico: podés pasarle cualquier JSX.
+
+## 📋 Instrucciones para implementar el Control de Plazas Disponibles
+
+### 🚀 Pasos a seguir
+🧩 1. Importar el hook de Zustand
+Al principio de tu componente (donde estás desarrollando el panel de control), importa el hook useParkingStore:
+
+
+import { useParkingStore } from '@/features/parking/store/useParkingStore'
+🧩 2. Acceder a la función setAvailability
+Dentro de tu componente (fuera del return), crea esta constante:
+
+
+const setAvailability = useParkingStore((state) => state.setAvailability)
+Esto te permitirá actualizar el número de plazas en toda la app.
+
+🧩 3. Llamar a setAvailability al guardar cambios
+Cuando el usuario haga clic en "Guardar cambios", llama a esta función pasando:
+
+el id del parking
+
+la cantidad de plazas disponibles que haya elegido
+
+Así:
+
+setAvailability(parkingId, newAvailableSlots)
+Ejemplo real en tu botón:
+
+<Button onClick={() => setAvailability(parking.id, slots)}>
+  Guardar cambios
+</Button>
+✅ parking.id: es el identificador del parking actual (deberías tenerlo en el componente).
+✅ slots: es el número actualizado (lo que ve en el input o el contador).
+
+🧩 4. Cómo probar que funciona
+El proyecto tiene activo un mock (useMockAvailabilityUpdates) que actualiza automáticamente un parking cada 5 segundos.
+
+Mientras tanto, tu cambio manual usando setAvailability debe actualizar inmediatamente el número de plazas en:
+
+Tu panel de control (contador)
+
+El perfil del parking (ParkingProfile) donde se usa AvailabilityStatus.
+
+✅ No hace falta recargar la página.
+✅ No hace falta tocar ParkingProfile.
+✅ Todo se actualiza solo.
+
+🧪 ¿Cómo saber si todo funciona bien?
+Cambia el número de plazas disponibles en el control.
+
+Haz clic en "Guardar cambios".
+
+Ve al perfil del parking → Deberías ver que el número de plazas cambia en vivo.
+
+⚙️ Info extra
+Mientras desarrollamos, dejamos el mock activo para facilitar las pruebas (useMockAvailabilityUpdates() está activado en App.tsx).
+
+Cuando conectemos el WebSocket real del backend, no tendrás que cambiar nada en tu componente.
+
+### 📌 Ejemplo mínimo de integración
+
+import { useParkingStore } from '@/features/parking/store/useParkingStore'
+
+const ParkingAvailabilityControl = ({ parkingId }: { parkingId: string }) => {
+  const [slots, setSlots] = useState(0)
+  const setAvailability = useParkingStore((state) => state.setAvailability)
+
+  const handleSave = () => {
+    setAvailability(parkingId, slots)
+  }
+
+  return (
+    <div>
+      <input
+        type="number"
+        value={slots}
+        onChange={(e) => setSlots(Number(e.target.value))}
+      />
+      <button onClick={handleSave}>Guardar cambios</button>
+    </div>
+  )
+}
+

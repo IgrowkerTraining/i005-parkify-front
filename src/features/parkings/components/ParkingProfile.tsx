@@ -13,6 +13,7 @@ import { Parking } from "../../../shared/types/parking";
 import ButtonWhatsapp from "../../../shared/ui/components/ButtonWhatsapp";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import StarIcon from "@mui/icons-material/Star"; 
+import { AvailabilityStatus } from "./AvailabilityStatus";
 
 type ParkingProfileProps = {
   parking: Parking;
@@ -89,11 +90,12 @@ export const ParkingProfile = ({ parking, onReserve }: ParkingProfileProps) => {
 
             {/* Plazas + horario */}
             <Box display="flex" gap={1} mt={1} justifyContent={"space-between"}>
-              <Chip
+              {/* <Chip
                 label={`${parking.availableSpots} plazas`}
                 size="small"
                 sx={{ bgcolor: "#f5f5f5", fontWeight: 500, borderRadius: 2 }}
-              />
+              /> */}
+              <AvailabilityStatus parkingId={parking.id} />
               <Chip
                 label={
                   parking.openTime && parking.closeTime

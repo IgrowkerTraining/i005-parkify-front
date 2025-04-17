@@ -14,7 +14,7 @@ const ParkingProfilePage = () => {
       // Simulación de diferentes parkings por ID
       const mockParkings: Record<string, Parking> = {
         "1": {
-          id: "1",
+          id: "mock-parking-1",
           name: "Armenia Parking",
           address: "Av. Armenia 123, Palermo",
           contactNumber: "600123456",
