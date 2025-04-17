@@ -13,5 +13,6 @@ export interface Parking {
   closeTime?: string;
   rating?: number;
   estimatedTime?: string;
-  distance?: string;
+  distance: number; 
+  isOpen?: boolean;
 }

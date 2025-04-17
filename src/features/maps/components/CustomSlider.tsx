@@ -1,15 +1,12 @@
 import { Box, Slider, Typography } from "@mui/material";
 import React from "react";
 
-const MAX = 1000;
-const MIN = 0;
-const marks = [
-  { value: MIN, label: "" },
-  { value: MAX, label: "" },
-];
+
 
 type CustomSliderProps = {
   label: string;
+  min: number;
+  max: number;
   minLabel: string;
   maxLabel: string;
   value: number;
@@ -18,11 +15,19 @@ type CustomSliderProps = {
 
 const CustomSlider: React.FC<CustomSliderProps> = ({
   label,
+  min,
+  max,
   minLabel,
   maxLabel,
   value,
   onChange,
 }) => {
+  const MAX = max;
+const MIN = min;
+const marks = [
+  { value: MIN, label: "" },
+  { value: MAX, label: "" },
+];
   return (
     <Box>
       <Typography
