@@ -16,7 +16,7 @@ export const MapWrapper: FC<Props> = ({ children }) => {
   });
 
   if (loadError) return <p>Error cargando Google Maps</p>;
-  if (!isLoaded) return <p>Cargando mapa...</p>;
+  if (!isLoaded) return <p>Cargando...</p>;
 
   return (
     <>{children}</>

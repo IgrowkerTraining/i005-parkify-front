@@ -1,6 +1,8 @@
 import { createTheme } from '@mui/material/styles';
 import "@fontsource/lato";
 import "@fontsource/lato/300.css"; 
+import "@fontsource/lato/700.css"; 
+
 
 //extender del Tipo Theme para evitar erroresde TypeScript
 declare module "@mui/material/styles" {

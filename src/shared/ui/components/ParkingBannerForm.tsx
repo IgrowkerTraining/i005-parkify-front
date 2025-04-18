@@ -10,9 +10,9 @@ import { showSuccess } from "../toast";
 import { FieldErrors, UseFormSetValue, UseFormTrigger } from "react-hook-form";
 import { FormParkingValues } from "../../../shared/types";
 interface Props {
-  setValue: UseFormSetValue<FormParkingValues>;
-  errors: FieldErrors<FormParkingValues>;
-  trigger: UseFormTrigger<FormParkingValues>
+  setValue?: UseFormSetValue<FormParkingValues>;
+  errors?: FieldErrors<FormParkingValues>;
+  trigger?: UseFormTrigger<FormParkingValues>
 }
 const ParkingBannerForm: React.FC<Props> = ({ setValue, errors, trigger } ) => {
   const [preview, setPreview] = useState<string | null>(null);
@@ -27,8 +27,8 @@ const ParkingBannerForm: React.FC<Props> = ({ setValue, errors, trigger } ) => {
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
-    setValue("imageParking", file);
-    await trigger("imageParking");
+    if(setValue) setValue("imageParking", file);
+    if(trigger) await trigger("imageParking");
     if (file) {
       console.log("Archivo seleccionado:", file);
       const objectUrl = URL.createObjectURL(file); // genera URL temporal
@@ -37,7 +37,7 @@ const ParkingBannerForm: React.FC<Props> = ({ setValue, errors, trigger } ) => {
       showSuccess("Imagen cargada con éxito");
       closeModal();
       // subir imagen
-      setValue("imageParking", file);
+      if(setValue) setValue("imageParking", file);
     }
   };
   useEffect(() => {
@@ -122,7 +122,9 @@ const ParkingBannerForm: React.FC<Props> = ({ setValue, errors, trigger } ) => {
           <Typography variant="h1" sx={{ fontWeight: 800 }}>
             Armenía Parking
           </Typography>
-          <IconButton
+          {
+            setValue && (
+              <IconButton
             sx={{ position: "absolute", top: 0, right: 0 }}
             onClick={() =>
               openModal(
@@ -153,10 +155,13 @@ const ParkingBannerForm: React.FC<Props> = ({ setValue, errors, trigger } ) => {
           >
             <EditIcon sx={{ color: "white", fontSize: 20 }} />
           </IconButton>
+            )
+          }
+          
         </Box>
       </Box>
       <Typography color="error" variant="body1" textAlign="center" sx={{mt:1}}>
-          {errors.imageParking?.message}
+          {errors?.imageParking?.message}
       </Typography>
     </Box>
   );

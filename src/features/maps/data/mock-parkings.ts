@@ -87,7 +87,7 @@ export const parkingsData = [
     contactNumber: '1123456789',
     hourlyRate: 800,
     totalCapacity: 100,
-    availableSpots: 20,
+    availableSpots: 0,
     lat: -34.6037,
     lng: -58.3816,
     imageParking: 'https://example.com/parking1.jpg',

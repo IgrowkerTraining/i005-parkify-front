@@ -20,6 +20,7 @@ import logoHeader from "../../assets/logo/logo-blanco.svg"
 import { useAuthStore } from "../../store/auth.store";
 import { useParkingStore } from "../../store/parking.store";
 import { getHeaderRef } from "../hooks/useScrollToHeader";
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 
 type HeaderButton = {
   label: string;
@@ -53,6 +54,7 @@ const Header: React.FC = () => {
   // Botones cuando estás logueado
   const loggedInButtons: HeaderButton[] = [
     { label: "Mi cuenta", icon: <ManageAccountsOutlinedIcon />, path: "/profile" },
+    { label: "Plazas disponibles", icon: <DirectionsCarIcon />, path: "/parking-availability",  },
     { label: "Cerrar sesión", icon: <LogoutOutlinedIcon />, action: "logout", color: "error.main" },
   ];
 
