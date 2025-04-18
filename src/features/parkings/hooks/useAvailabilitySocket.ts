@@ -7,6 +7,8 @@ import { useParkingStore } from '../store/parkingStore'
  * @returns {void}
  */
 export const useAvailabilitySocket = (): void => {
+  const setAvailability = useParkingStore((state) => state.setAvailability);  // Sacamos el hook de aquí
+
 
   // Conectar al socket y escuchar eventos de disponibilidad
   useEffect(() => {
@@ -19,8 +21,10 @@ export const useAvailabilitySocket = (): void => {
     // Evento: alguien modificó la disponibilidad
     socket.on('availabilityUpdated', ({ parkingId, slots }: { parkingId: string, slots: number }) => {
     // Actualizar el estado de disponibilidad en el store
+    setAvailability(parkingId, slots);
+
     // Esto se hace para que el componente que lo necesite se vuelva a renderizar
-      useParkingStore.getState().setAvailability(parkingId, slots)
+      //useParkingStore.getState().setAvailability(parkingId, slots) //sacarlo del useeffct
     })
 
     return () => {
