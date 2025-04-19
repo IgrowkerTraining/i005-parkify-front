@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   const user = useAuthStore((state) => state.user);
 
   return (
-    <Container sx={{ mt: 4 }}>
+    <Container sx={{ mt: 4, px:4 }}>
       <Box sx={{ textAlign: "center", mb: 2 }}>
         <img
           src={Banner}
@@ -51,7 +51,7 @@ const Home: React.FC = () => {
       </Box>
 
       {/* Sección Sobre nosotros */}
-      <Box mt={8} id="sobre-nosotros" textAlign="center">
+      <Box mt={8} id="sobre-nosotros" textAlign="center"  sx={{ scrollMarginTop: '80px' }}>
         <Typography variant="h2" mb={2} fontWeight={600} gutterBottom>
           Sobre nosotros
         </Typography>
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
       </Box>
 
       {/* Cómo funciona (con MUI v6 compatible Grid) */}
-      <Box mt={8} px={2} id="como-funciona" textAlign="center">
+      <Box mt={8} px={2} id="como-funciona" textAlign="center"  sx={{ scrollMarginTop:'80px' }}>
         <Typography variant="h2" fontWeight={600}>
           Cómo funciona
         </Typography>
@@ -115,8 +115,19 @@ const Home: React.FC = () => {
       </Box>
 
       {/* Testimonial */}
-      <Box mt={8} textAlign="center">
-        <TestimonialCard />
+      <Box mt={8} textAlign="center" id="reseñas"  sx={{ scrollMarginTop: '80px' }}>
+        <Typography variant="h2" fontWeight={600} mb={4}>Quienes ya confían dicen:</Typography>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          overflowY: { xs: 'auto', md: 'visible' },
+          height: { xs: 400, md: 'auto' },
+          gap: 2,
+        }}>
+          <TestimonialCard />
+          <TestimonialCard />
+          <TestimonialCard />
+        </Box>
       </Box>
     </Container>
   );
