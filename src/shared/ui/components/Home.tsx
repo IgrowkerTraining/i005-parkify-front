@@ -10,7 +10,7 @@ import { useAuthStore } from "../../../store/auth.store";
 import TestimonialCard from "./TestimonialCard";
 import BlueLogo from "../../../assets/logo/logo-azul.svg";
 import ButtonPrimary from "./ButtonPrimary";
-import Banner from "../../../assets/Banner.svg";
+import Banner from "../../../assets/home.svg";
 
 const Home: React.FC = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -18,28 +18,35 @@ const Home: React.FC = () => {
 
   return (
     <Container sx={{ mt: 4, px:4 }}>
-      <Box sx={{ textAlign: "center", mb: 2 }}>
-        <img
-          src={Banner}
-          alt="Imagen de presentación"
-          style={{ width: "100%", borderRadius: 8, maxHeight: 300, objectFit: "cover" }}
-        />
-      </Box>
-
-      {/* Hero Section */}
-      <Box sx={{ textAlign: "center" }}>
-        <img
-          src={BlueLogo}
-          alt="Logo Parkify"
-          style={{ height: 60, marginBottom: 16 }}
-        />
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "center" }}>
-          <Typography variant="h5" fontWeight="bold">
-            Encuentra tu estacionamiento <br />sin demoras.
-          </Typography>
-          <ButtonPrimary text="Buscar estacionamiento" to="/mapa" />
+      <Box sx={{display:"flex", flexDirection:{xs:"column", md:"row"}, justifyContent:"space-between"}}>
+        <Box sx={{ textAlign: "center", mb: 2 }}>
+          <img
+            src={Banner}
+            alt="Imagen de presentación"
+            style={{width:"100%", maxWidth:"70vh", borderRadius: 8, height:"40vh", objectFit: "cover" }}
+          />
         </Box>
+        {/* Hero Section */}
+        <Box m="auto">
+          <Box sx={{ textAlign: "center" }}>
+            <img
+              src={BlueLogo}
+              alt="Logo Parkify"
+              style={{ height: 60, marginBottom: 16 }}
+            />
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "center" }}>
+              <Typography variant="h5" fontWeight="bold">
+                Encuentra tu estacionamiento <br />sin demoras.
+              </Typography>
+              <ButtonPrimary text="Buscar estacionamiento" to="/mapa" />
+            </Box>
+          </Box>
+        </Box>
+        
       </Box>
+      
+
+      
 
       {/* Cuenta o llamada a la acción */}
       <Box sx={{ mt: 6, textAlign: "center" }}>
@@ -119,10 +126,15 @@ const Home: React.FC = () => {
         <Typography variant="h2" fontWeight={600} mb={4}>Quienes ya confían dicen:</Typography>
         <Box sx={{
           display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          overflowY: { xs: 'auto', md: 'visible' },
-          height: { xs: 400, md: 'auto' },
+          flexDirection: 'column',
+          overflowY: 'auto',
+          height: 400,
           gap: 2,
+          '@media (min-width:1000px)': {
+            flexDirection: 'row',
+            overflowY: 'visible',
+            height:'auto'
+          },
         }}>
           <TestimonialCard />
           <TestimonialCard />
