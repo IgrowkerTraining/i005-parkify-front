@@ -91,7 +91,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar>
         <Box
           ref={ref}
