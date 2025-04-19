@@ -52,7 +52,7 @@ const Home: React.FC = () => {
 
       {/* Sección Sobre nosotros */}
       <Box mt={8} id="sobre-nosotros" textAlign="center">
-        <Typography variant="h4" color="primary" fontWeight="bold" gutterBottom>
+        <Typography variant="h2" mb={2} fontWeight={600} gutterBottom>
           Sobre nosotros
         </Typography>
         <Typography sx={{ maxWidth: "700px", mx: "auto" }}>
@@ -62,8 +62,8 @@ const Home: React.FC = () => {
       </Box>
 
       {/* Cómo funciona (con MUI v6 compatible Grid) */}
-      <Box mt={8} id="como-funciona" textAlign="center">
-        <Typography variant="h4" color="primary" fontWeight="bold">
+      <Box mt={8} px={2} id="como-funciona" textAlign="center">
+        <Typography variant="h2" fontWeight={600}>
           Cómo funciona
         </Typography>
         <Box
@@ -71,7 +71,8 @@ const Home: React.FC = () => {
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
             gap: 4,
-            mt: 2,
+            mt: 4,
+            px: 3
           }}
         >
           {[
@@ -104,10 +105,10 @@ const Home: React.FC = () => {
               >
                 <Typography fontWeight="bold">{index + 1}</Typography>
               </Box>
-              <Typography variant="h6" fontWeight="bold">
+              <Typography variant="h3" fontWeight={600}>
                 {item.title}
               </Typography>
-              <Typography sx={{ mt: 1 }}>{item.desc}</Typography>
+              <Typography variant="body1" fontWeight={300} sx={{ mt: 1 }}>{item.desc}</Typography>
             </Box>
           ))}
         </Box>
