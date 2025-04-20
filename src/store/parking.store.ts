@@ -1,10 +1,10 @@
 import {create} from 'zustand';
 import { persist } from "zustand/middleware";
 
-interface Parking {
+export interface Parking {
   id: string;
-  imageParking: File | null;
-  email: string;
+  imageParking: string;
+  email: string; //no iria xq ees del user
   totalSpots: number;
   hourlyRate: number;
   openTime: string;
@@ -15,21 +15,33 @@ interface Parking {
   isParkingLoaded: boolean;
   lat: number;
   lng: number;
+  availableSpots?: number;
+  rating?: number;
+  distance?: number;
+  isOpen?: boolean;
+}
+
+interface ParkingAvailability {
+  [parkingId: string]: number;
 }
 
 interface ParkingState {
     parking: Parking
-     // availableSpots: number;
-      //action
     //permite la actualizacion de los campos que se desean modificar podiendo dejar  otros campos vacios
-      setParkingData:(data: Partial<Parking>) => void;
-      getParkingData: () => Parking;
-      clearParkingData: () => void;
+    setParkingData:(data: Partial<Parking>) => void;
+    getParkingData: () => Parking;
+    clearParkingData: () => void;
+    // Parking seleccionado (para cuando se elige uno de una lista, por ejemplo)
+    selected: Parking | null;
+    setSelected: (parking: Parking) => void;
+    // Disponibilidad por ID de parking
+    availability: ParkingAvailability;
+    setAvailability: (parkingId: string, slots: number) => void;
   }
 
   const initialState : Parking = {
     id: '',
-    imageParking: null,
+    imageParking: '',
     email: '',
     totalSpots: 0,
     hourlyRate: 0,
@@ -41,6 +53,10 @@ interface ParkingState {
     isParkingLoaded: false,
     lat:0,
     lng:0,
+    availableSpots: 0,
+    rating: 0,
+    distance: 0,
+    isOpen: false
   }
 
   export const useParkingStore = create<ParkingState>()(
@@ -56,9 +72,24 @@ interface ParkingState {
           })),
         getParkingData: () => get().parking,
         clearParkingData: () => set({ parking: initialState }),
+        selected: null,
+        setSelected: (parking) => set({ selected: parking }),
+
+        availability: {},
+        setAvailability: (parkingId, slots) =>
+          set((state) => ({
+            availability: {
+              ...state.availability,
+              [parkingId]: slots,
+            },
+          })),
       }),{
         name: "parking-storage",
-        partialize: (state) => ({ parking: state.parking }), 
+        partialize: (state) => ({ 
+          parking: state.parking,
+          selected: state.selected,
+          availability: state.availability,
+        }), 
       }
     )
   );
