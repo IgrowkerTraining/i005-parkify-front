@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { useParkingStore } from '../store/parkingStore'
+import { useParkingStore } from '../../../store/parking.store'
+//import { useParkingStore } from '../store/parkingStore'
 
 export const useMockAvailabilityUpdates = () => {
   // Simular actualizaciones de disponibilidad cada 5 segundos
