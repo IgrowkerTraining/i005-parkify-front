@@ -25,7 +25,7 @@ const ProfileOwnerPage = () => {
   const scrollToHeader = useScrollToHeader();
   const setParkingData = useParkingStore((state) => state.setParkingData);
   const parkingData = useParkingStore((state) => state.parking);
-
+  const setAvailability = useParkingStore((state) => state.setAvailability)
   //actualizacion de perfil
   const handleUpdate = async (data: FormParkingValues) => {
     try {
@@ -34,6 +34,7 @@ const ProfileOwnerPage = () => {
         imageParking: data.imageParking ?? null,
       });
       setParkingData(updatedProfile)
+      setAvailability(updatedProfile.id, updatedProfile.totalSpots)
       showSuccess("Los cambios se han guardado");
       console.log("Datos actualizados en el store:", parkingData);
       scrollToHeader(); //scroll hasta el header

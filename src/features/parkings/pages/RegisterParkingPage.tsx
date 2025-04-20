@@ -24,7 +24,6 @@ const RegisterParkingPage = () => {
       //setear la store
       setParkingData(parkingResponse);
       //setear la disponibilidad - arranca con el totalSpot
-     
       setAvailability(parkingResponse.id, parkingResponse.totalSpots)
       console.log("Datos actualizados en el store:", getParkingData);
       showSuccess("Estacionamiento Registrado");
