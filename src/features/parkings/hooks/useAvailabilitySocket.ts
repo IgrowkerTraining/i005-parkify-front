@@ -16,8 +16,14 @@ export const useAvailabilitySocket = (): void => {
     // Obtener la instancia del socket
     const socket = getSocket()
 
+    if (!socket) {
+      console.warn('Socket is disabled or unavailable. Skipping real-time updates.');
+      return;
+    }
     // Solo conectar si no está ya conectado
-    if (!socket.connected) socket.connect()
+    if (!socket.connected) {
+      socket.connect();
+    }
 
     // Evento: alguien modificó la disponibilidad
     socket.on('availabilityUpdated', ({ parkingId, slots }: { parkingId: string, slots: number }) => {

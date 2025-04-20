@@ -1,19 +1,26 @@
 import { io, Socket } from 'socket.io-client'
 
-const SOCKET_URL = 'http://localhost:3000' // Cambiar por la URL real del backend
+// Cambiar por la URL real del backend
 
 let socket: Socket | null = null
 
-export const getSocket = (): Socket => {
-  if (!socket) {
-    // Crear una nueva instancia de socket.io
-    // y conectarse al servidor
-    socket = io(SOCKET_URL, {
-      // Configuración de la conexión
-      // Puedes agregar opciones adicionales aquí según tus necesidades
-      autoConnect: false,
-      transports: ['websocket'],
-    })
+export const getSocket = (): Socket | null => {
+  const isSocketEnabled = import.meta.env.VITE_SOCKET_ENABLED === true;
+
+  if (!isSocketEnabled) {
+    console.warn('WebSocket connection disabled by environment configuration.');
+    return null;
   }
-  return socket
+  if (!socket) {
+    try {
+      socket = io(import.meta.env.VITE_API_URL, {
+        autoConnect: false,
+        transports: ['websocket'],
+      });
+    } catch (error) {
+      console.error('Error connecting to WebSocket:', error);
+      socket = null;
+    }
+  }
+  return socket;
 }
