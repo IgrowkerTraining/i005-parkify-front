@@ -10,7 +10,7 @@ import PrivateRoute from '../features/auth/components/PrivateRoute';
 import PublicOnlyRoute from '../features/auth/components/PublicOnlyRoute';
 import MapLayout from '../layouts/MapLayout';
 import MapPage from '../features/maps/pages/MapPage';
-import ParkingProfilePage from '../features/parkings/pages/ParkingProfilePage';
+import ParkingCardPage from '../features/parkings/pages/ParkingCardPage';
 import RegisterParkingPage from '../features/parkings/pages/RegisterParkingPage';
 import RegisterPage from '../features/auth/pages/RegisterPage';
 import AvailabilitySpotsPage from '../features/parkings/pages/AvailabilitySpotsPage';
@@ -37,7 +37,7 @@ const routes = [
       { index: true, element: <HomePage /> },
       {
         path: "parkings/:id",
-        element: <ParkingProfilePage />,
+        element: <ParkingCardPage />,
       },
       {
         element: <PrivateRoute />,
