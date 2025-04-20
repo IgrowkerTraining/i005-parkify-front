@@ -1,5 +1,6 @@
 import {create} from 'zustand';
-import { Parking } from '../../../shared/types/parking';
+//import { Parking } from '../../../shared/types/parking';
+import { Parking } from '../../../store/parking.store';
 import { parkingsData } from '../data/mock-parkings';
 
 // interface Parking {
@@ -46,7 +47,7 @@ const useMapStore = create<MapStore>((set, get) => ({
     const filtered = parkings.filter((p) => {
       //si es null no se aplica filtro || mira q precio/dist sea mejor a la elegida en el filtro
       const matchPrice = filters.price === null || p.hourlyRate <= filters.price;
-      const matchDistance = filters.distance === null || p.distance <= filters.distance;
+      const matchDistance = filters.distance === null || (p.distance != null && p.distance <= filters.distance);
       //si es null no aplica el filtro || pasan los parking q tengan true en isOpen
       const matchOpen = filters.isOpen === null || p.isOpen === filters.isOpen;
       //q se cumplan los 3 filtros

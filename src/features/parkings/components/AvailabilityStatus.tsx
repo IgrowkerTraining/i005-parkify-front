@@ -1,5 +1,6 @@
-import { useParkingStore } from '../store/parkingStore'
+//import { useParkingStore } from '../store/parkingStore'
 import { Chip } from '@mui/material'
+import { useParkingStore } from '../../../store/parking.store'
 
 interface Props {
   parkingId: string
@@ -12,7 +13,7 @@ export const AvailabilityStatus = ({ parkingId }: Props) => {
 
   // Si no hay disponibilidad, retornar null
   // Esto es útil para evitar renderizar el componente si no hay datos
-  if (slots === undefined) return null
+  //if (slots === undefined) return null
 
   return (
     // Mostrar un Chip de Material UI con el número de plazas disponibles

@@ -35,7 +35,7 @@ const parkingService = {
             parkingName: data.parkingName,
             parkingAddress: data.parkingAddress,
             parkingPhone: data.parkingPhone,
-            imageParking: data.imageParking || null, 
+            imageParking: '', 
           }
         //throw new Error("Error simulado")
     },
@@ -72,7 +72,7 @@ const parkingService = {
             parkingName: parkingData.parkingName,
             parkingAddress: parkingData.parkingAddress,
             parkingPhone: parkingData.parkingPhone,
-            imageParking: parkingData.imageParking || null, 
+            imageParking: '', 
           }
         } catch (error) {
           console.error("Error al registrar el estacionamiento:", error);

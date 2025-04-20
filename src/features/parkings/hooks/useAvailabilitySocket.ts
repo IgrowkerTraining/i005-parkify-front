@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { getSocket } from '../lib/socket'
-import { useParkingStore } from '../store/parkingStore'
+import { useParkingStore } from '../../../store/parking.store';
+//import { useParkingStore } from '../store/parkingStore'
 
 /**
  * Hook para manejar la conexión del socket y escuchar eventos de disponibilidad
