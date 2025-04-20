@@ -9,18 +9,18 @@ import {
 } from "@mui/material";
 
 
-import { Parking } from "../../../shared/types/parking";
 import ButtonWhatsapp from "../../../shared/ui/components/ButtonWhatsapp";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import StarIcon from "@mui/icons-material/Star"; 
 import { AvailabilityStatus } from "./AvailabilityStatus";
+import { Parking } from "../../../store/parking.store";
 
-type ParkingProfileProps = {
-  parking: Parking;
+type ParkingCardProps = {
+  parking:  Parking;
   onReserve: () => void;
 };
 
-export const ParkingProfile = ({ parking, onReserve }: ParkingProfileProps) => {
+export const ParkingCard = ({ parking, onReserve }: ParkingCardProps) => {
   return (
     <Card
       sx={{
@@ -34,8 +34,8 @@ export const ParkingProfile = ({ parking, onReserve }: ParkingProfileProps) => {
         <Grid sx={{ gridColumn: { xs: "span 12", md: "span 4", display:"flex" } }}>
           <CardMedia
             component="img"
-            image={parking.imageParking}
-            alt={parking.name}
+            image="https://images.unsplash.com/photo-1603791440384-56cd371ee9a7"
+            alt={parking.parkingName}
             sx={{
               width: "100%",
               height: 160,
@@ -53,7 +53,7 @@ export const ParkingProfile = ({ parking, onReserve }: ParkingProfileProps) => {
             <Box display="flex" justifyContent="space-between" alignItems="center" gap={3}>
 
               <Typography variant="subtitle1" color="text.primary" sx={{ fontWeight: 600 }}>
-                {parking.name}
+                {parking.parkingName}
               </Typography>
               <Box display="flex" alignItems="center" gap={0.5}>
                 <Typography variant="body2" sx={{ fontWeight: 500 }}>
@@ -70,17 +70,17 @@ export const ParkingProfile = ({ parking, onReserve }: ParkingProfileProps) => {
               variant="body2"
               sx={{ color: "primary.main", fontWeight: 500 }}
             >
-              {parking.address}
+              {parking.parkingAddress}
             </Typography>
 
            {/* Distancia/tiempo y rating */}
             <Box display="flex" alignItems="center" justifyContent="space-between" mt={0.5}>
   <Typography variant="body2" sx={{ color: "success.main", fontWeight: 500 }}>
-    {parking.distance} KM ({parking.estimatedTime})
+    11 min (3.7 KM)
   </Typography>
   <Box display="flex" alignItems="center" gap={0.5}>
     <Typography variant="body2" sx={{ fontWeight: 500 }}>
-      {parking.rating}
+      {4}
     </Typography>
     <StarIcon sx={{ fontSize: 18, color: "#FFC107" }} />
   </Box>
