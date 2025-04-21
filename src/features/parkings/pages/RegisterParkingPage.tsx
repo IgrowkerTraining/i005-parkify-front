@@ -1,5 +1,7 @@
 //pagina de registro del parking
 import { useNavigate } from "react-router-dom";
+
+
 import { showError, showSuccess } from "../../../shared/ui/toast";
 import HeaderForm from "../../../shared/ui/components/HeaderForm";
 import { useParkingStore } from "../../../store/parking.store";
@@ -8,9 +10,18 @@ import { FormParkingValues } from "../../../shared/types";
 import ParkingFormContainer from "../components/ParkingFormContainer";
 import { useScrollToHeader } from "../../../shared/hooks/useScrollToHeader";
 import { useParkingStore as useAvailabilityStore } from "../store/parkingStore";
+// import { useSearchParams } from "react-router-dom";
 
 //proteger esta ruta solo se puede si no hay un parking registrado y estoy logueado
 const RegisterParkingPage = () => {
+  // const [searchParams] = useSearchParams();
+  // const nameParam = searchParams.get("name") ?? "";
+  // const addressParam = searchParams.get("address") ?? "";
+  // const rateParam = searchParams.get("rate") ?? "";
+  // const spotsParam = searchParams.get("spots") ?? "";
+  // const openParam = searchParams.get("openTime") ?? "";
+  // const closeParam = searchParams.get("closeTime") ?? "";
+  
   const scrollToHeader = useScrollToHeader();
   const setParkingData = useParkingStore((state) => state.setParkingData);
   const getParkingData = useParkingStore((state) => state.getParkingData);

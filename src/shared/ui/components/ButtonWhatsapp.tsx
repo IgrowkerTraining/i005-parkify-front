@@ -1,29 +1,48 @@
-import Button from "@mui/material/Button";
+import { Button } from "@mui/material";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
-interface ButtonPrimaryProps {
-  children: React.ReactNode;
-  onClick?: () => void;
-  type?: "button" | "submit" | "reset";
-  disabled?: boolean;
+interface ButtonWhatsappProps {
+  phone: string; // sin + ni espacios
+  message: string;
   fullWidth?: boolean;
+  disabled?: boolean;
 }
 
-const ButtonWhatsapp = ({
-  children,
-  onClick,
-  type,
-  disabled,
-  fullWidth, // <- Asegúrate de tener esto aquí
-}: ButtonPrimaryProps) => {
+const ButtonWhatsapp = ({ phone, message, fullWidth, disabled }: ButtonWhatsappProps) => {
+  const handleClick = () => {
+    console.log("Botón presionado");
+
+    const cleanedPhone = phone.replace(/\D/g, "");
+    const encodedMessage = encodeURIComponent(message);
+
+    // Detectar si es móvil
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    // Usar protocolo distinto según el dispositivo
+    const baseUrl = isMobile
+      ? `whatsapp://send?phone=${cleanedPhone}&text=${encodedMessage}`
+      : `https://api.whatsapp.com/send/?phone=${cleanedPhone}&text=${encodedMessage}&type=phone_number&app_absent=0`;
+
+    console.log("URL generada:", baseUrl);
+    window.open(baseUrl, "_blank");
+  };
+
   return (
     <Button
+      onClick={handleClick}
       variant="contained"
-      type={type}
-      onClick={onClick}
+      color="success"
+      fullWidth={fullWidth}
       disabled={disabled}
-      fullWidth={fullWidth} // <- Y aquí
+      startIcon={<WhatsAppIcon />}
+      sx={{
+        backgroundColor: "#25D366",
+        "&:hover": {
+          backgroundColor: "#1DA851",
+        },
+      }}
     >
-      {children}
+      Reservar por WhatsApp
     </Button>
   );
 };

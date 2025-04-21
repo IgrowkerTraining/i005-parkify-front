@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Prueba WhatsApp</title>
+  </head>
+  <body>
+    <button id="whatsapp-button">Probar WhatsApp</button>
+
+    <script>
+      document.getElementById("whatsapp-button").addEventListener("click", () => {
+        const phone = "34637110174"; // Usa aquí tu número real SIN el + ni espacios
+
+        const message = `Hola, quiero reservar una plaza en:
+
+📍 Madrid Centro Parking
+🏠 Dirección: Calle Mayor 45, Madrid
+💵 Precio por hora: 1200€
+🕒 Horario: 07:00 a 23:00
+✅ Plazas disponibles: 25
+⭐ Valoración: 4.5/5
+
+🔗 Más info: https://parkify.com/parking/2`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const url = `https://api.whatsapp.com/send/?phone=${phone}&text=${encodedMessage}`;
+
+        console.log("URL generada:", url); // Añadido para depurar
+        window.open(url, "_blank");
+      });
+    </script>
+  </body>
+</html>
+
