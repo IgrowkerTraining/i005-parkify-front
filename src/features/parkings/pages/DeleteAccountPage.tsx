@@ -3,9 +3,9 @@ import HeaderForm from "../../../shared/ui/components/HeaderForm";
 import { Box, TextField, Typography } from "@mui/material";
 import ButtonDangerSecondary from "../../../shared/ui/components/ButtonDangerSecondary";
 import styles from "../../../shared/styles/ParkingForm.module.css";
-import { showSuccess } from "../../../shared/ui/toast";
+//import { showSuccess } from "../../../shared/ui/toast";
 import parkingService from "../services/ParkingService";
-import { useAuthStore } from "../../../store/auth.store";
+//import { useAuthStore } from "../../../store/auth.store";
 import { useNavigate } from "react-router-dom";
 //import authService from "../../auth/services/AuthService";
 import { useParkingStore } from "../../../store/parking.store";
@@ -14,7 +14,7 @@ interface DeleteAccountForm {
   deletionReason: string;
 }
 const DeleteAccountPage = () => {
-  const logout = useAuthStore((state) => state.logout)
+  //const logout = useAuthStore((state) => state.logout)
   const navigate = useNavigate()
   const clearParkingData = useParkingStore((state) => state.clearParkingData)
 
