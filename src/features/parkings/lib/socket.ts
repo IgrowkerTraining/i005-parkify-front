@@ -5,7 +5,7 @@ import { io, Socket } from 'socket.io-client'
 let socket: Socket | null = null
 
 export const getSocket = (): Socket | null => {
-  const isSocketEnabled = import.meta.env.VITE_SOCKET_ENABLED === true;
+  const isSocketEnabled = import.meta.env.VITE_SOCKET_ENABLED === 'true';
 
   if (!isSocketEnabled) {
     console.warn('WebSocket connection disabled by environment configuration.');

@@ -3,7 +3,7 @@ name: Deploy Frontend to GCP Bucket
 on:
   push:
     branches:
-      - develop
+      - ci-testing
   workflow_dispatch:
 
 jobs:
