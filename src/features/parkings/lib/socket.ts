@@ -1,17 +1,15 @@
-import { io, Socket } from 'socket.io-client'
+import { io, Socket } from 'socket.io-client';
 
-// Cambiar por la URL real del backend
-
-let socket: Socket | null = null
+let socket: Socket | null = null;
 
 export const getSocket = (): Socket | null => {
-  // Imprimir la variable de entorno para VITE_SOCKET_ENABLED
+  // Imprime el valor de la variable VITE_SOCKET_ENABLED antes de compararla
   console.log('VITE_SOCKET_ENABLED:', import.meta.env.VITE_SOCKET_ENABLED);
-  
-  // Asegurarnos de que estamos comparando correctamente el valor
-  const isSocketEnabled = import.meta.env.VITE_SOCKET_ENABLED.trim() === 'true';
 
-  // Imprimir si el socket está habilitado
+  // Convertir a minúsculas y luego hacer el parseo
+  const isSocketEnabled = JSON.parse(import.meta.env.VITE_SOCKET_ENABLED.toLowerCase());
+
+  // Imprime el valor de isSocketEnabled después de parsearlo
   console.log('Is WebSocket enabled?', isSocketEnabled);
 
   if (!isSocketEnabled) {
@@ -19,10 +17,10 @@ export const getSocket = (): Socket | null => {
     return null;
   }
 
-  // Si el socket aún no está instanciado, intentamos crearlo
   if (!socket) {
     try {
-      console.log('Trying to connect to socket with URL:', import.meta.env.VITE_API_URL);
+      // Intenta crear la conexión con WebSocket e imprime el URL de la API
+      console.log('Connecting to WebSocket at URL:', import.meta.env.VITE_API_URL);
       socket = io(import.meta.env.VITE_API_URL, {
         autoConnect: false,
         transports: ['websocket'],
@@ -33,6 +31,5 @@ export const getSocket = (): Socket | null => {
     }
   }
 
-  // Devuelvo el socket
   return socket;
-}
+};
