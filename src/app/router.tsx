@@ -10,10 +10,12 @@ import PrivateRoute from '../features/auth/components/PrivateRoute';
 import PublicOnlyRoute from '../features/auth/components/PublicOnlyRoute';
 import MapLayout from '../layouts/MapLayout';
 import MapPage from '../features/maps/pages/MapPage';
-import ParkingProfilePage from '../features/parkings/pages/ParkingProfilePage';
+import ParkingCardPage from '../features/parkings/pages/ParkingCardPage';
 import RegisterParkingPage from '../features/parkings/pages/RegisterParkingPage';
 import RegisterPage from '../features/auth/pages/RegisterPage';
 import AvailabilitySpotsPage from '../features/parkings/pages/AvailabilitySpotsPage';
+import ParkingProtectedRoute from '../features/auth/components/ParkingProtectedRoute';
+import NoParkingRoute from '../features/auth/components/NoParkingRoute';
 
 const routes = [
   {
@@ -35,7 +37,7 @@ const routes = [
       { index: true, element: <HomePage /> },
       {
         path: "parkings/:id",
-        element: <ParkingProfilePage />,
+        element: <ParkingCardPage />,
       },
       {
         element: <PrivateRoute />,
@@ -43,8 +45,18 @@ const routes = [
           { path: "profile", element: <ProfileOwnerPage /> },
           { path: "change-password", element: <ChangePasswordPage /> },
           { path: "delete-account", element: <DeleteAccountPage /> },
-          { path: "register-parking", element: <RegisterParkingPage/>},
-          { path: "parking-availability", element: <AvailabilitySpotsPage/> }
+        ],
+      },
+      {
+        element: <NoParkingRoute />,
+        children: [
+          { path: "register-parking", element: <RegisterParkingPage /> },
+        ],
+      },
+      {
+        element: <ParkingProtectedRoute />, 
+        children: [
+          { path: "parking-availability", element: <AvailabilitySpotsPage /> },
         ],
       },
     ],

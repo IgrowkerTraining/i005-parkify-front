@@ -22,6 +22,7 @@ const UserRegistrationForm = ({
   register,
   errors,
   isLoading,
+  errorMessage,
 }: UserRegistrationFormProps) => {
   return (
     <AuthFormContainer
@@ -51,6 +52,11 @@ const UserRegistrationForm = ({
             términos y condiciones
           </Link>
         </Typography>
+        {errorMessage && (
+          <Typography variant="body2" color="error" sx={{ my: 2 }}>
+            {errorMessage}
+          </Typography>
+        )}
         <ButtonPrimary
           text={isLoading ? "Validando..." : "Continuar"}
           type="submit"

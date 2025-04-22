@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { getSocket } from '../lib/socket'
-import { useParkingStore } from '../store/parkingStore'
+import { useParkingStore } from '../../../store/parking.store';
+//import { useParkingStore } from '../store/parkingStore'
 
 /**
  * Hook para manejar la conexión del socket y escuchar eventos de disponibilidad
@@ -15,8 +16,14 @@ export const useAvailabilitySocket = (): void => {
     // Obtener la instancia del socket
     const socket = getSocket()
 
+    if (!socket) {
+      console.warn('Socket is disabled or unavailable. Skipping real-time updates.');
+      return;
+    }
     // Solo conectar si no está ya conectado
-    if (!socket.connected) socket.connect()
+    if (!socket.connected) {
+      socket.connect();
+    }
 
     // Evento: alguien modificó la disponibilidad
     socket.on('availabilityUpdated', ({ parkingId, slots }: { parkingId: string, slots: number }) => {

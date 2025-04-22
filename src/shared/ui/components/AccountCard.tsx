@@ -15,7 +15,7 @@ const AccountCard = ({user}: AccountCardProps) => {
           ¡Hola!
         </Typography>
         <Typography variant="h1" sx={{ fontWeight: 800 }}>
-          {user.email}
+          {user.email ?? "Usuario"}
         </Typography>
       </Box>
       {/* <Typography variant='body1' >¡Hola!</Typography>

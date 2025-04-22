@@ -5,7 +5,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
 import styles from "../../../shared/styles/ParkingForm.module.css";
-import { useParkingStore as useAvailabilityStore } from "../store/parkingStore";
+//import { useParkingStore as useAvailabilityStore } from "../store/parkingStore";
 import { useParkingStore } from "../../../store/parking.store";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,10 +16,10 @@ import ButtonSquare from "../components/ButtonSquare";
 const AvailabilitySpotsPage = () => {
   const navigate= useNavigate()
   //de la lista de parking buscar este parking
-  const setAvailability = useAvailabilityStore((state) => state.setAvailability);
-  const availability = useAvailabilityStore((state) => state.availability);
+  const setAvailability = useParkingStore((state) => state.setAvailability);
+  const availability = useParkingStore((state) => state.availability);
   const { id, totalSpots } = useParkingStore((state) => state.parking);
-
+  console.log(availability, 'ava')
   const [spots, setSpots] = useState(availability[id]);
   
   const handleRemoveSpots = () => {

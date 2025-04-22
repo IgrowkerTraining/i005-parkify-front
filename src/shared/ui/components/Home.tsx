@@ -10,36 +10,43 @@ import { useAuthStore } from "../../../store/auth.store";
 import TestimonialCard from "./TestimonialCard";
 import BlueLogo from "../../../assets/logo/logo-azul.svg";
 import ButtonPrimary from "./ButtonPrimary";
-import Banner from "../../../assets/Banner.svg";
+import Banner from "../../../assets/home.svg";
 
 const Home: React.FC = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
 
   return (
-    <Container sx={{ mt: 4 }}>
-      <Box sx={{ textAlign: "center", mb: 2 }}>
-        <img
-          src={Banner}
-          alt="Imagen de presentación"
-          style={{ width: "100%", borderRadius: 8, maxHeight: 300, objectFit: "cover" }}
-        />
-      </Box>
-
-      {/* Hero Section */}
-      <Box sx={{ textAlign: "center" }}>
-        <img
-          src={BlueLogo}
-          alt="Logo Parkify"
-          style={{ height: 60, marginBottom: 16 }}
-        />
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "center" }}>
-          <Typography variant="h5" fontWeight="bold">
-            Encuentra tu estacionamiento <br />sin demoras.
-          </Typography>
-          <ButtonPrimary text="Buscar estacionamiento" to="/mapa" />
+    <Container sx={{ mt: 4, px:4 }}>
+      <Box sx={{display:"flex", flexDirection:{xs:"column", md:"row"}, justifyContent:"space-between"}}>
+        <Box sx={{ textAlign: "center", mb: 2 }}>
+          <img
+            src={Banner}
+            alt="Imagen de presentación"
+            style={{width:"100%", maxWidth:"70vh", borderRadius: 8, height:"40vh", objectFit: "cover" }}
+          />
         </Box>
+        {/* Hero Section */}
+        <Box m="auto">
+          <Box sx={{ textAlign: "center" }}>
+            <img
+              src={BlueLogo}
+              alt="Logo Parkify"
+              style={{ height: 60, marginBottom: 16 }}
+            />
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "center" }}>
+              <Typography variant="h5" fontWeight="bold">
+                Encuentra tu estacionamiento <br />sin demoras.
+              </Typography>
+              <ButtonPrimary text="Buscar estacionamiento" to="/mapa" />
+            </Box>
+          </Box>
+        </Box>
+        
       </Box>
+      
+
+      
 
       {/* Cuenta o llamada a la acción */}
       <Box sx={{ mt: 6, textAlign: "center" }}>
@@ -51,8 +58,8 @@ const Home: React.FC = () => {
       </Box>
 
       {/* Sección Sobre nosotros */}
-      <Box mt={8} id="sobre-nosotros" textAlign="center">
-        <Typography variant="h4" color="primary" fontWeight="bold" gutterBottom>
+      <Box mt={8} id="sobre-nosotros" textAlign="center"  sx={{ scrollMarginTop: '80px' }}>
+        <Typography variant="h2" mb={2} fontWeight={600} gutterBottom>
           Sobre nosotros
         </Typography>
         <Typography sx={{ maxWidth: "700px", mx: "auto" }}>
@@ -62,8 +69,8 @@ const Home: React.FC = () => {
       </Box>
 
       {/* Cómo funciona (con MUI v6 compatible Grid) */}
-      <Box mt={8} id="como-funciona" textAlign="center">
-        <Typography variant="h4" color="primary" fontWeight="bold">
+      <Box mt={8} px={2} id="como-funciona" textAlign="center"  sx={{ scrollMarginTop:'80px' }}>
+        <Typography variant="h2" fontWeight={600}>
           Cómo funciona
         </Typography>
         <Box
@@ -71,7 +78,8 @@ const Home: React.FC = () => {
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
             gap: 4,
-            mt: 2,
+            mt: 4,
+            px: 3
           }}
         >
           {[
@@ -104,18 +112,34 @@ const Home: React.FC = () => {
               >
                 <Typography fontWeight="bold">{index + 1}</Typography>
               </Box>
-              <Typography variant="h6" fontWeight="bold">
+              <Typography variant="h3" fontWeight={600}>
                 {item.title}
               </Typography>
-              <Typography sx={{ mt: 1 }}>{item.desc}</Typography>
+              <Typography variant="body1" fontWeight={300} sx={{ mt: 1 }}>{item.desc}</Typography>
             </Box>
           ))}
         </Box>
       </Box>
 
       {/* Testimonial */}
-      <Box mt={8} textAlign="center">
-        <TestimonialCard />
+      <Box mt={8} textAlign="center" id="reseñas"  sx={{ scrollMarginTop: '80px' }}>
+        <Typography variant="h2" fontWeight={600} mb={4}>Quienes ya confían dicen:</Typography>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          overflowY: 'auto',
+          height: 400,
+          gap: 2,
+          '@media (min-width:1000px)': {
+            flexDirection: 'row',
+            overflowY: 'visible',
+            height:'auto'
+          },
+        }}>
+          <TestimonialCard />
+          <TestimonialCard />
+          <TestimonialCard />
+        </Box>
       </Box>
     </Container>
   );

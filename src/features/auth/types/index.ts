@@ -26,7 +26,8 @@ export interface AuthFormContainerProps {
 export type UserRegistrationFormProps = {
   register: ReturnType<typeof useForm<FormUserValues>>["register"];
   errors: FieldErrors<FormUserValues>;
-  isLoading: boolean
+  isLoading: boolean;
+  errorMessage?: string | null;
 }
 
 export interface ParkingFormProps  {

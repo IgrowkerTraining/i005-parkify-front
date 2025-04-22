@@ -1,31 +1,33 @@
+import { FormUserValues, FormValues } from '../types';
+import { api } from './../../../lib/axios';
+import { AxiosError } from 'axios'; // Importante importar esto
 
-const authService = {
+// Función para registrarse
+export async function register(data: FormUserValues) {
+  try {
+    const response = await api.post('/auth/register', data);
+    return response.data;
+  } catch (error) {
+    throw error as AxiosError; // 👈 Propaga el error para capturarlo luego en la página
+  }
+}
 
-    async login() {
-        //llamado a la api login
-        return {
-            token: "token",
-            user: {
-                email: "Armenia Parking",
-            }
-        }
-    },
-    async registerUser() {
-      try {
-        //const response = await axios.post("/api/register-user", userData);
-        //return response.data;
-        return true
-      } catch (error) {
-        console.error("Error al registrar el usuario:", error);
-        throw error; 
-      }
-    },
-    async deleteAccount(id:string){
-      //llamada a la api eliminarcuenta/idUsuario
-      console.log(id)
-      return 'Cuenta cerrada con éxito'
-    }
-  
-  };
-  
-  export default authService;
+// Función para iniciar sesión
+export async function loginService (data: FormValues) {
+  try {
+    const response = await api.post('/auth/login', data);
+    return response.data;
+  } catch (error) {
+    throw error as AxiosError;
+  }
+}
+
+// Función para obtener datos del usuario actual
+export async function me() {
+  try {
+    const response = await api.get('/auth/me');
+    return response.data;
+  } catch (error) {
+    throw error as AxiosError;
+  }
+}

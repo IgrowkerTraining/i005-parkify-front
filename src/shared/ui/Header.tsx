@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Diversity3OutlinedIcon from "@mui/icons-material/Diversity3Outlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
@@ -37,6 +38,7 @@ const Header: React.FC = () => {
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated);
   const logout = useAuthStore((state) => state.logout); // Solo si ya tienes una función logout
   const clearParkingData = useParkingStore((state) => state.clearParkingData); 
+  const parkingId = useParkingStore((state) => state.parking.id)
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -54,7 +56,9 @@ const Header: React.FC = () => {
   // Botones cuando estás logueado
   const loggedInButtons: HeaderButton[] = [
     { label: "Mi cuenta", icon: <ManageAccountsOutlinedIcon />, path: "/profile" },
-    { label: "Plazas disponibles", icon: <DirectionsCarIcon />, path: "/parking-availability",  },
+    ...(parkingId ? [{
+      label: "Plazas disponibles", icon: <DirectionsCarIcon />, path: "/parking-availability",
+    }] : []),
     { label: "Cerrar sesión", icon: <LogoutOutlinedIcon />, action: "logout", color: "error.main" },
   ];
 
@@ -87,7 +91,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar>
         <Box
           ref={ref}
@@ -116,7 +120,7 @@ const Header: React.FC = () => {
           {isMobile ? (
             <>
               <IconButton color="inherit" onClick={handleMenuOpen}>
-                <MenuIcon />
+                {isLoggedIn ? <AccountCircleOutlinedIcon/> : <MenuIcon />}
               </IconButton>
               <Menu
                 anchorEl={anchorEl}
@@ -157,7 +161,7 @@ const Header: React.FC = () => {
                   key={button.label}
                   onClick={() => handleButtonClick(button)}
                   sx={{
-                    color: button.color || "inherit",
+                    color: "inherit",
                   }}
                 >
                   {button.label}
