@@ -1,5 +1,3 @@
-
-
 import { io, Socket } from 'socket.io-client';
 
 let socket: Socket | null = null;
@@ -22,21 +20,25 @@ export const getSocket = (): Socket | null => {
 
   if (!socket) {
     try {
-      // Asegurarse que la URL tenga el protocolo http:// o https://
+      // Asegurar que tenga http:// si no tiene protocolo
       let apiUrl = rawApiUrl;
+
+      // Si no tiene protocolo, agregarlo (http o https)
       if (!apiUrl.startsWith('http://') && !apiUrl.startsWith('https://')) {
         apiUrl = `http://${apiUrl}`;
         console.log('No protocol in API URL, defaulting to:', apiUrl);
       }
 
-      // Añadir el puerto :8080 al final de la URL si no está presente
-      if (!apiUrl.includes(':8080')) {
-        apiUrl = apiUrl.endsWith('/') ? `${apiUrl}8080` : `${apiUrl}:8080`;
-        console.log('Appending port 8080, new URL:', apiUrl);
+      // Modificar la URL para que apunte a /socket-io/ (sin puerto)
+      let wsUrl = apiUrl.replace(/^http(s)?:\/\//, 'ws://'); // Convertir http:// a ws://
+      
+      // Si no está el puerto 8080 en la URL, entonces se agrega la ruta correcta
+      if (!wsUrl.includes(':8080')) {
+        wsUrl = `${wsUrl}/socket-io/`; // Agregar la ruta correcta
       }
 
-      console.log('Connecting to WebSocket at URL:', apiUrl);
-      socket = io(apiUrl, {
+      console.log('Connecting to WebSocket at URL:', wsUrl);
+      socket = io(wsUrl, {
         autoConnect: false,
         transports: ['websocket'],
       });
