@@ -1,5 +1,5 @@
 import styles from "../../../shared/styles/ParkingForm.module.css";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ButtonDangerSecondary from "../../../shared/ui/components/ButtonDangerSecondary";
 import ButtonDangerPrimary from "../../../shared/ui/components/ButtonDangerPrimary";
 import ButtonSecondary from "../../../shared/ui/components/ButtonSecondary";
@@ -17,12 +17,15 @@ import { useParkingStore } from "../../../store/parking.store";
 import parkingService from "../services/ParkingService";
 import { showSuccess } from "../../../shared/ui/toast";
 import { useNavigate } from "react-router-dom";
+import { boolean } from "yup";
 
 interface ParkingFormContainerProps {
   mode: "register" | "edit";
   defaultValues?: FormParkingValues;
   onSubmit: (data: FormParkingValues) => void;
   showExtraButtons?: boolean;
+  isLoading:boolean;
+  errorMessage?: string | null;
 }
 
 const ParkingFormContainer = ({
@@ -30,6 +33,8 @@ const ParkingFormContainer = ({
   defaultValues,
   onSubmit,
   showExtraButtons = false,
+  isLoading,
+  errorMessage
 }: ParkingFormContainerProps) => {
 
   const clearParkingData = useParkingStore((state) => state.clearParkingData);
@@ -80,15 +85,24 @@ const ParkingFormContainer = ({
         errors={errors}
         setValue={setValue}
       />
-
+      <Box className={styles.registerForm}>
+        {errorMessage && (
+          <Typography variant="body2" color="error">
+            {errorMessage}
+          </Typography>
+        )}
+      </Box>
+      
       <Box className={styles.registerForm}>
         <ButtonPrimary
           text={
+            isLoading ? "Validando..." :
             mode === "register"
               ? "Registrar estacionamiento"
               : "Guardar cambios"
           }
           type="submit"
+          disabled={isLoading}
         />
         {mode === "register" && <ButtonSecondary text="Cancelar" to="/" />}
 

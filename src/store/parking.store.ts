@@ -19,6 +19,7 @@ export interface Parking {
   rating?: number;
   distance?: number;
   isOpen?: boolean;
+  ownerId?: string;
 }
 
 interface ParkingAvailability {
@@ -56,7 +57,8 @@ interface ParkingState {
     availableSpots: 0,
     rating: 0,
     distance: 0,
-    isOpen: false
+    isOpen: false,
+    ownerId: '',
   }
 
   export const useParkingStore = create<ParkingState>()(

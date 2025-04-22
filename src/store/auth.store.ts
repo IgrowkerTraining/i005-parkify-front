@@ -31,12 +31,23 @@ export const useAuthStore = create<AuthState>()(
       logout: () => {
         set({ token: null, isAuthenticated: false });
       },
+      
     }),
     {
       name: "auth-storage",
     }
   )
 );
+
+//funcion que devuelve el token, leo directo del localstorage sin depender 
+// de si la store se cargo o no
+//sirve para usarlo en el interceptor de axios q es algo q se ejecuta temprano
+export const getToken = (): string | null => {
+  const persisted = localStorage.getItem("auth-storage");
+  if (!persisted) return null;
+  const parsed = JSON.parse(persisted);
+  return parsed.state.token;
+};
 
 
   

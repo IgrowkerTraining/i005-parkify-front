@@ -43,7 +43,7 @@ const LoginPage = () => {
         login(response.token, response.user ) // 👈 Guardamos token y usuario en Zustand
         reset();
         navigate("/"); //redirijo a home pero me muestra perfil ver router
-        showSuccess(`Bienvenido ${response.user.email}`);
+        showSuccess(`Bienvenido `);
       } 
     } catch (err) {
       console.error(err);

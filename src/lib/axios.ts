@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { handleError } from '../shared/utils/handleError';
+import { getToken } from '../store/auth.store';
 
 // 1. Crear la instancia de axios
 export const api = axios.create({
@@ -14,7 +15,8 @@ export const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     // Aquí podrías añadir el token si existe en tu store (por ejemplo Zustand)
-    const token = localStorage.getItem('access_token');
+    const token = getToken();
+    //const token = localStorage.getItem('access_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
