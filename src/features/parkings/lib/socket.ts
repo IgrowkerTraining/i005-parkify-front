@@ -12,6 +12,7 @@ export const getSocket = (): WebSocket | null => {
   const wsUrl = apiUrl.replace(/^http/, 'ws') + '/ws'; // Ej: ws://34.107.135.109/ws
   console.log('🧩 Conectando a WebSocket en:', wsUrl);
 
+  // Verificar si ya existe una conexión o si la conexión está cerrada
   if (!socket || socket.readyState === WebSocket.CLOSED) {
     socket = new WebSocket(wsUrl);
 
@@ -34,4 +35,5 @@ export const getSocket = (): WebSocket | null => {
 
   return socket;
 };
+
 
