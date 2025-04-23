@@ -9,7 +9,7 @@ export const getSocket = (): WebSocket | null => {
     return null;
   }
 
-  const wsUrl = apiUrl.replace(/^http/, 'ws') + '/socket.io'; // Ej: ws://34.107.135.109/socket.io
+  const wsUrl = apiUrl.replace(/^http/, 'ws') + '/ws'; // Ej: ws://34.107.135.109/ws
   console.log('🧩 Conectando a WebSocket en:', wsUrl);
 
   // Verificar si ya existe una conexión o si la conexión está cerrada
