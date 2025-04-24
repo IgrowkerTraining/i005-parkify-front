@@ -1,4 +1,5 @@
 import { FormParkingValues } from "../../../shared/types";
+import { handleError } from "../../../shared/utils/handleError";
 import { Parking } from "../../../store/parking.store";
 
 import { ChangePasswordFormData } from "../types";
@@ -129,6 +130,31 @@ export async function deleteParking() {
   }
 }
 
+
+// 📌 Define el tipo que devuelve tu back para cada parking cercano
+interface ApiNearbyParking {
+  id: string;
+  name: string;
+  address: string;
+  location: { latitude: number; longitude: number };
+  distance: number;
+  currentAvailability: number;
+  hourlyRate: number;
+  parkingPhone: string;
+  parkingImageUrl: string;
+}
+
+export async function getNearbyParkings(lat: number, lon: number, radius: number): Promise<ApiNearbyParking[]> {
+  try {
+    const { data } = await api.get<{ data: ApiNearbyParking[] }>('/parkings/nearby', {
+      params: { lat, lon, radius },
+    });
+    return data.data;
+  } catch (err) {
+    handleError(err);
+    throw err;
+  }
+}
 const parkingService = {
  
     async updateParkingProfile(data: Omit<FormParkingValues, 'imageParking'> & { imageParking: File | null }) {

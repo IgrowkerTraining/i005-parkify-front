@@ -80,7 +80,10 @@ export const ParkingCard = ({ parking }: ParkingProfileProps) => {
         <Box display="flex" justifyContent="space-between" alignItems="center" mt={0.5}>
           <Typography variant="body2" color="success.main" fontWeight={500}>
             {/* {parking.distance} km ({parking.estimatedTime}) */}
-            {parking.distance} km ("11 min")
+            {/* {parking.distance.toFixed()} km ("11 min") */}
+            {parking.distance != null
+            ? `${parking.distance.toFixed(0)} km`
+            : '—'}
           </Typography>
           <Box display="flex" alignItems="center" gap={0.5}>
             <Typography variant="body2" fontWeight={500}>
