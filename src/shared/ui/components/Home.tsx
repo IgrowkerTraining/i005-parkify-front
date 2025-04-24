@@ -17,28 +17,46 @@ const Home: React.FC = () => {
   // const user = useAuthStore((state) => state.user);
 
   return (
-    <Container sx={{ mt: 4, px:4 }}>
-      <Box sx={{display:"flex", flexDirection:{xs:"column", md:"row"}, justifyContent:"space-between"}}>
+    <Container sx={{ mt: 4, px:{xs:4, sm:6, md:8} }}>
+      <Box sx={{display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
         <Box sx={{ textAlign: "center", mb: 2 }}>
-          <img
+          <Box
+            component="img"
             src={Banner}
             alt="Imagen de presentación"
-            style={{width:"100%", maxWidth:"70vh", borderRadius: 8, height:"40vh", objectFit: "cover" }}
+            sx={{
+              width: "100%",
+              maxWidth: {
+                xs: "70vw",  
+                sm: "80vw",
+                md: "120vh",
+              },
+              height: {
+                xs: "30vh",
+                sm: "40vh",
+                md: "45vh",
+              },
+              borderRadius: 2,
+              objectFit: "cover",
+            }}
           />
         </Box>
         {/* Hero Section */}
         <Box m="auto">
           <Box sx={{ textAlign: "center" }}>
-            <img
+            <Box
+              component="img"
               src={BlueLogo}
               alt="Logo Parkify"
-              style={{ height: 60, marginBottom: 16 }}
+              sx={{ height: {xs: "12vh", sm: "15vh", md: "22vh"} }}
             />
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "center" }}>
-              <Typography variant="h5" fontWeight="bold">
-                Encuentra tu estacionamiento <br />sin demoras.
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 5, alignItems: "center" }}>
+              <Typography variant="h1" fontWeight={600} px={2}>
+                Encuentra tu estacionamiento sin demoras.
               </Typography>
-              <ButtonPrimary text="Buscar estacionamiento" to="/mapa" />
+              <Box sx={{width:{xs:"100%", sm:"65%"}}}>
+                <ButtonPrimary text="Buscar estacionamiento" to="/mapa" />
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -77,30 +95,31 @@ const Home: React.FC = () => {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
-            gap: 4,
+            gap: {
+              xs:4, sm:6
+            },
             mt: 4,
-            px: 3
           }}
         >
           {[
             {
               title: "Encuentra tu plaza",
-              desc: "Ingresa tu destino y descubre los estacionamientos disponibles cerca de ti. Filtra por ubicación, disponibilidad y precios.",
+              desc: "Ingresá tu destino y descubre los estacionamientos disponibles cerca de ti. Filtra por ubicación, disponibilidad y servicios.",
             },
             {
               title: "Reserva fácilmente",
-              desc: "Selecciona el estacionamiento que prefieras y reserva tu plaza de forma rápida y sencilla a través de WhatsApp.",
+              desc: "Seleccioná el estacionamiento que prefieras y reserva tu plaza de forma rápida y sencilla a través de WhatsApp.",
             },
             {
               title: "Navega y estaciona",
               desc: "Navega hasta el estacionamiento reservado y disfruta de tu destino sin preocupaciones.",
             },
           ].map((item, index) => (
-            <Box key={index} sx={{ textAlign: "center" }}>
+            <Box key={index} sx={{ textAlign: "center", px:1 }}>
               <Box
                 sx={{
-                  width: 60,
-                  height: 60,
+                  width: 70,
+                  height: 70,
                   borderRadius: "50%",
                   backgroundColor: "secondary.main",
                   display: "flex",
@@ -110,7 +129,7 @@ const Home: React.FC = () => {
                   mb: 2,
                 }}
               >
-                <Typography fontWeight="bold">{index + 1}</Typography>
+                <Typography variant="h2" fontWeight="bold">{index + 1}</Typography>
               </Box>
               <Typography variant="h3" fontWeight={600}>
                 {item.title}
@@ -129,7 +148,9 @@ const Home: React.FC = () => {
           flexDirection: 'column',
           overflowY: 'auto',
           height: 400,
-          gap: 2,
+          gap: {
+            xs:4, sm:6
+          },
           '@media (min-width:1000px)': {
             flexDirection: 'row',
             overflowY: 'visible',

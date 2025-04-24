@@ -9,7 +9,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import Diversity3OutlinedIcon from "@mui/icons-material/Diversity3Outlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
@@ -47,10 +46,10 @@ const Header: React.FC = () => {
 
   // Botones cuando no estás logueado
   const guestButtons: HeaderButton[] = [
-    { label: "Sobre nosotros", icon: <Diversity3OutlinedIcon/>, sectionId: "sobre-nosotros" },
-    { label: "Cómo funciona", icon: <QuestionMarkOutlinedIcon />, sectionId: "como-funciona" },
+    // { label: "Sobre nosotros", icon: <Diversity3OutlinedIcon/>, sectionId: "sobre-nosotros" },
+    { label: "¿Cómo funciona?", icon: <QuestionMarkOutlinedIcon />, sectionId: "como-funciona" },
     { label: "Reseñas", icon: <ThreePOutlinedIcon />, sectionId: "reseñas" },
-    { label: "Síguenos", icon: <LanguageOutlinedIcon />, sectionId: "siguenos" },
+    { label: "Contactanos", icon: <LanguageOutlinedIcon />, sectionId: "siguenos" },
   ];
 
   // Botones cuando estás logueado
@@ -100,7 +99,7 @@ const Header: React.FC = () => {
             maxWidth: 1152,
             width: "100%",
             mx: "auto",
-            px: 2,
+            px:{xs:4, sm:6, md:8},
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -154,20 +153,74 @@ const Header: React.FC = () => {
                 ))}
               </Menu>
             </>
-          ) : (
-            <Box>
-              {buttonsToShow.map((button) => (
+            // desktop
+          ) : ( 
+            <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
+            {guestButtons.map((button) => (
+              <Button
+              variant="text"
+                key={button.label}
+                onClick={() => handleButtonClick(button)}
+                sx={{
+                  color: "inherit",
+                    transition: "background-color 0.3s",
+                    "&:hover": {
+                      backgroundColor: "#1f2a99", 
+                    },
+                }}
+              >
+                {button.label}
+              </Button>
+            ))}
+
+            {/* Si está logueado, mostrar dropdown con Mi Cuenta */}
+            {isLoggedIn && (
+              <>
                 <Button
-                  key={button.label}
-                  onClick={() => handleButtonClick(button)}
+                  variant="outlined"
+                  color="inherit"
+                  onClick={handleMenuOpen}
                   sx={{
                     color: "inherit",
+                    transition: "background-color 0.3s",
+                    "&:hover": {
+                      backgroundColor: "#1f2a99", 
+                    },
                   }}
                 >
-                  {button.label}
+                  Mi cuenta
                 </Button>
-              ))}
-            </Box>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                  sx={{
+                    "& .MuiPaper-root": {
+                      backgroundColor: "white",
+                      color: "black",
+                    },
+                  }}
+                >
+                  {loggedInButtons.map((button) => (
+                    <MenuItem key={button.label} onClick={() => handleButtonClick(button)}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          color: button.color || "inherit",
+                        }}
+                      >
+                        <IconButton color="inherit" sx={{ mr: 1 }}>
+                          {button.icon}
+                        </IconButton>
+                        {button.label}
+                      </Box>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            )}
+          </Box>
           )}
         </Box>
       </Toolbar>

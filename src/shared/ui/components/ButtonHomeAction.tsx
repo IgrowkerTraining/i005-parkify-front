@@ -25,11 +25,11 @@ const ButtonHomeAction = ({text, onClick, type = "button", disabled, path} : But
           type={type}
           onClick={handleClick}
           disabled={disabled}
-          
           sx={{
-            width:"50%",
+            width:"100%",
             backgroundColor: (theme) => (theme.palette.tertiary as any)?.[500],
-            color: (theme) => (theme.palette.tertiary as any)?.[800] 
+            color: (theme) => (theme.palette.tertiary as any)?.[800],
+            fontWeight: 600 
           }}
         >
           {text}

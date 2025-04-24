@@ -10,7 +10,7 @@ const TestimonialCard : React.FC = () => {
           sx={{
             backgroundColor: "tertiary.100",
             padding: 4,
-            px:9,
+            px:6,
             maxWidth: 400,
             textAlign: "center",
             boxShadow: "none",
@@ -22,7 +22,7 @@ const TestimonialCard : React.FC = () => {
           }}
         >
           <FormatQuote sx={{ fontSize: 40, color: "#3445c5" }} />
-          <Typography variant="body1" color="text.primary" 
+          <Typography variant="body1" color="primary.main" 
           >
             La función de recomendaciones me llevó al estacionamiento perfecto, justo donde necesitaba.
           </Typography>

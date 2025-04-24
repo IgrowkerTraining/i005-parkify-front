@@ -6,9 +6,6 @@ import { getToken } from '../store/auth.store';
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL, // Usa la URL del .env.local
   timeout: 10000, // Tiempo máximo de espera de la petición (opcional)
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });
 
 // 2. Interceptor de request
@@ -16,9 +13,28 @@ api.interceptors.request.use(
   (config) => {
     // Aquí podrías añadir el token si existe en tu store (por ejemplo Zustand)
     const token = getToken();
-    //const token = localStorage.getItem('access_token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    // Asegúrate de que config.headers esté definido
+    config.headers = config.headers || {};
+
+    // Si es una instancia de AxiosHeaders, usamos set()
+    if (typeof config.headers.set === 'function') {
+      if (token) {
+        config.headers.set('Authorization', `Bearer ${token}`);
+      }
+
+      // Solo establecer Content-Type si no es FormData
+      if (!(config.data instanceof FormData)) {
+        config.headers.set('Content-Type', 'application/json');
+      }
+    } else {
+      // fallback si headers es un objeto plano
+      if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      if (!(config.data instanceof FormData)) {
+        config.headers['Content-Type'] = 'application/json';
+      }
     }
     return config;
   },
