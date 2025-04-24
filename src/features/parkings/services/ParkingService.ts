@@ -3,11 +3,12 @@ import { Parking } from "../../../store/parking.store";
 
 import { ChangePasswordFormData } from "../types";
 import { api } from './../../../lib/axios';
-import { AxiosError } from 'axios'; 
+import axios, { AxiosError } from 'axios'; 
 
 export const mapFrontToBackend = (
   formData: FormParkingValues,
-  parkingData: { lat: number; lng: number }
+  parkingData: { lat: number; lng: number },
+  imageUrl: string
 ) => ({
   name: formData.parkingName,
   address: formData.parkingAddress,
@@ -17,7 +18,8 @@ export const mapFrontToBackend = (
   hourlyRate: formData.hourlyRate,
   workingHours: `${formData.openTime}/${formData.closeTime}`,
   parkingPhone: formData.parkingPhone,
-  parkingImageUrl: 'https://dimobaservicios.com/wp-content/uploads/2022/10/como-gestionar-parking.png'
+  parkingImageUrl: imageUrl
+  //parkingImageUrl: 'https://dimobaservicios.com/wp-content/uploads/2022/10/como-gestionar-parking.png'
 });
 
 export const mapBackendToFront = (data: any, hours: any): Parking => ({
@@ -49,7 +51,12 @@ const parseTime = (time: string) : {openTime: string, closeTime: string}=>{
 // Función para Crear un parking
 export async function registerParking(data: FormParkingValues, parking: {lat: number; lng: number }) {
   try {
-    const payload = mapFrontToBackend(data, parking);
+    let imageUrl = 'https://dimobaservicios.com/wp-content/uploads/2022/10/como-gestionar-parking.png'
+    // if(data.imageParking){
+    //   imageUrl = await uploadImageToCloudinary(data.imageParking);
+    // }
+    //payload.parkingImageUrl = imageUrl;
+    const payload = mapFrontToBackend(data, parking, imageUrl);
     const response = await api.post('/parkings/my', payload);
     //console.log(response.data.workingHours)
     const hours = parseTime(response.data.workingHours)
@@ -60,7 +67,43 @@ export async function registerParking(data: FormParkingValues, parking: {lat: nu
     throw error as AxiosError; 
   }
 }
+export async function getMyParking() {
+  try {
+    const response = await api.get('/parkings/my');
+    if(response.status === 200){
+      const hours = parseTime(response.data.workingHours)
+      return mapBackendToFront(response.data, hours);
+    } 
+    
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      // Si el error es un 404, no pasa nada
+      return null;
+    }
 
+    // Otros errores sí los tiramos hacia arriba
+    throw error;
+  }
+}
+
+//eliminar un parking
+export async function deleteParking() {
+  try {
+    const response = await api.delete('/parkings/my');
+    if(response.status === 204){
+      return true
+    } 
+    
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      // Si el error es un 404, no pasa nada
+      return null;
+    }
+
+    // Otros errores sí los tiramos hacia arriba
+    throw error;
+  }
+}
 
 const parkingService = {
  
@@ -140,11 +183,11 @@ const parkingService = {
     //     }
     // },
 
-    async deleteParking (id: string) {
-      console.log(id)
-      //llamada a la api delete-parking/id
-      return "Parking eliminado"
-    },
+    // async deleteParking (id: string) {
+    //   console.log(id)
+    //   //llamada a la api delete-parking/id
+    //   return "Parking eliminado"
+    // },
     async changePassword(data: ChangePasswordFormData){
       //llamada api - endpoint cambiar contraseña
       console.log(data)
