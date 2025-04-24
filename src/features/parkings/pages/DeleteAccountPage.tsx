@@ -4,11 +4,11 @@ import { Box, TextField, Typography } from "@mui/material";
 import ButtonDangerSecondary from "../../../shared/ui/components/ButtonDangerSecondary";
 import styles from "../../../shared/styles/ParkingForm.module.css";
 //import { showSuccess } from "../../../shared/ui/toast";
-import parkingService from "../services/ParkingService";
 //import { useAuthStore } from "../../../store/auth.store";
 import { useNavigate } from "react-router-dom";
 //import authService from "../../auth/services/AuthService";
 import { useParkingStore } from "../../../store/parking.store";
+import { deleteParking } from "../services/ParkingService";
 
 interface DeleteAccountForm {
   deletionReason: string;
@@ -30,9 +30,9 @@ const DeleteAccountPage = () => {
     //const result = await authService.deleteAccount('1')
     //eliminar estacionamiento
     //result && logout()
-    const deleteParking = await parkingService.deleteParking('1')
+    const result = await deleteParking();
     //limipiar la store
-    deleteParking && clearParkingData()
+    result && clearParkingData()
     //showSuccess(result);
     navigate('/')
   };
