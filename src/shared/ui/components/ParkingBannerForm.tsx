@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { showSuccess } from "../toast";
 import { FieldErrors, UseFormSetValue, UseFormTrigger } from "react-hook-form";
 import { FormParkingValues } from "../../../shared/types";
+import { useParkingStore } from "../../../store/parking.store";
 interface Props {
   setValue?: UseFormSetValue<FormParkingValues>;
   errors?: FieldErrors<FormParkingValues>;
@@ -18,6 +19,7 @@ const ParkingBannerForm: React.FC<Props> = ({ setValue, errors, trigger } ) => {
   const [preview, setPreview] = useState<string | null>(null);
   const openModal = useModalStore((state) => state.openModal);
   const closeModal = useModalStore((state) => state.closeModal);
+  const imageParking = useParkingStore((state) => state.parking.imageParking)
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -72,7 +74,7 @@ const ParkingBannerForm: React.FC<Props> = ({ setValue, errors, trigger } ) => {
       >
         <Box
           component="img"
-          src={preview || banner}
+          src={preview || imageParking || banner}
           alt="banner"
           sx={{
             width: "100%",
