@@ -17,7 +17,7 @@ import { useParkingStore } from "../../../store/parking.store";
 import parkingService from "../services/ParkingService";
 import { showSuccess } from "../../../shared/ui/toast";
 import { useNavigate } from "react-router-dom";
-
+import { useAuthStore } from "../../../store/auth.store";
 interface ParkingFormContainerProps {
   mode: "register" | "edit";
   defaultValues?: FormParkingValues;
@@ -40,6 +40,7 @@ const ParkingFormContainer = ({
   const openModal = useModalStore((state) => state.openModal);
   const closeModal = useModalStore((state) => state.closeModal);
   const navigate = useNavigate();
+  const emailParking = useAuthStore((state) => state.user.email)
 
   const {
     register,
@@ -48,7 +49,10 @@ const ParkingFormContainer = ({
     setValue,
     trigger,
   } = useForm<FormParkingValues>({
-    defaultValues,
+    defaultValues: {
+      ...defaultValues,
+      email: emailParking,
+    },
     resolver: yupResolver(registerParkingSchema) as Resolver<FormParkingValues>,
   });
 
