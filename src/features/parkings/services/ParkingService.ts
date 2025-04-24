@@ -15,37 +15,46 @@ export const mapFrontToBackend = (
   longitude: parkingData.lng,
   capacity: formData.totalSpots,
   hourlyRate: formData.hourlyRate,
-  workingHours: formData.openTime
+  workingHours: `${formData.openTime}/${formData.closeTime}`,
+  parkingPhone: formData.parkingPhone,
+  parkingImageUrl: 'https://dimobaservicios.com/wp-content/uploads/2022/10/como-gestionar-parking.png'
 });
 
-export const mapBackendToFront = (data: any): Parking => ({
+export const mapBackendToFront = (data: any, hours: any): Parking => ({
   id: data.id,
-  imageParking: '',
+  imageParking: data.parkingImageUrl,
   email: '',
   totalSpots: data.capacity,
   hourlyRate: data.hourlyRate,
-  openTime: data.workingHours,
-  closeTime: data.workingHours,
+  openTime: hours.openTime,
+  closeTime: hours.closeTime,
   parkingName: data.name,
   parkingAddress: data.address,
-  parkingPhone: '',
+  parkingPhone: data.parkingPhone,
   isParkingLoaded: false,
   lat: data.latitude,
   lng: data.longitude,
   availableSpots: data.currentAvailability,
-  rating: 0,
-  distance: 0,
-  isOpen: false,
+  rating: 4,
   ownerId: data.ownerId
 });
-
+const parseTime = (time: string) : {openTime: string, closeTime: string}=>{
+  let openTime = time.split("/")[0]
+  let closeTime = time.split("/")[1]
+  return{
+    openTime,
+    closeTime, 
+  }
+}
 // Función para Crear un parking
 export async function registerParking(data: FormParkingValues, parking: {lat: number; lng: number }) {
   try {
     const payload = mapFrontToBackend(data, parking);
     const response = await api.post('/parkings/my', payload);
-    console.log(mapBackendToFront(response.data))
-    return mapBackendToFront(response.data);
+    //console.log(response.data.workingHours)
+    const hours = parseTime(response.data.workingHours)
+    //console.log(mapBackendToFront(response.data, hours))
+    return mapBackendToFront(response.data, hours);
     //throw new Error("Error en la registracion")
   } catch (error) {
     throw error as AxiosError; 
