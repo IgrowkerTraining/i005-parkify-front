@@ -17,10 +17,14 @@ import InputForm from "../../../shared/ui/components/InputForm";
 import { useState } from "react";
 import { handleError } from "../../../shared/utils/handleError";
 import { AxiosError } from "axios";
+import { useParkingStore } from "../../../store/parking.store";
+import { getMyParking } from "../../parkings/services/ParkingService";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const {login, user} = useAuthStore()
+  const {login} = useAuthStore();
+  const setParkingData = useParkingStore((state) => state.setParkingData)
+  //const parkingName = useParkingStore((state) => state.parking.parkingName)
   const {
     register,
     handleSubmit,
@@ -41,9 +45,16 @@ const LoginPage = () => {
 
       if (response.token) {
         login(response.token, { email: response.email } ) // 👈 Guardamos token y usuario en Zustand
+        //ver si tiene ya un parking asociado
+        const parking = await getMyParking(); 
+        if (parking) {
+          setParkingData(parking);
+          showSuccess(`Bienvenido ${parking.parkingName}`);
+        } else{
+          showSuccess(`Bienvenido`);
+        }
         reset();
-        navigate("/"); //redirijo a home pero me muestra perfil ver router
-        showSuccess(`Bienvenido ${response.email}`);
+        navigate("/");
       } 
    
     } catch (err) {
