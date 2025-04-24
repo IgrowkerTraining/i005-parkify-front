@@ -14,7 +14,7 @@ import { useModalStore } from "../../../store/modal.store";
 import ParkingModal from "./ParkingModal";
 import { registerParkingSchema } from "../schemas/parkingSchemas";
 import { useParkingStore } from "../../../store/parking.store";
-import parkingService, { deleteParking } from "../services/ParkingService";
+import { deleteParking } from "../services/ParkingService";
 import { showSuccess } from "../../../shared/ui/toast";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../../store/auth.store";
