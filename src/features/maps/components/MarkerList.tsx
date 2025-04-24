@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import useMapStore from "../store/useMap.store";
 import ParkingMarker from "./ParkingMarker";
 import { Parking } from "../../../store/parking.store";
-import Loader from "../../../shared/ui/components/Loader"; // ✅ Asegúrate que apunta bien
+import Loader from "../../../shared/ui/components/Loader"; 
 
 type MarkerListProps = {
   onParkingSelect: (parking: Parking) => void;
@@ -11,13 +11,12 @@ type MarkerListProps = {
 export const MarkerList = ({ onParkingSelect }: MarkerListProps) => {
   const filteredParkings = useMapStore((state) => state.filteredParkings);
   const initializeFilteredParkings = useMapStore((state) => state.initializeFilteredParkings);
-  const isLoading = useMapStore((state) => state.isLoading); // ✅ aquí usamos el loading
-
+  const isLoading = useMapStore((state) => state.isLoading); 
   useEffect(() => {
     initializeFilteredParkings();
   }, [initializeFilteredParkings]);
 
-  if (isLoading) return <Loader fullScreen />; // ✅ muestra el loader mientras carga
+  if (isLoading) return <Loader fullScreen />; 
 
   return (
     <>

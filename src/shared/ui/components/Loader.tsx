@@ -5,6 +5,7 @@ import React from 'react';
 
 type LoaderProps = {
   fullScreen?: boolean;
+  size?: number;
 };
 
 const Loader: React.FC<LoaderProps> = ({ fullScreen = false }) => {
