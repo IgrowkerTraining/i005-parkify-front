@@ -29,7 +29,8 @@ jobs:
           VITE_ROUTER_MODE: ${{ vars.VITE_ROUTER_MODE }}
           VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH }}
           VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
-
+          VITE_CLOUDINARY_UPLOAD_PRESET: ${{ vars.VITE_CLOUDINARY_UPLOAD_PRESET }}
+          VITE_CLOUDINARY_URL: ${{ vars.VITE_CLOUDINARY_URL }}
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
         with:
