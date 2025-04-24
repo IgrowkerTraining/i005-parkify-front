@@ -19,6 +19,7 @@ import { handleError } from "../../../shared/utils/handleError";
 import { AxiosError } from "axios";
 import { useParkingStore } from "../../../store/parking.store";
 import { getMyParking } from "../../parkings/services/ParkingService";
+import Loader from "../../../shared/ui/components/Loader";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -73,6 +74,8 @@ const LoginPage = () => {
   };
   return (
     <>
+    {isLoading && <Loader fullScreen />}
+
       <HeaderForm path="/" />
       <AuthFormContainer
         title="Iniciar Sesión"
@@ -119,7 +122,7 @@ const LoginPage = () => {
               ¿Has olvidado tu contraseña?
             </Link>
           </Typography>
-          <ButtonPrimary text={isLoading ? "Validando..." : "Continuar"} type="submit" disabled={isLoading}/>
+          <ButtonPrimary text={isLoading ? <Loader size={20} /> : "Continuar"} type="submit" disabled={isLoading}/>
         </Box>
       </AuthFormContainer>
     </>

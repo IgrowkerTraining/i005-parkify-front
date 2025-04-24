@@ -18,6 +18,8 @@ import { deleteParking } from "../services/ParkingService";
 import { showSuccess } from "../../../shared/ui/toast";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../../store/auth.store";
+import Loader from "../../../shared/ui/components/Loader";
+import { useState } from "react";
 interface ParkingFormContainerProps {
   mode: "register" | "edit";
   defaultValues?: FormParkingValues;
@@ -41,6 +43,7 @@ const ParkingFormContainer = ({
   const closeModal = useModalStore((state) => state.closeModal);
   const navigate = useNavigate();
   const emailParking = useAuthStore((state) => state.user.email)
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const {
     register,
@@ -60,6 +63,7 @@ const ParkingFormContainer = ({
   const handleDeleteParking = async () => {
     try {
       //llama al service
+      setIsDeleting(true);
       const result = await deleteParking();
       if (result) {
         //actualizo la store
@@ -70,8 +74,11 @@ const ParkingFormContainer = ({
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsDeleting(false); // ✅ Oculta loader al terminar
     }
   };
+  
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -98,7 +105,7 @@ const ParkingFormContainer = ({
       <Box className={styles.registerForm}>
         <ButtonPrimary
           text={
-            isLoading ? "Validando..." :
+            isLoading ? <Loader size={20} /> :
             mode === "register"
               ? "Registrar estacionamiento"
               : "Guardar cambios"
@@ -123,10 +130,11 @@ const ParkingFormContainer = ({
                     text="Estás a punto de eliminar este estacionamiento"
                     buttons={[
                       {
-                        label: "Continuar",
+                        label: isDeleting ? <Loader size={20} /> : "Continuar",
                         onClick: () => {
                           handleDeleteParking();
                         },
+                        disabled: isDeleting, // Bloquea doble click
                       },
                       {
                         label: "Cancelar",

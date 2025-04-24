@@ -7,6 +7,7 @@ import { FormParkingValues } from "../../../shared/types";
 import ParkingEmptyState from "../components/ParkingEmptyState";
 import ParkingFormContainer from "../components/ParkingFormContainer";
 import { useScrollToHeader } from "../../../shared/hooks/useScrollToHeader";
+import { useState } from "react";
 
 //mapea de un parking a un FormParkingValues
 const mapParkingToFormValues = (parking: Parking): FormParkingValues => ({
@@ -26,9 +27,11 @@ const ProfileOwnerPage = () => {
   const setParkingData = useParkingStore((state) => state.setParkingData);
   const parkingData = useParkingStore((state) => state.parking);
   const setAvailability = useParkingStore((state) => state.setAvailability)
+  const [isLoading, setIsLoading] = useState(false);
   //actualizacion de perfil
   const handleUpdate = async (data: FormParkingValues) => {
     try {
+      setIsLoading(true);
       const updatedProfile = await parkingService.updateParkingProfile({
         ...data,
         imageParking: data.imageParking ?? null,
@@ -42,8 +45,11 @@ const ProfileOwnerPage = () => {
     } catch (err) {
       console.error(err);
       showError("Hubo un error");
+    } finally {
+      setIsLoading(false);
     }
   };
+ 
 
   return (
     <Box>
@@ -56,7 +62,7 @@ const ProfileOwnerPage = () => {
           defaultValues={mapParkingToFormValues(parkingData)}
           onSubmit={handleUpdate}
           showExtraButtons
-          isLoading={false}
+          isLoading={isLoading}
         />
       )}
     </Box>
