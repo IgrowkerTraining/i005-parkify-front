@@ -10,10 +10,28 @@ const ParkingDataFields = ({
   register,
   errors,
   setValue,
+  mode
 }: ParkingDataFieldsProps) => {
   return (
     <Box className={styles.registerForm}>
       {fields.map(({ name, label, type }, index) => {
+        if (name === "email") {
+          return (
+            <TextField
+              key={name}
+              {...register(name as keyof FormParkingValues)}
+              name={name}
+              label={label}
+              type={type}
+              error={!!errors[name as keyof FormParkingValues]}
+              helperText={errors[name as keyof FormParkingValues]?.message}
+              fullWidth
+              InputProps={{
+                readOnly: mode === "register",
+              }}
+            />
+          );
+        }
         if (name === "openTime") {
           return (
             <Box key="timeFields" display="flex" gap={2} width="100%">

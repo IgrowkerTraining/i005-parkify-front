@@ -20,7 +20,7 @@ const ParkingBannerForm: React.FC<Props> = ({ setValue, errors, trigger } ) => {
   const openModal = useModalStore((state) => state.openModal);
   const closeModal = useModalStore((state) => state.closeModal);
   const imageParking = useParkingStore((state) => state.parking.imageParking)
-
+  const parkingName = useParkingStore((state) => state.parking.parkingName)
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleUploadClick = () => {
@@ -121,9 +121,14 @@ const ParkingBannerForm: React.FC<Props> = ({ setValue, errors, trigger } ) => {
           }}
         >
           <Typography variant="body1">¡Hola!</Typography>
-          <Typography variant="h1" sx={{ fontWeight: 800 }}>
-            Armenía Parking
-          </Typography>
+          {
+            parkingName && (
+              <Typography variant="h1" sx={{ fontWeight: 800 }}>
+                {parkingName}
+              </Typography>
+            )
+          }
+          
           {
             setValue && (
               <IconButton

@@ -29,4 +29,5 @@ export interface RequiredLabelField {
       register: UseFormRegister<FormParkingValues>;
       errors: FieldErrors<FormParkingValues>;
       setValue: UseFormSetValue<FormParkingValues>;
+      mode?: "register" | "edit";
   }
