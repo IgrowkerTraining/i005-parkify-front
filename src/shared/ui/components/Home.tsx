@@ -11,9 +11,20 @@ import TestimonialCard from "./TestimonialCard";
 import BlueLogo from "../../../assets/logo/logo-azul.svg";
 import ButtonPrimary from "./ButtonPrimary";
 import Banner from "../../../assets/home.svg";
+import Loader from "./Loader";
+import { useState, useEffect } from "react";
 
 const Home: React.FC = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  // 👇 Aquí se muestra el loader si loading es true
+  if (loading) return <Loader fullScreen />;
   // const user = useAuthStore((state) => state.user);
 
   return (

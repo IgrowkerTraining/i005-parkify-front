@@ -1,15 +1,28 @@
 //import { useState, useEffect } from "react";
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 
 // import { Parking } from "../../../shared/types/parking";
 // import { useParams } from "react-router-dom";
 import { ParkingCard } from "../components/ParkingCard";
 import { useParkingStore } from "../../../store/parking.store";
 
+import { useEffect, useState } from "react";
+import Loader from "../../../shared/ui/components/Loader";
+
 const ParkingCardPage = () => {
   //const { id } = useParams<{ id: string }>();
   //const [parking, setParking] = useState<Parking | null>(null);
   const parking = useParkingStore((state) => state.parking)
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!parking) return;
+  
+    const timeout = setTimeout(() => setLoading(false), 500); // simula carga
+    return () => clearTimeout(timeout);
+  }, [parking]);
+
+  if (loading || !parking) return <Loader fullScreen />;
 
   // useEffect(() => {
   //   if (!id) return;
@@ -79,14 +92,9 @@ const ParkingCardPage = () => {
     // }, [id]);
 
     // 🔒 Protege contra null antes de renderizar
-  if (!parking) {
-    return (
-      <Container maxWidth="sm" sx={{ mt: 4 }}>
-        <Typography variant="body1">Cargando datos del estacionamiento...</Typography>
-      </Container>
-    );
-  }
+ 
     
+  if (loading) return <Loader fullScreen />;
 
   return (
     <Container
