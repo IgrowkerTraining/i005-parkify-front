@@ -14,7 +14,7 @@ import { useModalStore } from "../../../store/modal.store";
 import ParkingModal from "./ParkingModal";
 import { registerParkingSchema } from "../schemas/parkingSchemas";
 import { useParkingStore } from "../../../store/parking.store";
-import parkingService from "../services/ParkingService";
+import parkingService, { deleteParking } from "../services/ParkingService";
 import { showSuccess } from "../../../shared/ui/toast";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../../store/auth.store";
@@ -59,15 +59,13 @@ const ParkingFormContainer = ({
   //eliminar parking
   const handleDeleteParking = async () => {
     try {
-      console.log("borrar estacionamiento");
-      //llama al service para hacer el delete del Parking
-      const result = await parkingService.deleteParking("1");
-
-      //actualizo la store
-      clearParkingData()
+      //llama al service
+      const result = await deleteParking();
       if (result) {
+        //actualizo la store
+        clearParkingData()
         closeModal();
-        showSuccess(result);
+        showSuccess("Estacionamiento eliminado con éxito");
         navigate("/profile");
       }
     } catch (error) {

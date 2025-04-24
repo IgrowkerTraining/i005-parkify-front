@@ -43,7 +43,7 @@ const AuthFormContainer = ({ children, title, register, login, google }: AuthFor
                   color: "black !important",
                   fontWeight: "bold",
                   textDecorationColor: "black",
-                  
+                  pl:1
                 }}
               >
                 {login.link}
