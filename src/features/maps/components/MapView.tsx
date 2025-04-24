@@ -22,6 +22,7 @@ export const MapView = ({ onParkingSelect }: MapViewProps) => {
       mapContainerStyle={containerStyle}
       options={{
         clickableIcons: false,
+        gestureHandling: "greedy", // 👈 esto permite mover con un solo dedo
         styles: [
           {
             featureType: 'poi',
@@ -29,6 +30,7 @@ export const MapView = ({ onParkingSelect }: MapViewProps) => {
           },
         ],
       }}
+      
     >
       <MarkerList onParkingSelect={onParkingSelect} />
     </GoogleMap>

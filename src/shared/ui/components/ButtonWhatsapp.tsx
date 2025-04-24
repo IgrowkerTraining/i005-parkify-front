@@ -29,21 +29,16 @@ const ButtonWhatsapp = ({ phone, message, fullWidth, disabled }: ButtonWhatsappP
 
   return (
     <Button
-      onClick={handleClick}
-      variant="contained"
-      color="success"
-      fullWidth={fullWidth}
-      disabled={disabled}
-      startIcon={<WhatsAppIcon />}
-      sx={{
-        backgroundColor: "#25D366",
-        "&:hover": {
-          backgroundColor: "#1DA851",
-        },
-      }}
-    >
-      Reservar por WhatsApp
-    </Button>
+    onClick={handleClick}
+    variant="contained"
+    color="primary" // Usa el color azul del theme
+    fullWidth={fullWidth}
+    disabled={disabled}
+    endIcon={<WhatsAppIcon />}
+  >
+    Reservar por WhatsApp
+  </Button>
+  
   );
 };
 
