@@ -20,7 +20,7 @@ import { AxiosError } from "axios";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const {login} = useAuthStore()
+  const {login, user} = useAuthStore()
   const {
     register,
     handleSubmit,
@@ -40,11 +40,12 @@ const LoginPage = () => {
       const response = await loginService(data)
 
       if (response.token) {
-        login(response.token, response.user ) // 👈 Guardamos token y usuario en Zustand
+        login(response.token, { email: response.email } ) // 👈 Guardamos token y usuario en Zustand
         reset();
         navigate("/"); //redirijo a home pero me muestra perfil ver router
-        showSuccess(`Bienvenido `);
+        showSuccess(`Bienvenido ${response.email}`);
       } 
+   
     } catch (err) {
       console.error(err);
       const message = handleError(err as AxiosError); // 👈 Capturamos el mensaje real

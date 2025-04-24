@@ -1,22 +1,21 @@
 import CardContainer from "./CardContainer";
 import ButtonHomeAction from "./ButtonHomeAction";
 import { Box, Typography } from "@mui/material";
-import { User } from "../../../store/auth.store";
+import { useParkingStore } from "../../../store/parking.store";
 
-interface AccountCardProps {
-    user: User
-}
 
-const AccountCard = ({user}: AccountCardProps) => {
-  console.log(user)
+const AccountCard = () => {
+  //const user = useAuthStore((state) => state.user);
+  const parking = useParkingStore((state) => state.parking)
+
   return (
     <CardContainer>
-      <Box textAlign="center">
+      <Box textAlign="center" display="flex" flexDirection="column" gap={1} mb={1}>
         <Typography variant="body1" >
           ¡Hola!
         </Typography>
-        <Typography variant="h1" sx={{ fontWeight: 800 }}>
-          hola
+        <Typography variant="h1"  sx={{fontWeight: 800}}>
+          {parking.parkingName}
         </Typography>
       </Box>
       {/* <Typography variant='body1' >¡Hola!</Typography>
