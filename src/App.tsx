@@ -6,14 +6,10 @@ import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import GlobalModal from "./shared/ui/components/GlobalModal";
 
-// 👇 Importa el hook de sockets
-import { useAvailabilitySocket } from './features/parkings/hooks/useAvailabilitySocket'; // para usar el socket real
 // import { useMockAvailabilityUpdates } from './features/parkings/hooks/useMockAvailabilityUpdates' // para simular cambios sin backend
 
-
 const App = () => {
-  // 👇 Usa el hook de sockets
-  useAvailabilitySocket() // para usar el socket real
+
   //useMockAvailabilityUpdates() // para simular cambios sin backend
 
   return (
