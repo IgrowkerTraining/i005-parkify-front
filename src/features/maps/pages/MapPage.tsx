@@ -31,6 +31,8 @@ const MapPage = () => {
           >
             <Box
               sx={{
+                display: "flex",
+                justifyContent: "center",
                 pointerEvents: 'auto', // Permite hacer clic en la tarjeta
                 width: '100%',
                 maxWidth: 420,

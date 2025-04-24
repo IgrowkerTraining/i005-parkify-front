@@ -89,7 +89,14 @@ const ParkingCardPage = () => {
     
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 4 }}>
+    <Container
+  maxWidth="sm"
+  sx={{
+    mt: 4,
+    display: "flex",
+    justifyContent: "center", // Centra horizontalmente
+  }}
+>
       <ParkingCard
         parking={parking}
         onReserve={() => {
