@@ -63,7 +63,7 @@ const AvailabilitySpotsPage = () => {
   }
   return (
     <Box component="form" onSubmit={handleSubmit}>
-      <HeaderForm path="/" />
+      <HeaderForm path="/profile" />
       <ParkingBannerForm />
       <Box className={styles.registerForm}>
         <Box

@@ -24,7 +24,7 @@ export const MapView = ({ onParkingSelect, onListClick }: MapViewProps) => {
   useEffect(() => {
     if (location) {
       // sólo cuando location exista, pedimos al backend
-      fetchNearbyParkings(location.lat, location.lng, 5);
+      fetchNearbyParkings(location.lat, location.lng, 10);
     }
   }, [location, fetchNearbyParkings]);
 

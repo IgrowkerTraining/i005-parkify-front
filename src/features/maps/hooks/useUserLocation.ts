@@ -14,10 +14,10 @@ export const useUserLocation = () => {
           lng: pos.coords.longitude,
         });
       },
-      () => {
-        // Fallback: Buenos Aires
-        setLocation({ lat: -34.6037, lng: -58.3816 });
-      }
+      // () => {
+      //   // Fallback: Buenos Aires
+      //   setLocation({ lat: -34.6037, lng: -58.3816 });
+      // }
     );
   }, []);
 };
