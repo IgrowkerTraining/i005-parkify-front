@@ -95,13 +95,13 @@ export async function registerParking(data: FormParkingValues, parking: {lat: nu
   }
 }
 
-export async function updateParking(data: FormParkingValues, parking: {lat: number; lng: number }, id: string) {
+export async function updateParking(data: FormParkingValues, parking: {lat: number; lng: number; }, id: string) {
   try {
-    let imageUrl = ''
-    if(data.imageParking){
+    let imageUrl = data.parkingImageUrl || '';
+
+    if (data.imageParking) {
       imageUrl = await uploadImageToCloudinary(data.imageParking);
     }
-    //payload.parkingImageUrl = imageUrl;
     const payload = mapFrontToBackend(data, parking, imageUrl);
     
     console.log("Payload a enviar:", JSON.stringify(payload, null, 2));
@@ -154,7 +154,18 @@ export async function deleteParking() {
     throw error;
   }
 }
-
+//availability
+export async function updateAvailabilityParking(id:string, spots: number) {
+  try {
+    const response = await api.patch(`/parkings/${id}/availability`, { availableSpots: spots });
+    if(response.status === 200){
+      return response.data
+    } 
+    
+  } catch (error) {
+    throw error as AxiosError; 
+  }
+}
 
 // 📌 Define el tipo que devuelve tu back para cada parking cercano
 interface ApiNearbyParking {

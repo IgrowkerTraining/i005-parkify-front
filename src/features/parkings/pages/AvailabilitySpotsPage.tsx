@@ -7,10 +7,14 @@ import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
 import styles from "../../../shared/styles/ParkingForm.module.css";
 //import { useParkingStore as useAvailabilityStore } from "../store/parkingStore";
 import { useParkingStore } from "../../../store/parking.store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { showSuccess } from "../../../shared/ui/toast";
+import { showError, showSuccess } from "../../../shared/ui/toast";
 import ButtonSquare from "../components/ButtonSquare";
+import { handleError } from "../../../shared/utils/handleError";
+import { AxiosError } from "axios";
+import { updateAvailabilityParking } from "../services/ParkingService";
+import Loader from "../../../shared/ui/components/Loader";
 
 //proteger esta ruta solo se puede si hay un parking registrado
 const AvailabilitySpotsPage = () => {
@@ -19,9 +23,12 @@ const AvailabilitySpotsPage = () => {
   const setAvailability = useParkingStore((state) => state.setAvailability);
   const availability = useParkingStore((state) => state.availability);
   const { id, totalSpots } = useParkingStore((state) => state.parking);
-  console.log(availability, 'ava')
-  const [spots, setSpots] = useState(availability[id]);
-  
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); 
+  const [spots, setSpots] = useState<number>(availability[id] || 0);
+  useEffect(() => {
+    setSpots(availability[id] || 0);
+  }, [availability[id]]);
   const handleRemoveSpots = () => {
     spots > 0 && setSpots(spots - 1);
   };
@@ -33,14 +40,29 @@ const AvailabilitySpotsPage = () => {
   const handleOnChange = ( e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
     setSpots(Number(e.target.value))
   }
-  const handleSubmit = () =>{
-    //setea la disponibilidad en la store
-    setAvailability(id, spots)
-    showSuccess("Los cambios se han guardado")
-    navigate("/")
+  const handleSubmit = async (e: React.FormEvent) =>{
+    e.preventDefault();
+    //llamar al service
+    try {
+      setIsLoading(true);
+      setErrorMessage(null);
+      const availabilityResponse = await updateAvailabilityParking(id, spots);
+      //setea la disponibilidad en la store
+      console.log(availabilityResponse)
+      setAvailability(id, spots)
+      showSuccess("Los cambios se han guardado")
+      navigate("/")
+    } catch (err) {
+      const message = handleError(err as AxiosError); 
+      setErrorMessage(message);
+      showError("Hubo un error");
+    } finally{
+      setIsLoading(false)
+    }
+
   }
   return (
-    <Box>
+    <Box component="form" onSubmit={handleSubmit}>
       <HeaderForm path="/" />
       <ParkingBannerForm />
       <Box className={styles.registerForm}>
@@ -98,7 +120,17 @@ const AvailabilitySpotsPage = () => {
             icon={<AddCircleOutlineIcon sx={{ fontSize: 20, color: "white" }} />}
           />
         </Box>
-        <ButtonPrimary text="Guardar cambios" type="submit" onClick={handleSubmit} />
+        <Box>
+        {errorMessage && (
+          <Typography variant="body2" color="error">
+            {errorMessage}
+          </Typography>
+        )}
+      </Box>
+        <ButtonPrimary 
+          text={
+            isLoading ? <Loader size={10} /> : "Guardar cambios"}
+            type="submit" disabled={isLoading} />
       </Box>
     </Box>
   );
