@@ -30,7 +30,7 @@ const ProfileOwnerPage = () => {
   const scrollToHeader = useScrollToHeader();
   const setParkingData = useParkingStore((state) => state.setParkingData);
   const parkingData = useParkingStore((state) => state.parking);
-  const setAvailability = useParkingStore((state) => state.setAvailability)
+  //const setAvailability = useParkingStore((state) => state.setAvailability)
   const [errorMessage, setErrorMessage] = useState<string | null>(null); 
   const [isLoading, setIsLoading] = useState(false);
   const parking = useParkingStore((state) => state.parking)
@@ -45,9 +45,10 @@ const ProfileOwnerPage = () => {
       setIsLoading(true);
       setErrorMessage(null);
       //chequeo de totalSpots > availabilitySpots
-      if (data.totalSpots < availability[id]) {
+      if (availability[id] !== undefined && data.totalSpots < availability[id]) {
         console.log("hola disponibles")
         setErrorMessage("Las plazas totales no pueden ser menor a las disponibles.");
+        setIsLoading(false);
         return;
       }
       //actualizo el email si es q cambio
@@ -60,7 +61,7 @@ const ProfileOwnerPage = () => {
       const updatedProfile = await updateParking(data, parking, id);
       
       setParkingData(updatedProfile)
-      setAvailability(updatedProfile.id, updatedProfile.totalSpots)
+      //setAvailability(updatedProfile.id, updatedProfile.totalSpots)
       showSuccess("Los cambios se han guardado");
       console.log("Datos actualizados en el store:", updatedProfile);
       scrollToHeader(); //scroll hasta el header
