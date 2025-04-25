@@ -4,6 +4,7 @@ import { MarkerList } from './MarkerList';
 import { Parking, useParkingStore  } from '../../../store/parking.store';
 import Loader from '../../../shared/ui/components/Loader'; // Asegúrate que la ruta es correcta
 import { useEffect } from 'react';
+import MapControls from './MapControls';
 
 const containerStyle = { width: '100%', height: '100vh' };
 
@@ -49,6 +50,7 @@ export const MapView = ({ onParkingSelect }: MapViewProps) => {
       }}
       
     >
+      <MapControls/>
       <MarkerList onParkingSelect={onParkingSelect} />
     </GoogleMap>
   );

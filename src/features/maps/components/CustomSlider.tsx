@@ -38,13 +38,12 @@ const marks = [
       </Typography>
       <Slider
         marks={marks}
-        step={10}
+        step={1}
         value={value}
         valueLabelDisplay="auto"
         min={MIN}
         max={MAX}
         onChange={(_, newValue) => onChange(newValue as number)}
-        disabled={value === 0}
       />
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography

@@ -1,6 +1,7 @@
 import {create} from 'zustand';
 import { persist } from "zustand/middleware";
 import { getNearbyParkings } from "../features/parkings/services/ParkingService";
+import useMapStore from '../features/maps/store/useMap.store';
 
 export interface Parking {
   id: string;
@@ -108,8 +109,8 @@ interface ParkingState {
               email: '',
               totalSpots: 0,
               hourlyRate: item.hourlyRate,
-              openTime: '',
-              closeTime: '',
+              openTime: item.openTime || '',
+              closeTime: item.closeTime || '',
               parkingName: item.name,
               parkingAddress: item.address,
               parkingPhone: item.parkingPhone,
@@ -117,12 +118,13 @@ interface ParkingState {
               lat: item.location.latitude,
               lng: item.location.longitude,
               availableSpots: item.currentAvailability,
-              rating: 0,
+              rating: item.rating || 0,
               distance: item.distance,
               isOpen: true,
-              ownerId: '',
+              ownerId: item.ownerId || '',
             }));
 
+            useMapStore.getState().initializeFilteredParkingsFrom(mapped);
             // 3️⃣ guarda en el store
             set({ nearbyParkings: mapped });
           } finally {

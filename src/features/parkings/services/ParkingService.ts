@@ -174,10 +174,14 @@ interface ApiNearbyParking {
   address: string;
   location: { latitude: number; longitude: number };
   distance: number;
+  openTime?: string;
+  closeTime?: string;
+  rating?: number;
   currentAvailability: number;
   hourlyRate: number;
   parkingPhone: string;
   parkingImageUrl: string;
+  ownerId?: string
 }
 
 export async function getNearbyParkings(lat: number, lon: number, radius: number): Promise<ApiNearbyParking[]> {

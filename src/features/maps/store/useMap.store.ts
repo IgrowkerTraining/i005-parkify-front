@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { Parking } from '../../../store/parking.store';
-import { parkingsData } from '../data/mock-parkings';
+
 
 export interface Filters {
   price: number | null;
@@ -16,11 +16,13 @@ interface MapStore {
   applyFilters: () => void;
   updateFilters: (newFilters: Partial<Filters>) => void;
   initializeFilteredParkings: () => void;
+  initializeFilteredParkingsFrom: (list: Parking[]) => void; 
   setLoading: (value: boolean) => void;
+
 }
 
 const useMapStore = create<MapStore>((set, get) => ({
-  parkings: parkingsData,
+  parkings: [],
 
   filters: {
     price: Infinity,
@@ -52,18 +54,28 @@ const useMapStore = create<MapStore>((set, get) => ({
       return { filters: updatedFilters };
     });
   },
-
   initializeFilteredParkings: () => {
-    set({ isLoading: true }); // ← simula operación asíncrona
-
-    setTimeout(() => {
-      const { parkings } = get();
-      set({
-        filteredParkings: parkings,
-        isLoading: false,
-      });
-    }, 1500);
+    const { parkings } = get();
+    set({ filteredParkings: parkings });
   },
+
+  initializeFilteredParkingsFrom: (list) => {
+    set({
+      parkings: list,
+      filteredParkings: list,
+    });
+  },
+  // initializeFilteredParkings: () => {
+  //   set({ isLoading: true }); // ← simula operación asíncrona
+
+  //   setTimeout(() => {
+  //     const { parkings } = get();
+  //     set({
+  //       filteredParkings: parkings,
+  //       isLoading: false,
+  //     });
+  //   }, 1500);
+  // },
 }));
 
 export default useMapStore;

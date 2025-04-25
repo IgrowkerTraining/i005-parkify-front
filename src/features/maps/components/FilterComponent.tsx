@@ -8,10 +8,10 @@ const MAX_DISTANCE = 5000; //metros
 const FilterComponent = () => {
   const { filters, applyFilters, updateFilters, parkings } = useMapStore();
   const maxPrice = React.useMemo(() => {
-    return Math.max(...parkings.map((p) => p.hourlyRate));
+    return Math.max(...parkings.map((p) => p.hourlyRate), 0);
   }, [parkings]);
 
-  const [price, setPrice] = React.useState<number>(maxPrice);
+  const [price, setPrice] = React.useState<number>(Infinity);
   const [distance, setDistance] = React.useState<number>(MAX_DISTANCE);
   const [isOpen, setIsOpen] = useState<boolean | null>(null);
 
@@ -20,7 +20,7 @@ const FilterComponent = () => {
   };
 
   useEffect(() => {
-    setPrice(filters.price ?? maxPrice);
+    setPrice(filters.price !== null ? filters.price : maxPrice);
     setDistance(filters.distance ?? MAX_DISTANCE);
     setIsOpen(filters.isOpen ?? null);
   }, [filters, maxPrice]);
@@ -83,7 +83,7 @@ const FilterComponent = () => {
           max={maxPrice}
           minLabel={`$0`}
           maxLabel={`$${maxPrice}`}
-          value={price}
+          value={price > maxPrice ? maxPrice : price}
           onChange={handlePriceChange}
         />
         <CustomSlider

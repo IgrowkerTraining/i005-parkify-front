@@ -5,6 +5,7 @@ import { MapView } from '../components/MapView';
 import { Box } from '@mui/material';
 import { Parking } from '../../../store/parking.store';
 import { ParkingCard } from '../../../features/parkings/components/ParkingCard';
+
 const MapPage = () => {
   useUserLocation();
   const [selectedParking, setSelectedParking] = useState<Parking | null>(null);
@@ -12,6 +13,7 @@ const MapPage = () => {
   return (
     <Box sx={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
       <MapWrapper>
+      
         <MapView onParkingSelect={setSelectedParking} />
 
         {selectedParking && (
