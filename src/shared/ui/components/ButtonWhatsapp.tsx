@@ -2,43 +2,41 @@ import { Button } from "@mui/material";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 interface ButtonWhatsappProps {
-  phone: string; // sin + ni espacios
+  phone: string;    // ej. "34646599104", sin '+' ni espacios
   message: string;
   fullWidth?: boolean;
   disabled?: boolean;
 }
 
-const ButtonWhatsapp = ({ phone, message, fullWidth, disabled }: ButtonWhatsappProps) => {
+const ButtonWhatsapp = ({
+  phone,
+  message,
+  fullWidth,
+  disabled,
+}: ButtonWhatsappProps) => {
   const handleClick = () => {
-    console.log("Botón presionado");
-
+    // Limpio el número y codifico el mensaje
     const cleanedPhone = phone.replace(/\D/g, "");
     const encodedMessage = encodeURIComponent(message);
 
-    // Detectar si es móvil
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    // Uso siempre el enlace universal wa.me
+    const url = `https://wa.me/${cleanedPhone}?text=${encodedMessage}`;
 
-    // Usar protocolo distinto según el dispositivo
-    const baseUrl = isMobile
-      ? `whatsapp://send?phone=${cleanedPhone}&text=${encodedMessage}`
-      : `https://api.whatsapp.com/send/?phone=${cleanedPhone}&text=${encodedMessage}&type=phone_number&app_absent=0`;
-
-    console.log("URL generada:", baseUrl);
-    window.open(baseUrl, "_blank");
+    // Abro en nueva pestaña (abre app o web según plataforma)
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
     <Button
-    onClick={handleClick}
-    variant="contained"
-    color="primary" // Usa el color azul del theme
-    fullWidth={fullWidth}
-    disabled={disabled}
-    endIcon={<WhatsAppIcon />}
-  >
-    Reservar por WhatsApp
-  </Button>
-  
+      onClick={handleClick}
+      variant="contained"
+      color="primary"
+      fullWidth={fullWidth}
+      disabled={disabled}
+      endIcon={<WhatsAppIcon />}
+    >
+      Reservar por WhatsApp
+    </Button>
   );
 };
 

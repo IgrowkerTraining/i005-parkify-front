@@ -7,7 +7,7 @@ import { grey } from "@mui/material/colors";
 import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
 import { FieldsType } from "../../../shared/types";
 import InputForm from "../../../shared/ui/components/InputForm";
-import Loader from "../../../shared/ui/components/Loader";
+//import Loader from "../../../shared/ui/components/Loader";
 
 const fields: FieldsType[] = [
   { name: "email", placeholder: "Correo", type: "email" },
@@ -59,7 +59,7 @@ const UserRegistrationForm = ({
           </Typography>
         )}
         <ButtonPrimary
-          text={isLoading ? <Loader size={20} /> : "Continuar"}
+          text={isLoading ? "Validando" : "Continuar"}
           type="submit"
           disabled={isLoading}
 />

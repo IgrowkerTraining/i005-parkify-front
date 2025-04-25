@@ -24,11 +24,13 @@ export const ParkingCard = ({ parking }: ParkingProfileProps) => {
     `📍 ${parking.parkingName}`,
     `🏠 Dirección: ${parking.parkingAddress}`,
     `💵 Precio por hora: ${parking.hourlyRate}€`,
-    `🕒 Horario: ${parking.openTime ? parking.openTime : "No disponible"} a ${parking.closeTime ? parking.closeTime : "No disponible"}`,
+   // `🕒 Horario: ${parking.openTime ? parking.openTime : "No disponible"} a ${parking.closeTime ? parking.closeTime : "No disponible"}`,
+    `🕒 Horario: 09:00 a 24:00`,
     `✅ Plazas disponibles: ${parking.availableSpots}`,
-    `⭐ Valoración: ${parking.rating ? parking.rating : "No disponible"}/5`,
+    //`⭐ Valoración: ${parking.rating ? parking.rating : "No disponible"}/5`,
+    `⭐ Valoración: 4,5`,
     "",
-    `🔗 Más info: http://localhost:5173/parking-availability?id=${parking.id}`,
+    `🔗 Más info: http://34.107.135.109/parking-availability?id=${parking.id}`,
   ].join("\n");
 
   return (
