@@ -7,7 +7,6 @@ import {
   Chip,
 } from "@mui/material";
 
-
 import ButtonWhatsapp from "../../../shared/ui/components/ButtonWhatsapp";
 import StarIcon from "@mui/icons-material/Star";
 import { AvailabilityStatus } from "./AvailabilityStatus";
@@ -15,7 +14,7 @@ import { Parking } from "../../../store/parking.store";
 
 type ParkingProfileProps = {
   parking: Parking;
-  onReserve: () => void; 
+  onReserve: () => void;
 };
 
 export const ParkingCard = ({ parking }: ParkingProfileProps) => {
@@ -29,38 +28,59 @@ export const ParkingCard = ({ parking }: ParkingProfileProps) => {
     `✅ Plazas disponibles: ${parking.availableSpots}`,
     `⭐ Valoración: ${parking.rating ? parking.rating : "No disponible"}/5`,
     "",
-    `🔗 Más info: http://localhost:5173/parking-availability?id=${parking.id}`, // URL local para desarrollo
-].join("\n");
+    `🔗 Más info: http://localhost:5173/parking-availability?id=${parking.id}`,
+  ].join("\n");
 
   return (
     <Card
       sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "stretch",
+        gap: 0,
         borderRadius: 4,
         boxShadow: 3,
-        p: 1.5,
-        display: "inline-flex",
-        flexDirection: { xs: "column", sm: "row" },
-        alignItems: "flex-start",
-        gap: 1.5,
-        maxWidth: "100%",
-        mx: "auto",
+        width: "100%",
+        maxWidth: 360,
+        minHeight: 120,
+        height: "auto",
       }}
     >
       {/* Imagen */}
-      <CardMedia
-        component="img"
-        image={parking.imageParking}
-        alt={parking.parkingName}
-        sx={{
-          width: { xs: "100%", sm: 120 },
-          height: 90,
-          objectFit: "cover",
-          borderRadius: 2,
-        }}
-      />
+      <Box
+  sx={{
+    height: "auto",
+    display: "flex",
+    flexDirection: "column",
+    flexShrink: 0,
+  }}
+>
+  <CardMedia
+    component="img"
+    image={parking.imageParking}
+    alt={parking.parkingName}
+    sx={{
+      width: 100,
+      flex: 1,                  // 👈 fuerza a estirarse verticalmente
+      objectFit: "cover",
+      borderRadius: "8px 0 0 8px",
+    }}
+  />
+</Box>
 
       {/* Contenido */}
-      <CardContent sx={{ p: 0, flex: 1 }}>
+      <CardContent
+  sx={{
+    px: 1.5,
+    py: 1.5,
+    flex: 1,
+    height: "100%", // 👈 AÑADE ESTO
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  }}
+>
+
         {/* Nombre y precio */}
         <Box display="flex" justifyContent="space-between" alignItems="center" flexWrap="wrap">
           <Typography variant="subtitle1" fontWeight={600}>
@@ -80,7 +100,10 @@ export const ParkingCard = ({ parking }: ParkingProfileProps) => {
         <Box display="flex" justifyContent="space-between" alignItems="center" mt={0.5}>
           <Typography variant="body2" color="success.main" fontWeight={500}>
             {/* {parking.distance} km ({parking.estimatedTime}) */}
-            {parking.distance} km ("11 min")
+            {/* {parking.distance.toFixed()} km ("11 min") */}
+            {parking.distance != null
+            ? `${parking.distance.toFixed(0)} km`
+            : '—'}
           </Typography>
           <Box display="flex" alignItems="center" gap={0.5}>
             <Typography variant="body2" fontWeight={500}>
@@ -92,33 +115,24 @@ export const ParkingCard = ({ parking }: ParkingProfileProps) => {
 
         {/* Plazas + horario */}
         <Box display="flex" justifyContent="space-between" alignItems="center" mt={1}>
-  <Box display="flex" gap={1}>
-    <AvailabilityStatus parkingId={parking.id} />
-    {/* <Chip
-      label={`${parking.availableSpots} plazas disponibles`}
-      size="small"
-      sx={{
-        bgcolor: "#f5f5f5",
-        fontWeight: 500,
-        borderRadius: 2,
-      }}
-    /> */}
-  </Box>
+          <Box display="flex" gap={1}>
+            <AvailabilityStatus parkingId={parking.id} />
+          </Box>
 
-  <Chip
-    label={
-      parking.openTime && parking.closeTime
-        ? `${parking.openTime} a ${parking.closeTime}`
-        : "Horario no disponible"
-    }
-    size="small"
-    sx={{
-      bgcolor: "#f5f5f5",
-      fontWeight: 500,
-      borderRadius: 2,
-    }}
-  />
-</Box>
+          <Chip
+            label={
+              parking.openTime && parking.closeTime
+                ? `${parking.openTime} a ${parking.closeTime}`
+                : "Horario no disponible"
+            }
+            size="small"
+            sx={{
+              bgcolor: "#f5f5f5",
+              fontWeight: 500,
+              borderRadius: 2,
+            }}
+          />
+        </Box>
 
         {/* Botón */}
         <Box mt={2} display="flex" justifyContent="flex-end">

@@ -3,10 +3,11 @@ import car from "../../../assets/carIcon.svg";
 import { ReactNode } from "react";
 
 interface ModalButton {
-  label: string;
+  label: React.ReactNode;
   color?: "primary" | "secondary" | "error" ;
   onClick?: () => void;
   endIcon?: ReactNode;
+  disabled?: boolean;
 }
 
 interface ParkingModalProps {

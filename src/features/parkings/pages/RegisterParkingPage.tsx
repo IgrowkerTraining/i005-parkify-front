@@ -13,6 +13,7 @@ import { useState } from "react";
 import { handleError } from "../../../shared/utils/handleError";
 import { AxiosError } from "axios";
 //import { useParkingStore as useAvailabilityStore } from "../store/parkingStore";
+import Loader from "../../../shared/ui/components/Loader";
 
 //proteger esta ruta solo se puede si no hay un parking registrado y estoy logueado
 const RegisterParkingPage = () => {
@@ -54,6 +55,7 @@ const RegisterParkingPage = () => {
 
   return (
     <>
+     {isLoading && <Loader fullScreen />}
       <HeaderForm />
       <ParkingFormContainer 
         mode="register" 

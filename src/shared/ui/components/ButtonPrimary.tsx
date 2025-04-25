@@ -2,7 +2,7 @@ import  Button  from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom';
 
 interface ButtonPrimaryProps {
-    text: string
+    text: React.ReactNode
     onClick?: () => void;
     type?: "button" | "submit" | "reset";
     disabled?: boolean

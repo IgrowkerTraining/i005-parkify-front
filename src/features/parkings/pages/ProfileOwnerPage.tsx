@@ -74,6 +74,7 @@ const ProfileOwnerPage = () => {
       setIsLoading(false)
     }
   };
+ 
 
   return (
     <Box>

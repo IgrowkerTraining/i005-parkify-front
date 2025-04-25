@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { useJsApiLoader } from '@react-google-maps/api';
+import Loader from '../../../shared/ui/components/Loader';
 
 interface Props {
   children: ReactNode;
@@ -16,7 +17,7 @@ export const MapWrapper: FC<Props> = ({ children }) => {
   });
 
   if (loadError) return <p>Error cargando Google Maps</p>;
-  if (!isLoaded) return <p>Cargando...</p>;
+  if (!isLoaded) return <Loader fullScreen />;
 
   return (
     <>{children}</>
